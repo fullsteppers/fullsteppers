@@ -18,7 +18,6 @@ import {
 } from "react-native";
 
 import { ViroVRSceneNavigator, ViroARSceneNavigator } from "react-viro";
-import Demo from "./htmlconversion";
 /*
  TODO: Insert your API key below
  */
@@ -75,7 +74,6 @@ export default class ViroSample extends Component {
           <Text style={localStyles.titleText}>
             Choose your desired experience:
           </Text>
-          <Demo />
 
           <TouchableHighlight
             style={localStyles.buttons}
