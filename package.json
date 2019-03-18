@@ -1,5 +1,5 @@
 {
-  "name": "ViroSample3",
+  "name": "virosample3",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "asap": "^2.0.6",
-    "firebase": "^5.8.6",
+    "firebase": "^5.0.3",
     "react": "16.6.1",
     "react-native": "0.57.7",
     "react-viro": "2.13.0"
@@ -22,5 +22,17 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fullsteppers/fullsteppers.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fullsteppers/fullsteppers/issues"
+  },
+  "homepage": "https://github.com/fullsteppers/fullsteppers#readme",
+  "description": ""
 }

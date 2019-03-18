@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "39233226895",
+    "firebase_url": "https://footsteppers-proofofconcept.firebaseio.com",
+    "project_id": "footsteppers-proofofconcept",
+    "storage_bucket": "footsteppers-proofofconcept.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39233226895:android:921bf052df62df5b",
+        "android_client_info": {
+          "package_name": "com.company.footsteppers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39233226895-s6didepbojtapkub8n5hd1bqdvbtlhj8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXhpT0aaIn8hL_QpNOnayZ9NZB56INI1s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
