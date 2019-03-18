@@ -41,6 +41,7 @@ export default class HelloWorldSceneAR extends Component {
     this.danceRef.off("value", this.callback);
   }
 
+  // this.props.arSceneNavigator.viroAppProps.song
   render() {
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
@@ -84,6 +85,7 @@ export default class HelloWorldSceneAR extends Component {
             loop: true
           }}
         />
+
       </ViroARScene>
     );
   }
