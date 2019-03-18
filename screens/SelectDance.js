@@ -34,7 +34,7 @@ export default class SelectDance extends React.Component {
         onValueChange={(val) => {this.setState({dance: val})}}
         >
           <Picker.Item label="Salsa" value="salsa" />
-          <Picker.Item label="Waltz" value="waltz" />
+          <Picker.Item label="Waltz" value="moves" />
         </Picker>
         <Button
         title='Select Dance'
