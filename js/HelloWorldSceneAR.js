@@ -2,13 +2,10 @@
 
 import React, { Component } from "react";
 import timer from 'react-native-timer'
-import { StyleSheet } from "react-native";
-import { makeRef } from "./firebase";
 
 import {
   ViroARScene,
   ViroText,
-  ViroConstants,
   ViroImage,
   ViroSound,
   ViroAnimations
@@ -19,19 +16,11 @@ export default class HelloWorldSceneAR extends Component {
     super();
 
     this.state = {
-      dances: {},
       go: false
     };
 
   }
   componentDidMount() {
-    // this.danceRef = makeRef("/");
-    // this.callback = snapshot => {
-    //   this.setState({
-    //     dances: snapshot.val()
-    //   });
-    // };
-    // this.danceRef.on("value", this.callback);
     timer.setTimeout(this, 'delayMusic', () => this.setState({go: true}), 3000)
 
     import('./dances').then(moves => moves.default)
@@ -59,8 +48,6 @@ export default class HelloWorldSceneAR extends Component {
         <ViroImage
           height={0.5}
           width={0.2}
-          // rotation={[-90, 0, 0]} these values are good starting values
-          // position={[.25, -2, 0]}
           rotation={[-90, 0, 0]}
           position={[0.25, -2, 0]}
           source={require("./res/rightfoot.png")}
@@ -81,60 +68,5 @@ export default class HelloWorldSceneAR extends Component {
   }
 }
 
-
-// ViroAnimations.registerAnimations({
-//   wait: { properties: { positionX: "+=0.0" }, duration: 5000 },
-//   pause: { properties: { positionX: "+=0.0" }, duration: 1250 },
-//   right: { properties: { positionX: "+=0.3" }, duration: 1000 },
-//   left: { properties: { positionX: "-=0.3" }, duration: 1000 },
-//   up: { properties: { positionZ: "-=0.3" }, duration: 1000 },
-//   down: { properties: { positionZ: "+=0.3" }, duration: 1000 },
-
-//   danceRightFoot: [
-//     [
-//       "wait",
-//       "right",
-//       "pause",
-//       "up",
-//       "pause",
-//       "left",
-//       "pause",
-//       "down",
-//       "pause",
-//       "right",
-//       "pause",
-//       "up",
-//       "pause",
-//       "left",
-//       "pause",
-//       "down"
-//     ]
-//   ],
-//   danceLeftFoot: [
-//     [
-//       "wait",
-//       "pause",
-//       "right",
-//       "pause",
-//       "up",
-//       "pause",
-//       "left",
-//       "pause",
-//       "down",
-//       "pause",
-//       "right",
-//       "pause",
-//       "up",
-//       "pause",
-//       "left",
-//       "pause",
-//       "down"
-//     ]
-//   ]
-// });
-
-// ViroSound.preloadSounds({
-//   song: "http://www.largesound.com/ashborytour/sound/brobob.mp3"
-// });
 
 module.exports = HelloWorldSceneAR;
