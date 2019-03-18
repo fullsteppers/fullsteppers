@@ -54,3 +54,7 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
+
+
+.env # This contains secrets, don't store in source control
+secrets.js
