@@ -1,6 +1,5 @@
-import "../secrets.js";
-
 import * as firebase from "firebase";
+
 var config = {
   apiKey: process.env.GOOGLE_API,
   authDomain: "new-project-for-web.firebaseapp.com",
@@ -12,6 +11,7 @@ var config = {
 
 var app = firebase.initializeApp(config);
 const database = firebase.database();
+
 export function makeRef(path) {
   return database.ref(path);
 }
