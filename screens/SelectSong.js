@@ -35,7 +35,7 @@ export default class SelectDance extends React.Component {
         onValueChange={(val) => {this.setState({track: val})}}
         >
           <Picker.Item label="Song 1" value="song1" />
-          <Picker.Item label="Song 2" value="song2" />
+          <Picker.Item label="Song 2" value="bass" />
         </Picker>
         <Button
         title='Select Song'
