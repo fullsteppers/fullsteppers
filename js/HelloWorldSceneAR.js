@@ -53,12 +53,12 @@ export default class HelloWorldSceneAR extends Component {
           volume={1.0}
           ///* source={require("./res/song.mp3")} */
         />
-        <ViroText
+        {/* <ViroText
           text={JSON.stringify(this.state.dances)}
           scale={[0.5, 0.5, 0.5]}
           position={[0, 0, -1]}
           style={styles.helloWorldTextStyle}
-        />
+        /> */}
         <ViroImage
           height={0.5}
           width={0.2}
