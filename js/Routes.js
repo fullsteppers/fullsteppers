@@ -1,9 +1,9 @@
 import React from 'react'
 import { Router, Scene } from 'react-native-router-flux'
-import SelectDance from './screens/SelectDance'
-import SelectSong from './screens/SelectSong'
-import Home from './screens/Home'
-import DisplayAr from './screens/DisplayAr'
+import SelectDance from '../screens/SelectDance'
+import SelectSong from '../screens/SelectSong'
+import Home from '../screens/Home'
+import DisplayAr from '../screens/DisplayAr'
 
 const Routes = () => (
   <Router>
