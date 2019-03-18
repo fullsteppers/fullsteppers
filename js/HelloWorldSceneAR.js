@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 
 import { StyleSheet } from "react-native";
+import { makeRef } from "./firebase";
 
 import {
   ViroARScene,
@@ -19,11 +20,25 @@ export default class HelloWorldSceneAR extends Component {
 
     // Set initial state here
     this.state = {
-      text: "Initializing AR..."
+      text: "Initializing AR...",
+      dances: {}
     };
 
     // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
+  }
+  componentDidMount() {
+    this.danceRef = makeRef("/");
+    this.callback = snapshot => {
+      this.setState({
+        dances: snapshot.val()
+      });
+    };
+    this.danceRef.on("value", this.callback);
+  }
+
+  componentWillUnmount() {
+    this.danceRef.off("value", this.callback);
   }
 
   render() {
@@ -37,7 +52,12 @@ export default class HelloWorldSceneAR extends Component {
           volume={1.0}
           ///* source={require("./res/song.mp3")} */
         />
-        {/* <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} /> */}
+        <ViroText
+          text={JSON.stringify(this.state.dances)}
+          scale={[0.5, 0.5, 0.5]}
+          position={[0, 0, -1]}
+          style={styles.helloWorldTextStyle}
+        />
         <ViroImage
           height={0.5}
           width={0.2}
