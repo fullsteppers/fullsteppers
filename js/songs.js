@@ -1,15 +1,17 @@
 import { makeRef } from './firebase'
 
-export default (song) => {
-  const getSongs = () => {
-    this.songRef = makeRef(`/${song}`)
-    let songs = {}
-    songs = this.songRef.once("value")
+export default async (selectedSong) => {
+  const getSongs = async () => {
+    // this.songRef = makeRef(`/songs/${selectedSong}`)
+    this.songRef = makeRef(`/songs/Candy`)
+    let song = {}
+    song = await this.songRef.once("value")
     .then(snapshot => snapshot.val())
-    return songs
+
+    return {song: song.audioUrl}
   }
 
-  const songs = getSongs()
+  const songs = await getSongs()
 
   return songs
 }

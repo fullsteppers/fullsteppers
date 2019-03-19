@@ -2,6 +2,9 @@
 
 import React, { Component } from "react";
 import timer from 'react-native-timer'
+import moves from './dances'
+import song from './songs'
+import { Actions } from 'react-native-router-flux'
 
 import {
   ViroARScene,
@@ -18,19 +21,19 @@ export default class HelloWorldSceneAR extends Component {
     this.state = {
       go: false
     };
-
   }
-  componentDidMount() {
+
+  async componentDidMount() {
+    const selectedSong = this.props.arSceneNavigator.viroAppProps.song
+    const selectedDance = this.props.arSceneNavigator.viroAppProps.dance
+    const songs = await song(selectedSong)
+    const dance = await moves(selectedDance)
+
+    ViroAnimations.registerAnimations(dance)
+    ViroSound.preloadSounds(songs)
+
     timer.setTimeout(this, 'delayMusic', () => this.setState({go: true}), 3000)
 
-    import('./dances').then(moves => moves.default)
-    .then(moves => moves.default)
-    .then(moves => moves(this.props.arSceneNavigator.viroAppProps.dance))
-    .then(moves => {ViroAnimations.registerAnimations(moves)})
-
-    import('./songs').then(songs => songs.default.default)
-    .then(songs => songs('song'))
-    .then(song => ViroSound.preloadSounds(song))
   }
 
 
@@ -38,7 +41,7 @@ export default class HelloWorldSceneAR extends Component {
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
         {this.state.go ? <ViroSound
-          source={this.props.arSceneNavigator.viroAppProps.song}
+          source='song'
           paused={false}
           muted={false}
           loop={false}
