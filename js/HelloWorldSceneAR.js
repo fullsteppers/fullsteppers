@@ -6,6 +6,8 @@ import moves from './dances'
 import song from './songs'
 import { Actions } from 'react-native-router-flux'
 
+import { View, Text } from 'react-native'
+
 import {
   ViroARScene,
   ViroText,
@@ -20,7 +22,7 @@ export default class HelloWorldSceneAR extends Component {
 
     this.state = {
       go: false,
-      song: {}
+      danceGo: false
     };
   }
 
@@ -29,16 +31,26 @@ export default class HelloWorldSceneAR extends Component {
     const selectedDance = this.props.arSceneNavigator.viroAppProps.dance
     const songs = await song(selectedSong)
     const dance = await moves(selectedDance)
-    this.setState({song: songs})
-    timer.setTimeout(this, 'delayMusic', () => this.setState({go: true}), 5000)
-    ViroSound.preloadSounds(songs)
+    await ViroSound.preloadSounds(songs)
     ViroAnimations.registerAnimations(dance)
+    this.setState({go: true})
+    timer.setTimeout('startDance', () => {
+      this.setState({danceGo: true})
+    }, 3000);
 
   }
 
 
   render() {
+    if(!this.state.go){
+      return (
+        <ViroARScene>
+          <ViroText text='loading'></ViroText>
+        </ViroARScene>
+      )
+    } else {
     return (
+
       <ViroARScene onTrackingUpdated={this._onInitialized}>
         {this.state.go ? <ViroSound
           source='song'
@@ -54,7 +66,7 @@ export default class HelloWorldSceneAR extends Component {
           rotation={[-90, 0, 0]}
           position={[0.25, -2, 0]}
           source={require("./res/rightfoot.png")}
-          animation = {this.state.go ? {name: "danceRight", run: true, loop:true}
+          animation = {this.state.danceGo ? {name: "danceRight", run: true, loop:true}
           : {name: 'beginning', run: true}}
         />
         <ViroImage
@@ -63,11 +75,12 @@ export default class HelloWorldSceneAR extends Component {
           rotation={[-90, 0, 0]}
           position={[-0.25, -2, 0]}
           source={require("./res/leftfoot.png")}
-          animation = {this.state.go ? {name: "danceLeft", run: true, loop:true}
+          animation = {this.state.danceGo ? {name: "danceLeft", run: true, loop:true}
           : {name: 'beginning', run: true}}
         />
       </ViroARScene>
     );
+    }
   }
 }
 
