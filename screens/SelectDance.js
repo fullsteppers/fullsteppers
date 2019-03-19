@@ -17,7 +17,8 @@ export default class SelectDance extends React.Component {
 
     this.state = {
       dance:'foxtrot',
-      dances: []
+      dances: [],
+      waltz: {}
     };
     this.submitDance = this.submitDance.bind(this)
   }
