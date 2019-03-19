@@ -19,7 +19,8 @@ export default class HelloWorldSceneAR extends Component {
     super();
 
     this.state = {
-      go: false
+      go: false,
+      song: {}
     };
   }
 
@@ -28,11 +29,10 @@ export default class HelloWorldSceneAR extends Component {
     const selectedDance = this.props.arSceneNavigator.viroAppProps.dance
     const songs = await song(selectedSong)
     const dance = await moves(selectedDance)
-
-    ViroAnimations.registerAnimations(dance)
+    this.setState({song: songs})
+    timer.setTimeout(this, 'delayMusic', () => this.setState({go: true}), 5000)
     ViroSound.preloadSounds(songs)
-
-    timer.setTimeout(this, 'delayMusic', () => this.setState({go: true}), 3000)
+    ViroAnimations.registerAnimations(dance)
 
   }
 
