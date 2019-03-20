@@ -1,16 +1,22 @@
 import { makeRef } from './firebase'
 
-export default (dance) => {
-  const getMoves = () => {
-  this.danceRef = makeRef(`/${dance}`)
+export default async (dance) => {
+  const getMoves = async () => {
+  this.danceRef = makeRef(`/dances/${dance}`)
   let moves = {}
 
-  moves = this.danceRef.once("value")
+  moves = await this.danceRef.once("value")
   .then(snapshot => snapshot.val())
 
-  return moves
+  // console.log({...moves['moves'], ...moves['dance array'], beginning: moves['beginning']})
+  let returnObj = {beginning: moves['beginning']}
+  returnObj = Object.assign(returnObj, moves['moves'])
+  returnObj = Object.assign(returnObj, moves['dance array'])
+  console.log(returnObj)
+  // return {...moves['moves'], ...moves['dance array'], beginning: moves['beginning']}
+  return returnObj
   }
 
-  const moves = getMoves()
+  const moves = await getMoves()
   return moves
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { Actions } from "react-native-router-flux";
 import getTheme from "../native-base-theme/components";
 import { Picker } from "react-native";
+import { makeRef } from "./../js/firebase";
 import {
   Container,
   Card,
@@ -16,9 +17,25 @@ export default class SelectSong extends React.Component {
     super();
 
     this.state = {
-      track: "song1"
+      track: "song1",
+      songs: []
     };
     this.selectSong = this.selectSong.bind(this);
+  }
+
+  async componentDidMount() {
+    this.songsRef = makeRef(`/songs`);
+    let songs = {};
+    songs = await this.songsRef.once("value").then(snapshot => snapshot.val());
+
+    const currDance = this.props.dance;
+    const songsKeys = Object.keys(songs);
+
+    const filterTracks = songsKeys.filter(song => {
+      return songs[song]["dance"].toLowerCase() === currDance;
+    });
+
+    this.setState({ songs: filterTracks, track: filterTracks[0] });
   }
 
   selectSong() {
@@ -28,6 +45,7 @@ export default class SelectSong extends React.Component {
   }
 
   render() {
+    const songs = this.state.songs || [];
     return (
       <StyleProvider style={getTheme()}>
         <Container
@@ -50,10 +68,10 @@ export default class SelectSong extends React.Component {
                 this.setState({ track: val });
               }}
             >
-              <Picker.Item label="Song 1" value="song1" />
-              <Picker.Item label="Song 2" value="bass" />
+              {songs.map(song => (
+                <Picker.Item key={song} label={song} value={song} />
+              ))}
             </Picker>
-
             <Container
               style={{
                 flexDirection: "row",

@@ -2,6 +2,7 @@ import React from "react";
 import { Actions } from "react-native-router-flux";
 import getTheme from "../native-base-theme/components";
 import { Picker } from "react-native";
+import { makeRef } from "./../js/firebase";
 import {
   Container,
   Card,
@@ -16,9 +17,21 @@ export default class SelectDance extends React.Component {
     super();
 
     this.state = {
-      dance: "salsa"
+      dance: "foxtrot",
+      dances: [],
+      waltz: {}
     };
     this.submitDance = this.submitDance.bind(this);
+  }
+
+  async componentDidMount() {
+    this.dancesRef = makeRef(`/dances`);
+    let dances = {};
+    dances = await this.dancesRef
+      .once("value")
+      .then(snapshot => snapshot.val());
+
+    this.setState({ dances: Object.keys(dances) });
   }
 
   submitDance() {
@@ -27,6 +40,7 @@ export default class SelectDance extends React.Component {
   }
 
   render() {
+    const dances = this.state.dances || [];
     return (
       <StyleProvider style={getTheme()}>
         <Container
@@ -49,8 +63,9 @@ export default class SelectDance extends React.Component {
                 this.setState({ dance: val });
               }}
             >
-              <Picker.Item label="Salsa" value="salsa" />
-              <Picker.Item label="Waltz" value="waltz" />
+              {dances.map(dance => (
+                <Picker.Item key={dance} label={dance} value={dance} />
+              ))}
             </Picker>
             <Container
               style={{
