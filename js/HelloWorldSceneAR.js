@@ -43,10 +43,13 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   finishSong() {
+    console.log('Song finished!')
     this.setState({loop: false})
+    Actions.SelectDance()
   }
 
   finishDance() {
+    console.log('hello?')
     if(!this.state.loop){
       Actions.SelectDance()
     }
