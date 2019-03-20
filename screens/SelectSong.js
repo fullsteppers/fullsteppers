@@ -64,8 +64,8 @@ export default class SelectSong extends React.Component {
             </CardItem>
             <Picker
               selectedValue={this.state.track}
-              onValueChange={val => {
-                this.setState({ track: val });
+              onValueChange={async val => {
+                await this.setState({ track: val });
               }}
             >
               {songs.map(song => (

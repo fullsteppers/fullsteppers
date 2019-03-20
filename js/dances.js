@@ -8,13 +8,7 @@ export default async (dance) => {
   moves = await this.danceRef.once("value")
   .then(snapshot => snapshot.val())
 
-  // console.log({...moves['moves'], ...moves['dance array'], beginning: moves['beginning']})
-  let returnObj = {beginning: moves['beginning']}
-  returnObj = Object.assign(returnObj, moves['moves'])
-  returnObj = Object.assign(returnObj, moves['dance array'])
-  console.log(returnObj)
-  // return {...moves['moves'], ...moves['dance array'], beginning: moves['beginning']}
-  return returnObj
+  return {...moves['moves'], ...moves['dance array'], beginning: moves['beginning']}
   }
 
   const moves = await getMoves()
