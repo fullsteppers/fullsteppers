@@ -78,7 +78,12 @@ export default class SelectSong extends React.Component {
                 justifyContent: "center"
               }}
             >
-              <Button light title="Select Song" onPress={this.selectSong}>
+              <Button
+                light
+                vertical
+                title="Select Song"
+                onPress={this.selectSong}
+              >
                 <Text>
                   Do the {this.props.dance} to {this.state.track}
                 </Text>

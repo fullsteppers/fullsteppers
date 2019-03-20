@@ -73,7 +73,12 @@ export default class SelectDance extends React.Component {
                 justifyContent: "center"
               }}
             >
-              <Button light title="Select Dance" onPress={this.submitDance}>
+              <Button
+                light
+                vertical
+                title="Select Dance"
+                onPress={this.submitDance}
+              >
                 <Text>Do the {this.state.dance}</Text>
               </Button>
             </Container>
