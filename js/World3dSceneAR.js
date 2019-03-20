@@ -1,5 +1,10 @@
 import React, {Component} from 'react'
-import {StyleSheet} from 'react-native'
+import {
+  Text,
+  View,
+  TouchableHighlight,
+  StyleSheet
+} from 'react-native'
 
 import {
   ViroARScene,
@@ -13,44 +18,81 @@ import {
   ViroAnimations
 } from 'react-viro'
 
+const localStyles = StyleSheet.create({
+  outer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'black'
+  },
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 20
+  },
+  buttons: {
+    height: 80,
+    width: 150,
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: '#68a0cf',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff'
+  }
+})
+
 export default class World3dSceneAR extends Component {
   constructor () {
     super ()
 
     this.state = {
       tempo: 120,
+      playbackState: false
     }
+
+    this.togglePlayback = this.togglePlayback.bind(this)
+  }
+
+  togglePlayback () {
+    if (this.state.playbackState) {
+      this.animationRef.setNativeProps({animation: {run: true}})
+    }
+    this.animationRef.setNativeProps({animation: {run: false}})
   }
 
   render () {
     return (
       <ViroARScene anchorDetectionTypes={'PlanesHorizontal'}>
         <ViroAmbientLight color={'#aaaaaa'} influenceBitMask={1}/>
-        <ViroNode position={[0,-1.75,-4]}>
+        <ViroNode
+          position={[0,-1.75,-4]}
+          ref={component => {this.arNodeRef = component}} >
 
-          {/* Represents the ground */}
+            {/* Represents the ground */}
           <ViroQuad
-            position={[0,-1.5,1]}
+            position={[0,-1.7,1]}
             rotation={[-90,0,0]}
             scale={[5,8,2]}
             arShadowReceiver={true}
             lightReceivingBitMask={2}
             opacity={.05}
-            materials={'quad'}
-          />
+            materials={'quad'} />
 
-          {/* RIGHT SHOE */}
+            {/* RIGHT SHOE */}
           <ViroNode
+            ref={component => {this.animationRef = component}}
             position={[-.33,-1.5,-.75]}
             animation={{
-              name: 'runningMan',
-              run: true,
+              name: 'salsaR',
+              // run: true,
               loop: true,
-            }}
-          >
+            }} >
 
             <ViroSpotLight
-              color={'#FFFFFF'}
+              color={'#000000'}
               position={[0,3,0]}
               direction={[0,-1,0]}
               castsShadow={true}
@@ -58,10 +100,10 @@ export default class World3dSceneAR extends Component {
               shadowMapSize={2048}
               shadowNearZ={2}
               shadowFarZ={5}
-              shadowOpacity={.7}
-            />
+              shadowOpacity={.7} />
 
             <Viro3DObject
+              ref={component => {this.animationRef = component}}
               source={require('./res/converse3d/Right_shoe.obj')}
               resources={[require('./res/converse3d/converse_obj.mtl')]}
               materials={'rightShoe'}
@@ -71,32 +113,30 @@ export default class World3dSceneAR extends Component {
               lightReceivingBitMask={3}
               shadowCastingBitMask={2}
               animation={{
-                name: 'runningMan',
-                run: true,
+                name: 'salsaR',
+                // run: true,
                 loop: true,
-              }}
-            />
+              }} />
 
             {/* <ViroQuad
               rotation={[-90,0,0]}
               width={.25} height={.25}
               arShadowReceiver={true}
-              lightReceivingBitMask={2}
-            /> */}
+              lightReceivingBitMask={2} /> */}
           </ViroNode>
 
-          {/* LEFT SHOE */}
+            {/* LEFT SHOE */}
           <ViroNode
+            ref={component => {this.animationRef = component}}
             position={[.33,-1.5,-.75]}
             animation={{
-              name: 'runningManB',
-              run: true,
+              name: 'salsaL',
+              // run: true,
               loop: true,
-            }}
-          >
+            }} >
 
             <ViroSpotLight
-              color={'#FFFFFF'}
+              color={'#000000'}
               position={[0,3,0]}
               direction={[0,-1,0]}
               castsShadow={true}
@@ -104,10 +144,10 @@ export default class World3dSceneAR extends Component {
               shadowMapSize={2048}
               shadowNearZ={2}
               shadowFarZ={5}
-              shadowOpacity={.7}
-            />
+              shadowOpacity={.7} />
 
             <Viro3DObject
+              ref={component => {this.animationRef = component}}
               source={require('./res/converse3d/Left_shoe.obj')}
               resources={[require('./res/converse3d/converse_obj.mtl'),
                           require('./res/converse3d/converse_bump.jpg')]}
@@ -118,21 +158,56 @@ export default class World3dSceneAR extends Component {
               lightReceivingBitMask={3}
               shadowCastingBitMask={2}
               animation={{
-                name: 'runningManB',
-                run: true,
+                name: 'salsaL',
+                // run: true,
                 loop: true,
-              }}
-            />
+              }} />
 
             {/* <ViroQuad
               rotation={[-90,0,0]}
               width={.25} height={.25}
               arShadowReceiver={true}
-              lightReceivingBitMask={2}
-            /> */}
+              lightReceivingBitMask={2} /> */}
+          </ViroNode>
+
+            {/* USER RIGHT FOOT */}
+          <ViroNode position={[.33,-1.5,3]}>
+            <ViroImage
+              ref={component => {this.animationRef = component}}
+              source={require('./res/rightfoot.png')}
+              height={0.5} width={0.2}
+              rotation={[-90,0,0]}
+              animation={{
+                name: 'salsaUserR',
+                // run: true,
+                loop: true
+              }} />
+          </ViroNode>
+
+            {/* USER LEFT FOOT */}
+          <ViroNode position={[-.33,-1.5,3]}>
+            <ViroImage
+              ref={component => {this.animationRef = component}}
+              source={require('./res/leftfoot.png')}
+              height={0.5} width={0.2}
+              rotation={[-90,0,0]}
+              animation={{
+                name: 'salsaUserL',
+                // run: true,
+                loop: true
+              }} />
           </ViroNode>
 
         </ViroNode>
+
+        {/* <View style={{position: 'absolute', left: 0, right: 0, bottom: 77, alignItems: 'center'}}>
+          <TouchableHighlight
+            style={localStyles.buttons}
+            onPress={this.togglePlayback}
+            underlayColor={'#000000'} >
+            <Text style={localStyles.buttonText}>Play/Pause</Text>
+          </TouchableHighlight>
+        </View> */}
       </ViroARScene>
     )
   }
@@ -143,22 +218,22 @@ ViroMaterials.createMaterials({
     diffuseColor: '#111111'
   },
   rightShoe: {
-    diffuseColor: '#9900EE',
+    diffuseColor: '#F0F000',
     diffuseTexture: require('./res/converse3d/converse_obj.mtl'),
     diffuseIntensity: .75,
-    bloomThreshold: .1,
+    bloomThreshold: .25,
     blendMode: 'Add',
-    lightingModel: 'PBR',
-    metalness: 9
+    // lightingModel: 'PBR',
+    // metalness: 9
   },
   leftShoe: {
-    diffuseColor: '#00EEEE',
+    diffuseColor: '#00F0F0',
     diffuseTexture: require('./res/converse3d/converse_obj.mtl'),
     diffuseIntensity: .75,
-    bloomThreshold: .1,
+    bloomThreshold: .25,
     blendMode: 'Add',
-    lightingModel: 'PBR',
-    metalness: 9
+    // lightingModel: 'PBR',
+    // metalness: 9
   }
 })
 
@@ -207,7 +282,27 @@ ViroAnimations.registerAnimations({
   shoeDownHeelFlat: {properties: {positionY: -1.5, rotateX: '+=30'}, duration: 250, easing: "EaseOut"},
   shoeDownHeelToe: {properties: {positionY: -1.3, rotateX: '+=60'}, duration: 250, easing: "EaseOut"},
 
-  // MARCH
+  // SALSA, LEFT LEG LEAD -- Directions for User from database
+  salsaUserL: [
+    ['nodeForward4n','nodeBackward4n','nodePause4n','nodePause4n']
+  ],
+  salsaUserR: [
+    ['nodePause4n','nodePause4n','nodeBackward4n','nodeForward4n']
+  ],
+
+  // SALSA, LEFT LEG LEAD -- Directions for DANCE PARTNER
+  salsaL: [
+    ['nodeBackward4n','nodeForward4n','nodePause4n','nodePause4n'],
+    ['shoeUpToe','shoeDownToeFlat','shoeUpToe','shoeDownToeFlat','shoePause','shoePause','shoePause','shoePause']
+  ],
+  salsaR: [
+    ['nodePause4n','nodePause4n','nodeForward4n','nodeBackward4n'],
+    ['shoePause','shoePause','shoePause','shoePause','shoeUpHeel','shoeDownHeelFlat','shoeUpToe','shoeDownToeFlat']
+  ],
+
+  // TESTBED ROUTINES
+
+  // MARCH, FORWARD TO BACKWARD
   marchFB: [
     ['nodeForward4n','nodePause4n','nodeBackward4n','nodePause4n'],
     ['shoeUpHeel','shoeDownHeelFlat','shoePause','shoePause','shoeUpToe','shoeDownToeFlat','shoePause','shoePause']
@@ -217,7 +312,7 @@ ViroAnimations.registerAnimations({
     ['shoePause','shoePause','shoeUpHeel','shoeDownHeelFlat','shoePause','shoePause','shoeUpToe','shoeDownToeFlat']
   ],
 
-  // SIDE STEP
+  // SIDE STEP, RIGHT TO LEFT
   sideStepRL: [
     ['nodeRight4n','nodePause4n','nodePause4n','nodeLeft4n'],
     ['shoeUpToe','shoeDownToeFlat','shoePause','shoePause','shoePause','shoePause','shoeUpToe','shoeDownToeFlat']
