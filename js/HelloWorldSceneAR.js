@@ -6,8 +6,6 @@ import moves from './dances'
 import song from './songs'
 import { Actions } from 'react-native-router-flux'
 
-import { View, Text } from 'react-native'
-
 import {
   ViroARScene,
   ViroText,
@@ -22,9 +20,11 @@ export default class HelloWorldSceneAR extends Component {
 
     this.state = {
       go: false,
-      danceGo: false
+      danceGo: false,
+      loop: true
     };
   }
+
 
   async componentDidMount() {
     const selectedSong = this.props.arSceneNavigator.viroAppProps.song
@@ -40,12 +40,20 @@ export default class HelloWorldSceneAR extends Component {
 
   }
 
+  componentWillUnmount() {
+    timer.clearTimeout('startDance')
+  }
 
   render() {
     if(!this.state.go){
       return (
         <ViroARScene>
-          <ViroText text='loading'></ViroText>
+          <ViroText
+            text="loading..."
+            color='black'
+            width={2} height={2}
+            rotation={[-90, 0, 0]}
+            position={[0.25,-2,0]} />
         </ViroARScene>
       )
     } else {
@@ -66,7 +74,7 @@ export default class HelloWorldSceneAR extends Component {
           rotation={[-90, 0, 0]}
           position={[0.25, -2, 0]}
           source={require("./res/rightfoot.png")}
-          animation = {this.state.danceGo ? {name: "danceRight", run: true, loop:true}
+          animation = {this.state.danceGo ? { name: "danceRight", run: true, loop: this.state.loop }
           : {name: 'beginning', run: true}}
         />
         <ViroImage
@@ -75,7 +83,7 @@ export default class HelloWorldSceneAR extends Component {
           rotation={[-90, 0, 0]}
           position={[-0.25, -2, 0]}
           source={require("./res/leftfoot.png")}
-          animation = {this.state.danceGo ? {name: "danceLeft", run: true, loop:true}
+          animation = {this.state.danceGo ? { name: "danceLeft", run: true, loop: this.state.loop }
           : {name: 'beginning', run: true}}
         />
       </ViroARScene>
