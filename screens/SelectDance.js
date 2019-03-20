@@ -1,4 +1,5 @@
 import React from 'react'
+import { makeRef } from './../js/firebase'
 import {
   AppRegistry,
   Text,
@@ -15,9 +16,20 @@ export default class SelectDance extends React.Component {
     super();
 
     this.state = {
-      dance:'salsa'
+      dance:'foxtrot',
+      dances: [],
+      waltz: {}
     };
     this.submitDance = this.submitDance.bind(this)
+  }
+
+  async componentDidMount(){
+    this.dancesRef = makeRef(`/dances`)
+    let dances = {}
+    dances = await this.dancesRef.once("value")
+    .then(snapshot => snapshot.val())
+
+    this.setState({dances: Object.keys(dances)})
   }
 
   submitDance() {
@@ -26,6 +38,7 @@ export default class SelectDance extends React.Component {
   }
 
   render() {
+    const dances = this.state.dances || []
     return (
       <View>
         <Text>Select your dance...</Text>
@@ -33,8 +46,10 @@ export default class SelectDance extends React.Component {
         selectedValue={this.state.dance}
         onValueChange={(val) => {this.setState({dance: val})}}
         >
-          <Picker.Item label="Salsa" value="salsa" />
-          <Picker.Item label="Waltz" value="moves" />
+
+          {dances.map(dance => (
+            <Picker.Item key={dance} label={dance} value={dance} />
+          ))}
         </Picker>
         <Button
         title='Select Dance'
