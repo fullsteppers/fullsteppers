@@ -1,62 +1,90 @@
-import React from 'react'
-import { makeRef } from './../js/firebase'
+import React from "react";
+import { Actions } from "react-native-router-flux";
+import getTheme from "../native-base-theme/components";
+import { Picker } from "react-native";
+import { makeRef } from "./../js/firebase";
 import {
-  AppRegistry,
+  Container,
+  Card,
+  CardItem,
   Text,
-  View,
-  StyleSheet,
-  TouchableHighlight,
-  Picker,
+  StyleProvider,
   Button
-} from "react-native";
-import { Actions } from 'react-native-router-flux'
+} from "native-base";
 
 export default class SelectDance extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      dance:'foxtrot',
+      dance: "foxtrot",
       dances: [],
       waltz: {}
     };
-    this.submitDance = this.submitDance.bind(this)
+    this.submitDance = this.submitDance.bind(this);
   }
 
-  async componentDidMount(){
-    this.dancesRef = makeRef(`/dances`)
-    let dances = {}
-    dances = await this.dancesRef.once("value")
-    .then(snapshot => snapshot.val())
+  async componentDidMount() {
+    this.dancesRef = makeRef(`/dances`);
+    let dances = {};
+    dances = await this.dancesRef
+      .once("value")
+      .then(snapshot => snapshot.val());
 
-    this.setState({dances: Object.keys(dances)})
+    this.setState({ dances: Object.keys(dances) });
   }
 
   submitDance() {
-    const dance = this.state.dance
-    Actions.SelectSong({dance})
+    const dance = this.state.dance;
+    Actions.SelectSong({ dance });
   }
 
   render() {
-    const dances = this.state.dances || []
+    const dances = this.state.dances || [];
     return (
-      <View>
-        <Text>Select your dance...</Text>
-        <Picker
-        selectedValue={this.state.dance}
-        onValueChange={(val) => {this.setState({dance: val})}}
+      <StyleProvider style={getTheme()}>
+        <Container
+          style={{
+            flexDirection: "row",
+            justifyContent: "center"
+          }}
         >
-
-          {dances.map(dance => (
-            <Picker.Item key={dance} label={dance} value={dance} />
-          ))}
-        </Picker>
-        <Button
-        title='Select Dance'
-        onPress={this.submitDance}
-        >
-        Select</Button>
-      </View>
-    )
+          <Card transparent>
+            <CardItem
+              style={{
+                paddingTop: 50
+              }}
+            >
+              <Text>Choose your dance...</Text>
+            </CardItem>
+            <Picker
+              selectedValue={this.state.dance}
+              onValueChange={val => {
+                this.setState({ dance: val });
+              }}
+            >
+              {dances.map(dance => (
+                <Picker.Item key={dance} label={dance} value={dance} />
+              ))}
+            </Picker>
+            <Container
+              style={{
+                flexDirection: "row",
+                justifyContent: "center"
+              }}
+            >
+              <Button
+                light
+                vertical
+                title="Select Dance"
+                onPress={this.submitDance}
+              >
+                <Text>Do the {this.state.dance}</Text>
+              </Button>
+            </Container>
+          </Card>
+        </Container>
+      </StyleProvider>
+    );
   }
 }
