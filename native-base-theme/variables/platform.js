@@ -9,8 +9,24 @@ const deviceWidth = Dimensions.get("window").width;
 const platform = Platform.OS;
 const platformStyle = undefined;
 const isIphoneX =
-platform === "ios" && (deviceHeight === 812 || deviceWidth === 812 || deviceHeight === 896 || deviceWidth === 896);
+  platform === "ios" &&
+  (deviceHeight === 812 ||
+    deviceWidth === 812 ||
+    deviceHeight === 896 ||
+    deviceWidth === 896);
 
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
+
+// based on iphone 5s's scale
+const scale = SCREEN_WIDTH / 320;
+function normalize(size) {
+  const newSize = size * scale;
+  if (Platform.OS === "ios") {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize));
+  } else {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
+  }
+}
 export default {
   platformStyle,
   platform,
@@ -24,12 +40,12 @@ export default {
 
   // Android
   androidRipple: true,
-  androidRippleColor: "rgba(256, 256, 256, 0.3)",
-  androidRippleColorDark: "rgba(0, 0, 0, 0.15)",
+  androidRippleColor: "000000",
+  androidRippleColorDark: "000000",
   btnUppercaseAndroidText: true,
 
   // Badge
-  badgeBg: "#ED1727",
+  badgeBg: "#9b9b9b",
   badgeColor: "#fff",
   badgePadding: platform === "ios" ? 3 : 0,
 
@@ -99,17 +115,17 @@ export default {
   CheckboxPaddingBottom: platform === "ios" ? 0 : 5,
   CheckboxIconSize: platform === "ios" ? 21 : 16,
   CheckboxIconMarginTop: platform === "ios" ? undefined : 1,
-  CheckboxFontSize: platform === "ios" ? 23 / 0.9 : 17,
-  checkboxBgColor: "#039BE5",
+  CheckboxFontSize: platform === "ios" ? normalize(23 / 0.9) : normalize(17),
+  checkboxBgColor: "000000",
   checkboxSize: 20,
   checkboxTickColor: "#fff",
 
   // Color
-  brandPrimary: platform === "ios" ? "#007aff" : "#3F51B5",
-  brandInfo: "#62B1F6",
-  brandSuccess: "#5cb85c",
-  brandDanger: "#d9534f",
-  brandWarning: "#f0ad4e",
+  brandPrimary: platform === "ios" ? "d0021b" : "d0021b",
+  brandInfo: "9b9b9b",
+  brandSuccess: "#4A4A4A",
+  brandDanger: "#F49903",
+  brandWarning: "#F8E71C",
   brandDark: "#000",
   brandLight: "#f4f4f4",
 
@@ -121,9 +137,9 @@ export default {
   datePickerBg: "transparent",
 
   // Font
-  DefaultFontSize: 16,
+  DefaultFontSize: normalize(24),
   fontFamily: platform === "ios" ? "System" : "Roboto",
-  fontSizeBase: 15,
+  fontSizeBase: normalize(16),
   get fontSizeH1() {
     return this.fontSizeBase * 1.8;
   },
@@ -136,26 +152,26 @@ export default {
 
   // Footer
   footerHeight: 55,
-  footerDefaultBg: platform === "ios" ? "#F8F8F8" : "#3F51B5",
+  footerDefaultBg: platform === "ios" ? "d0021b" : "d0021b",
   footerPaddingBottom: 0,
 
   // FooterTab
-  tabBarTextColor: platform === "ios" ? "#6b6b6b" : "#b3c7f9",
+  tabBarTextColor: platform === "ios" ? "#fff" : "#fff",
   tabBarTextSize: platform === "ios" ? 14 : 11,
-  activeTab: platform === "ios" ? "#007aff" : "#fff",
+  activeTab: platform === "ios" ? "#fff" : "#fff",
   sTabBarActiveTextColor: "#007aff",
-  tabBarActiveTextColor: platform === "ios" ? "#007aff" : "#fff",
-  tabActiveBgColor: platform === "ios" ? "#cde1f9" : "#3F51B5",
+  tabBarActiveTextColor: platform === "ios" ? "ffffff" : "ffffff",
+  tabActiveBgColor: platform === "ios" ? "#d0021b" : "#d0021b",
 
   // Header
-  toolbarBtnColor: platform === "ios" ? "#007aff" : "#fff",
-  toolbarDefaultBg: platform === "ios" ? "#F8F8F8" : "#3F51B5",
+  toolbarBtnColor: platform === "ios" ? "#fff" : "#fff",
+  toolbarDefaultBg: platform === "ios" ? "#d0021b" : "#d0021b",
   toolbarHeight: platform === "ios" ? 64 : 56,
   toolbarSearchIconSize: platform === "ios" ? 20 : 23,
-  toolbarInputColor: platform === "ios" ? "#CECDD2" : "#fff",
+  toolbarInputColor: platform === "ios" ? "#fff" : "#fff",
   searchBarHeight: platform === "ios" ? 30 : 40,
   searchBarInputHeight: platform === "ios" ? 30 : 50,
-  toolbarBtnTextColor: platform === "ios" ? "#007aff" : "#fff",
+  toolbarBtnTextColor: platform === "ios" ? "#edebed" : "#fff",
   toolbarDefaultBorder: platform === "ios" ? "#a7a6ab" : "#3F51B5",
   iosStatusbar: platform === "ios" ? "dark-content" : "light-content",
   get statusBarColor() {
@@ -175,7 +191,7 @@ export default {
   iconHeaderSize: platform === "ios" ? 33 : 24,
 
   // InputGroup
-  inputFontSize: 17,
+  inputFontSize: normalize(17),
   inputBorderColor: "#D9D5DC",
   inputSuccessBorderColor: "#2b8339",
   inputErrorBorderColor: "#ed2f2f",
@@ -242,15 +258,15 @@ export default {
   // Text
   textColor: "#000",
   inverseTextColor: "#fff",
-  noteFontSize: 14,
+  noteFontSize: normalize(14),
   get defaultTextColor() {
     return this.textColor;
   },
 
   // Title
   titleFontfamily: platform === "ios" ? "System" : "Roboto_medium",
-  titleFontSize: platform === "ios" ? 17 : 19,
-  subTitleFontSize: platform === "ios" ? 11 : 14,
+  titleFontSize: platform === "ios" ? normalize(17) : normalize(19),
+  subTitleFontSize: platform === "ios" ? normalize(11) : normalize(14),
   subtitleColor: platform === "ios" ? "#8e8e93" : "#FFF",
   titleFontColor: platform === "ios" ? "#000" : "#FFF",
 
