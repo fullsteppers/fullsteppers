@@ -23,8 +23,8 @@ export default class DisplayAr extends React.Component {
     }, 60000);
   }
 
-  componentWillMount(){
-    timer.clearTimeout(this)
+  componentWillUnmount(){
+    timer.clearTimeout('start')
   }
 
   startOver() {

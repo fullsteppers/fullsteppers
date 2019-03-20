@@ -23,8 +23,6 @@ export default class HelloWorldSceneAR extends Component {
       danceGo: false,
       loop: true
     };
-    this.finishSong = this.finishSong.bind(this)
-    this.finishDance = this.finishDance.bind(this)
   }
 
 
@@ -42,19 +40,9 @@ export default class HelloWorldSceneAR extends Component {
 
   }
 
-  finishSong() {
-    console.log('Song finished!')
-    this.setState({loop: false})
-    Actions.SelectDance()
+  componentWillUnmount() {
+    timer.clearTimeout('startDance')
   }
-
-  finishDance() {
-    console.log('hello?')
-    if(!this.state.loop){
-      Actions.SelectDance()
-    }
-  }
-
 
   render() {
     if(!this.state.go){
@@ -78,7 +66,6 @@ export default class HelloWorldSceneAR extends Component {
           muted={false}
           loop={false}
           volume={1.0}
-          onFinish={this.finishSong}
         /> : <ViroText text='' /> }
 
         <ViroImage
@@ -87,7 +74,7 @@ export default class HelloWorldSceneAR extends Component {
           rotation={[-90, 0, 0]}
           position={[0.25, -2, 0]}
           source={require("./res/rightfoot.png")}
-          animation = {this.state.danceGo ? { name: "danceRight", run: true, loop: this.state.loop, onFinish: this.finishDance}
+          animation = {this.state.danceGo ? { name: "danceRight", run: true, loop: this.state.loop }
           : {name: 'beginning', run: true}}
         />
         <ViroImage
@@ -96,7 +83,7 @@ export default class HelloWorldSceneAR extends Component {
           rotation={[-90, 0, 0]}
           position={[-0.25, -2, 0]}
           source={require("./res/leftfoot.png")}
-          animation = {this.state.danceGo ? { name: "danceLeft", run: true, loop: this.state.loop, onFinish: this.finishDance}
+          animation = {this.state.danceGo ? { name: "danceLeft", run: true, loop: this.state.loop }
           : {name: 'beginning', run: true}}
         />
       </ViroARScene>
