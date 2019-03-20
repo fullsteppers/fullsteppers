@@ -8,17 +8,11 @@ export default async (dance) => {
     moves = await this.danceRef.once("value")
       .then(snapshot => snapshot.val())
 
-    const danceMoves = Object.assign({}, moves['moves'])
+    // const danceMoves = Object.assign({}, moves['moves'])
     return {
-      wait: { properties: { positionX: "+=0.0" }, duration: 5000 },
-      pause: { properties: { positionX: "+=0.0" }, duration: 500 },
-      "moveForward": { properties: { positionX: "+=0.3" }, duration: 500 },
-      "moveBackward": { properties: { positionX: "-=0.3" }, duration: 500 },
-      up: { properties: { positionZ: "-=0.3" }, duration: 500 },
-      down: { properties: { positionZ: "+=0.3" }, duration: 500 },
+      ...moves['moves'],
       ...moves['dance array']
     }
-    // return {
 
     // wait: { properties: { positionX: "+=0.0" }, duration: 5000 },
     // pause: { properties: { positionX: "+=0.0" }, duration: 500 },
