@@ -29,15 +29,15 @@ export default class HelloWorldSceneAR extends Component {
   async componentDidMount() {
     const selectedSong = this.props.arSceneNavigator.viroAppProps.song
     const selectedDance = this.props.arSceneNavigator.viroAppProps.dance
-    const songs = await song(selectedSong)
-    const dance = await moves(selectedDance)
-    await ViroSound.preloadSounds(songs)
+    const songObj = await song(selectedSong)
+    const BPM = songObj.BPM
+    const dance = await moves(selectedDance, BPM)
+    await ViroSound.preloadSounds({ "song": songObj.audioUrl })
     ViroAnimations.registerAnimations(dance)
     this.setState({ go: true })
     timer.setTimeout('startDance', () => {
       this.setState({ danceGo: true })
     }, 3000);
-
   }
 
   componentWillUnmount() {
@@ -61,7 +61,7 @@ export default class HelloWorldSceneAR extends Component {
 
         <ViroARScene onTrackingUpdated={this._onInitialized}>
           {this.state.go ? <ViroSound
-            source='song'
+            source="song"
             paused={false}
             muted={false}
             loop={false}
