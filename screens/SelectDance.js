@@ -59,8 +59,8 @@ export default class SelectDance extends React.Component {
             </CardItem>
             <Picker
               selectedValue={this.state.dance}
-              onValueChange={val => {
-                this.setState({ dance: val });
+              onValueChange={async val => {
+                await this.setState({ dance: val });
               }}
             >
               {dances.map(dance => (

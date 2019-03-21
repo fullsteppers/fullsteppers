@@ -23,8 +23,6 @@ export default class HelloWorldSceneAR extends Component {
       danceGo: false,
       loop: true
     };
-    this.finishSong = this.finishSong.bind(this)
-    this.finishDance = this.finishDance.bind(this)
   }
 
 
@@ -35,29 +33,19 @@ export default class HelloWorldSceneAR extends Component {
     const dance = await moves(selectedDance)
     await ViroSound.preloadSounds(songs)
     ViroAnimations.registerAnimations(dance)
-    this.setState({go: true})
+    this.setState({ go: true })
     timer.setTimeout('startDance', () => {
-      this.setState({danceGo: true})
+      this.setState({ danceGo: true })
     }, 3000);
 
   }
 
-  finishSong() {
-    console.log('Song finished!')
-    this.setState({loop: false})
-    Actions.SelectDance()
+  componentWillUnmount() {
+    timer.clearTimeout('startDance')
   }
-
-  finishDance() {
-    console.log('hello?')
-    if(!this.state.loop){
-      Actions.SelectDance()
-    }
-  }
-
 
   render() {
-    if(!this.state.go){
+    if (!this.state.go) {
       return (
         <ViroARScene>
           <ViroText
@@ -65,42 +53,41 @@ export default class HelloWorldSceneAR extends Component {
             color='black'
             width={2} height={2}
             rotation={[-90, 0, 0]}
-            position={[0.25,-2,0]} />
+            position={[0.25, -2, 0]} />
         </ViroARScene>
       )
     } else {
-    return (
+      return (
 
-      <ViroARScene onTrackingUpdated={this._onInitialized}>
-        {this.state.go ? <ViroSound
-          source='song'
-          paused={false}
-          muted={false}
-          loop={false}
-          volume={1.0}
-          onFinish={this.finishSong}
-        /> : <ViroText text='' /> }
+        <ViroARScene onTrackingUpdated={this._onInitialized}>
+          {this.state.go ? <ViroSound
+            source='song'
+            paused={false}
+            muted={false}
+            loop={false}
+            volume={1.0}
+          /> : <ViroText text='' />}
 
-        <ViroImage
-          height={0.5}
-          width={0.2}
-          rotation={[-90, 0, 0]}
-          position={[0.25, -2, 0]}
-          source={require("./res/rightfoot.png")}
-          animation = {this.state.danceGo ? { name: "danceRight", run: true, loop: this.state.loop, onFinish: this.finishDance}
-          : {name: 'beginning', run: true}}
-        />
-        <ViroImage
-          height={0.5}
-          width={0.2}
-          rotation={[-90, 0, 0]}
-          position={[-0.25, -2, 0]}
-          source={require("./res/leftfoot.png")}
-          animation = {this.state.danceGo ? { name: "danceLeft", run: true, loop: this.state.loop, onFinish: this.finishDance}
-          : {name: 'beginning', run: true}}
-        />
-      </ViroARScene>
-    );
+          <ViroImage
+            height={0.5}
+            width={0.2}
+            rotation={[-90, 0, 0]}
+            position={[0.25, -2, 0]}
+            source={require("./res/rightfoot.png")}
+            animation={this.state.danceGo ? { name: "danceRight", run: true, loop: this.state.loop }
+              : { name: 'beginning', run: true }}
+          />
+          <ViroImage
+            height={0.5}
+            width={0.2}
+            rotation={[-90, 0, 0]}
+            position={[-0.25, -2, 0]}
+            source={require("./res/leftfoot.png")}
+            animation={this.state.danceGo ? { name: "danceLeft", run: true, loop: this.state.loop }
+              : { name: 'beginning', run: true }}
+          />
+        </ViroARScene>
+      );
     }
   }
 }
