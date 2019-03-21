@@ -10,27 +10,25 @@ var config = {
 };
 
 var app = firebase.initializeApp(config);
-const database = firebase.database();
-
-function makeRef(path) {
-    return database.ref(path);
-}
-
-// import { makeRef } from './firebase'
-
-const getSongs = async () => {
-    this.songRef = makeRef(`/songs/Candy`)
-    let song = {}
-    song = await this.songRef.once("value")
-        .then(snapshot => snapshot.val())
-
-    console.log(song, song.audioUrl, song.BPM)
-}
-
-getSongs()
+//USED LOCALLY TO TEST DB CALLS
 
 
+// const database = firebase.database();
 
+// function makeRef(path) {
+//     return database.ref(path);
+// }
+
+// const getSongs = async () => {
+//     this.songRef = makeRef(`/songs/Candy`)
+//     let song = {}
+//     song = await this.songRef.once("value")
+//         .then(snapshot => snapshot.val())
+
+//     console.log(song, song.audioUrl, song.BPM)
+// }
+
+// getSongs()
 
 
 // const tryThis = async (dance, BPM) => {
