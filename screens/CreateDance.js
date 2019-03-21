@@ -2,7 +2,7 @@ import React from "react";
 import { View, Image, Animated, TouchableHighlight } from "react-native";
 import { Col, Row, Grid, Button, Text } from "native-base";
 import CreateDanceMenu from "../js/CreateDanceMenu";
-import { addMove } from "../js/movesFunctions";
+import { addMove, submitDance } from "../js/movesFunctions";
 
 export default class createDance extends React.Component {
   constructor() {
@@ -15,7 +15,8 @@ export default class createDance extends React.Component {
       currentFoot: "right",
       leftMoves: [],
       rightMoves: [],
-      currentMove: ""
+      currentMove: "",
+      disabled: false
     };
     this.moveAnimationLeft = new Animated.ValueXY({
       x: this.state.leftX,
@@ -28,6 +29,8 @@ export default class createDance extends React.Component {
     this.move = this.move.bind(this);
     this.addMoveMethod = this.addMoveMethod.bind(this);
     this.switchFoot = this.switchFoot.bind(this);
+    this.submitDanceMethod = this.submitDanceMethod.bind(this);
+    this.undo = this.undo.bind(this)
   }
 
   move(x, y) {
@@ -64,7 +67,7 @@ export default class createDance extends React.Component {
       }).start();
     }
     //and then set state with addmove(moves)
-    this.setState({ currentMove: newMove });
+    this.setState({ currentMove: newMove, disabled: true });
   }
 
   addMoveMethod() {
@@ -72,14 +75,22 @@ export default class createDance extends React.Component {
     if (this.state.currentFoot === "right") {
       this.setState({
         rightMoves: [...this.state.rightMoves, moves.newMove],
-        leftMoves: [...this.state.leftMoves, moves.otherMove]
+        leftMoves: [...this.state.leftMoves, moves.otherMove],
+        currentMove: '',
+        disabled: false
       });
     } else {
       this.setState({
         leftMoves: [...this.state.leftMoves, moves.newMove],
-        rightMoves: [...this.state.rightMoves, moves.otherMove]
+        rightMoves: [...this.state.rightMoves, moves.otherMove],
+        currentMove: '',
+        disabled: false
       });
     }
+  }
+
+  submitDanceMethod() {
+    submitDance(this.state.leftMoves, this.state.rightMoves)
   }
 
   switchFoot() {
@@ -88,9 +99,37 @@ export default class createDance extends React.Component {
       : this.setState({ currentFoot: "right" });
   }
 
+  async undo() {
+    if(this.state.rightMoves.length > 0){
+
+      const reverseStepY = {forward: 'backward', backward: 'forward'}
+      const reverseStepX = {right: 'left', left: 'right'}
+
+      let x = ''
+      let y = ''
+      const foot = this.state.rightMoves[this.state.rightMoves.length-1].pause ? 'left' : 'right'
+
+      let step = Object.keys(this.state[`${foot}Moves`][this.state[`${foot}Moves`].length-1])[0]
+      for(let key in reverseStepY){
+        if(step.includes(key)){
+          y = reverseStepY[key]
+        }
+      }
+      for(let key in reverseStepX){
+        if(step.includes(key)){
+          x = reverseStepX[key]
+        }
+      }
+      await this.setState({currentFoot: foot})
+      this.move(x, y)
+      const newRight = this.state.rightMoves.slice(0, this.state.rightMoves.length-1)
+      const newLeft = this.state.leftMoves.slice(0, this.state.leftMoves.length-1)
+
+      this.setState({rightMoves: newRight, leftMoves: newLeft, disabled: false})
+    }
+  }
+
   render() {
-    console.log(this.state.rightMoves);
-    console.log(this.state.leftMoves);
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
         <View style={{ flex: 1, flexDirection: "row" }}>
@@ -119,12 +158,15 @@ export default class createDance extends React.Component {
                 <Button onPress={this.addMoveMethod}>
                   <Text>Add Move</Text>
                 </Button>
-                <Button vertical>
+                <Button vertical onPress={this.submitDanceMethod}>
                   <Text>Save Dance</Text>
+                </Button>
+                <Button onPress={this.undo}>
+                  <Text>Undo</Text>
                 </Button>
               </Col>
               <Col>
-                <CreateDanceMenu move={this.move} />
+                <CreateDanceMenu move={this.move} disabled={this.state.disabled}/>
               </Col>
               <Col>
                 <Text note>Current foot: {this.state.currentFoot}</Text>

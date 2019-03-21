@@ -3,7 +3,7 @@ import { View, Text, Image, Animated, TouchableHighlight } from "react-native";
 import { Col, Row, Grid, Button } from "native-base";
 
 export const CreateDanceMenu = props => {
-  const { move } = props;
+  const { move, disabled } = props;
   return (
     <Grid>
       <Row>
@@ -12,6 +12,7 @@ export const CreateDanceMenu = props => {
             light
             style={{ height: 15, width: 15 }}
             onPress={() => move("left", "forward")}
+            disabled= {disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
@@ -28,6 +29,7 @@ export const CreateDanceMenu = props => {
             light
             style={{ height: 15, width: 15 }}
             onPress={() => move("stay", "forward")}
+            disabled= {disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
@@ -44,6 +46,7 @@ export const CreateDanceMenu = props => {
             light
             style={{ height: 15, width: 15 }}
             onPress={() => move("right", "forward")}
+            disabled= {disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
@@ -62,6 +65,7 @@ export const CreateDanceMenu = props => {
             light
             style={{ height: 15, width: 15 }}
             onPress={() => move("left", "stay")}
+            disabled= {disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
@@ -75,6 +79,7 @@ export const CreateDanceMenu = props => {
             light
             style={{ height: 15, width: 15 }}
             onPress={() => move("right", "stay")}
+            disabled= {disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
@@ -93,6 +98,7 @@ export const CreateDanceMenu = props => {
             light
             style={{ height: 15, width: 15 }}
             onPress={() => move("left", "backward")}
+            disabled= {disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
@@ -109,6 +115,7 @@ export const CreateDanceMenu = props => {
             light
             style={{ height: 15, width: 15 }}
             onPress={() => move("stay", "backward")}
+            disabled= {disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
@@ -125,6 +132,7 @@ export const CreateDanceMenu = props => {
             light
             style={{ height: 15, width: 15 }}
             onPress={() => move("right", "backward")}
+            disabled= {disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
