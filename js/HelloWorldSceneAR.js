@@ -45,6 +45,7 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   render() {
+    const selectedStance = this.props.arSceneNavigator.viroAppProps.stance
     if (!this.state.go) {
       return (
         <ViroARScene>
@@ -72,7 +73,7 @@ export default class HelloWorldSceneAR extends Component {
             height={0.5}
             width={0.2}
             rotation={[-90, 0, 0]}
-            position={[0.25, -2, 0]}
+            position={[(selectedStance / 2), -2, 0]}
             source={require("./res/rightfoot.png")}
             animation={this.state.danceGo ? { name: "danceRight", run: true, loop: this.state.loop }
               : { name: 'beginning', run: true }}
@@ -81,7 +82,7 @@ export default class HelloWorldSceneAR extends Component {
             height={0.5}
             width={0.2}
             rotation={[-90, 0, 0]}
-            position={[-0.25, -2, 0]}
+            position={[-(selectedStance / 2), -2, 0]}
             source={require("./res/leftfoot.png")}
             animation={this.state.danceGo ? { name: "danceLeft", run: true, loop: this.state.loop }
               : { name: 'beginning', run: true }}
