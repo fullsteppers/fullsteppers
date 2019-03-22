@@ -1,77 +1,78 @@
-import React from 'react'
-require('./../secrets')
-import { ViroARSceneNavigator} from 'react-viro'
+import React from "react";
+import { Actions } from "react-native-router-flux";
+require("./../secrets");
+import { ViroARSceneNavigator } from "react-viro";
 var InitialARScene = require("./../js/HelloWorldSceneAR");
-import timer from 'react-native-timer'
-import {  View, Text, Button } from 'react-native'
-import { Actions } from 'react-native-router-flux'
+import timer from "react-native-timer";
+import { End } from "../js/End";
 
 export default class DisplayAr extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
       go: true
-    }
-    this.startOver = this.startOver.bind(this)
-    this.newTrack = this.newTrack.bind(this)
-    this.newDance = this.newDance.bind(this)
-    this.goHome = this.goHome.bind(this)
+    };
+    this.startOver = this.startOver.bind(this);
+    this.newTrack = this.newTrack.bind(this);
+    this.newDance = this.newDance.bind(this);
+    this.goHome = this.goHome.bind(this);
   }
-  componentDidMount(){
-    timer.setTimeout('start', () => {
-      this.setState({go: false})
-    }, 60000);
+  componentDidMount() {
+    timer.setTimeout(
+      "start",
+      () => {
+        this.setState({ go: false });
+      },
+      60000
+    );
   }
 
-  componentWillUnmount(){
-    timer.clearTimeout('start')
+  componentWillUnmount() {
+    timer.clearTimeout("start");
   }
 
   startOver() {
-    timer.setTimeout('start', () => {
-      this.setState({go: false})
-    }, 60000);
-    this.setState({go: true})
+    timer.setTimeout(
+      "start",
+      () => {
+        this.setState({ go: false });
+      },
+      60000
+    );
+    this.setState({ go: true });
   }
 
-  newTrack(){
-    Actions.SelectSong({dance: this.props.dance})
+  newTrack() {
+    Actions.SelectSong({ dance: this.props.dance });
   }
-  newDance(){
-    Actions.SelectDance()
+  newDance() {
+    Actions.SelectDance();
   }
-  goHome(){
-    Actions.Home()
+  goHome() {
+    Actions.Home();
   }
 
   render() {
-    const { dance, song } = this.props
-    if(this.state.go) {
+    const { dance, song, stance } = this.props;
+    if (this.state.go) {
       return (
-          <ViroARSceneNavigator
-            apiKey={process.env.VIRO_API}
-            initialScene={{ scene: InitialARScene }}
-            viroAppProps={{dance, song}}
-          />
-      )
+        <ViroARSceneNavigator
+          apiKey={process.env.VIRO_API}
+          initialScene={{ scene: InitialARScene }}
+          viroAppProps={{ dance, song, stance }}
+        />
+      );
     } else {
       return (
-        <View>
-          <Text>You just did the {dance} to the song: {song}</Text>
-          <Button
-          title='Start Over'
-          onPress={this.startOver} />
-          <Button
-          title='Pick a New Track'
-          onPress={this.newTrack} />
-          <Button
-          title='Pick a New Dance'
-          onPress={this.newDance} />
-          <Button
-          title='Home'
-          onPress={this.goHome} />
-        </View>
-      )
+        <End
+          startOver={this.startOver}
+          newTrack={this.newTrack}
+          newDane={this.newDance}
+          home={this.goHome}
+          dance={dance}
+          song={song}
+        />
+      );
     }
   }
 }
