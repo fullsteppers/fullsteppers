@@ -29,15 +29,15 @@ export default class HelloWorldSceneAR extends Component {
   async componentDidMount() {
     const selectedSong = this.props.arSceneNavigator.viroAppProps.song
     const selectedDance = this.props.arSceneNavigator.viroAppProps.dance
-    const songs = await song(selectedSong)
-    const dance = await moves(selectedDance)
-    await ViroSound.preloadSounds(songs)
+    const songObj = await song(selectedSong)
+    const BPM = songObj.BPM
+    const dance = await moves(selectedDance, BPM)
+    await ViroSound.preloadSounds({ "song": songObj.audioUrl })
     ViroAnimations.registerAnimations(dance)
     this.setState({ go: true })
     timer.setTimeout('startDance', () => {
       this.setState({ danceGo: true })
     }, 3000);
-
   }
 
   componentWillUnmount() {
@@ -45,6 +45,7 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   render() {
+    const selectedStance = this.props.arSceneNavigator.viroAppProps.stance
     if (!this.state.go) {
       return (
         <ViroARScene>
@@ -61,7 +62,7 @@ export default class HelloWorldSceneAR extends Component {
 
         <ViroARScene onTrackingUpdated={this._onInitialized}>
           {this.state.go ? <ViroSound
-            source='song'
+            source="song"
             paused={false}
             muted={false}
             loop={false}
@@ -72,7 +73,8 @@ export default class HelloWorldSceneAR extends Component {
             height={0.5}
             width={0.2}
             rotation={[-90, 0, 0]}
-            position={[0.25, -2, 0]}
+            position={[(selectedStance / 2), -2, 0]}
+            // position={[0.2, -2, 0]}
             source={require("./res/rightfoot.png")}
             animation={this.state.danceGo ? { name: "danceRight", run: true, loop: this.state.loop }
               : { name: 'beginning', run: true }}
@@ -81,7 +83,8 @@ export default class HelloWorldSceneAR extends Component {
             height={0.5}
             width={0.2}
             rotation={[-90, 0, 0]}
-            position={[-0.25, -2, 0]}
+            position={[-(selectedStance / 2), -2, 0]}
+            // position={[-.2, -2, 0]}
             source={require("./res/leftfoot.png")}
             animation={this.state.danceGo ? { name: "danceLeft", run: true, loop: this.state.loop }
               : { name: 'beginning', run: true }}

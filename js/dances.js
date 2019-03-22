@@ -1,7 +1,7 @@
 import { makeRef } from "./firebase";
 import * as firebase from "firebase";
 
-export default async dance => {
+export default async (dance, BPM) => {
   const getMoves = async () => {
     let danceRef = makeRef(`/dances/${dance}`);
     console.log(danceRef);
@@ -14,6 +14,13 @@ export default async dance => {
       );
       moves = await danceRef.once("value").then(snapshot => snapshot.val());
     }
+
+    let adjustedBPM = Object.keys(moves["moves"]).map(move => {
+      moves["moves"][move]["duration"] =
+        (60 / BPM) * moves["moves"][move]["duration"];
+      return move;
+    });
+
     return {
       ...moves["moves"],
       ...moves["dance array"],
@@ -21,6 +28,6 @@ export default async dance => {
     };
   };
 
-  const moves = await getMoves();
+  const moves = await getMoves(BPM);
   return moves;
 };
