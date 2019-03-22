@@ -8,16 +8,17 @@ import {
     CardItem,
     Text,
     StyleProvider,
-    Button
+    Button,
 } from "native-base";
-import { Slider } from "react-native-slider"
+
+import Slider from "react-native-slider"
 
 export default class SelectStanceWidth extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-            value: 0,
+            value: 0.3,
         };
         this.submitStance = this.submitStance.bind(this);
     }
@@ -28,16 +29,6 @@ export default class SelectStanceWidth extends React.Component {
         const song = this.props.song;
         Actions.DisplayAr({ dance, song, stance });
     }
-
-    // async componentDidMount() {
-    //     this.dancesRef = makeRef(`/dances`);
-    //     let dances = {};
-    //     dances = await this.dancesRef
-    //         .once("value")
-    //         .then(snapshot => snapshot.val());
-
-    //     this.setState({ dances: Object.keys(dances) });
-    // }
 
     render() {
         return (
@@ -86,12 +77,12 @@ export default class SelectStanceWidth extends React.Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginLeft: 10,
-        marginRight: 10,
-        alignItems: "stretch",
-        justifyContent: "center"
-    }
-});
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         marginLeft: 10,
+//         marginRight: 10,
+//         alignItems: "stretch",
+//         justifyContent: "center"
+//     }
+// });

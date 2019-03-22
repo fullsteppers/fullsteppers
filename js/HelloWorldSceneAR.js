@@ -74,6 +74,7 @@ export default class HelloWorldSceneAR extends Component {
             width={0.2}
             rotation={[-90, 0, 0]}
             position={[(selectedStance / 2), -2, 0]}
+            // position={[0.2, -2, 0]}
             source={require("./res/rightfoot.png")}
             animation={this.state.danceGo ? { name: "danceRight", run: true, loop: this.state.loop }
               : { name: 'beginning', run: true }}
@@ -83,6 +84,7 @@ export default class HelloWorldSceneAR extends Component {
             width={0.2}
             rotation={[-90, 0, 0]}
             position={[-(selectedStance / 2), -2, 0]}
+            // position={[-.2, -2, 0]}
             source={require("./res/leftfoot.png")}
             animation={this.state.danceGo ? { name: "danceLeft", run: true, loop: this.state.loop }
               : { name: 'beginning', run: true }}
