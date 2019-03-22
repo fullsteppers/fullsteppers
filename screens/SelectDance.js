@@ -41,10 +41,16 @@ export default class SelectDance extends React.Component {
       .once("value")
       .then(snapshot => snapshot.val());
 
-    this.setState({
-      userDances: Object.keys(userDances),
-      allDances: Object.keys(allDances)
-    });
+    if (userDances) {
+      this.setState({
+        userDances: Object.keys(userDances),
+        allDances: Object.keys(allDances)
+      });
+    } else {
+      this.setState({
+        allDances: Object.keys(allDances)
+      });
+    }
   }
 
   submitDance() {
@@ -57,6 +63,7 @@ export default class SelectDance extends React.Component {
       this.state.allDances && this.state.userDances
         ? [...this.state.allDances, ...this.state.userDances]
         : [];
+
     return (
       <StyleProvider style={getTheme()}>
         <Container

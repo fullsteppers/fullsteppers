@@ -19,7 +19,6 @@ export function makeRef(path) {
 
 //FOR TESTING PURPOSES:
 // var config = {
-//   apiKey: "AIzaSyB2a-RqRtVe8Gl4ow4nFOsvoSdPMwPA_Bs",
 //   authDomain: "test-web-db-557e4.firebaseapp.com",
 //   databaseURL: "https://test-web-db-557e4.firebaseio.com",
 //   projectId: "test-web-db-557e4",
