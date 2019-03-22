@@ -3,6 +3,7 @@ import { View, Image, Animated, TouchableHighlight } from "react-native";
 import { Col, Row, Grid, Button, Text } from "native-base";
 import CreateDanceMenu from "../js/CreateDanceMenu";
 import { addMove, submitDance } from "../js/movesFunctions";
+import { Actions } from "react-native-router-flux";
 
 export default class createDance extends React.Component {
   constructor() {
@@ -30,7 +31,7 @@ export default class createDance extends React.Component {
     this.addMoveMethod = this.addMoveMethod.bind(this);
     this.switchFoot = this.switchFoot.bind(this);
     this.submitDanceMethod = this.submitDanceMethod.bind(this);
-    this.undo = this.undo.bind(this)
+    this.undo = this.undo.bind(this);
   }
 
   move(x, y) {
@@ -41,20 +42,28 @@ export default class createDance extends React.Component {
       this.state.currentFoot === "right" ? this.state.rightY : this.state.leftY;
     if (y === "forward") {
       newY -= 100;
-      this.setState({ [`${this.state.currentFoot}Y`]: newY });
+      this.setState({
+        [`${this.state.currentFoot}Y`]: newY
+      });
       newMove += `${y}`;
     } else if (y === "backward") {
       newY += 100;
-      this.setState({ [`${this.state.currentFoot}Y`]: newY });
+      this.setState({
+        [`${this.state.currentFoot}Y`]: newY
+      });
       newMove += `${y}`;
     }
     if (x === "right") {
       newX += 60;
-      this.setState({ [`${this.state.currentFoot}X`]: newX });
+      this.setState({
+        [`${this.state.currentFoot}X`]: newX
+      });
       newMove += `${x}`;
     } else if (x === "left") {
       newX -= 60;
-      this.setState({ [`${this.state.currentFoot}X`]: newX });
+      this.setState({
+        [`${this.state.currentFoot}X`]: newX
+      });
       newMove += `${x}`;
     }
     if (this.state.currentFoot === "right") {
@@ -67,7 +76,10 @@ export default class createDance extends React.Component {
       }).start();
     }
     //and then set state with addmove(moves)
-    this.setState({ currentMove: newMove, disabled: true });
+    this.setState({
+      currentMove: newMove,
+      disabled: true
+    });
   }
 
   addMoveMethod() {
@@ -76,21 +88,22 @@ export default class createDance extends React.Component {
       this.setState({
         rightMoves: [...this.state.rightMoves, moves.newMove],
         leftMoves: [...this.state.leftMoves, moves.otherMove],
-        currentMove: '',
+        currentMove: "",
         disabled: false
       });
     } else {
       this.setState({
         leftMoves: [...this.state.leftMoves, moves.newMove],
         rightMoves: [...this.state.rightMoves, moves.otherMove],
-        currentMove: '',
+        currentMove: "",
         disabled: false
       });
     }
   }
 
   submitDanceMethod() {
-    submitDance(this.state.leftMoves, this.state.rightMoves)
+    submitDance(this.state.leftMoves, this.state.rightMoves);
+    Actions.Home();
   }
 
   switchFoot() {
@@ -100,56 +113,93 @@ export default class createDance extends React.Component {
   }
 
   async undo() {
-    if(this.state.rightMoves.length > 0){
+    if (this.state.rightMoves.length > 0) {
+      const reverseStepY = {
+        forward: "backward",
+        backward: "forward"
+      };
+      const reverseStepX = {
+        right: "left",
+        left: "right"
+      };
 
-      const reverseStepY = {forward: 'backward', backward: 'forward'}
-      const reverseStepX = {right: 'left', left: 'right'}
+      let x = "";
+      let y = "";
+      const foot = this.state.rightMoves[this.state.rightMoves.length - 1].pause
+        ? "left"
+        : "right";
 
-      let x = ''
-      let y = ''
-      const foot = this.state.rightMoves[this.state.rightMoves.length-1].pause ? 'left' : 'right'
-
-      let step = Object.keys(this.state[`${foot}Moves`][this.state[`${foot}Moves`].length-1])[0]
-      for(let key in reverseStepY){
-        if(step.includes(key)){
-          y = reverseStepY[key]
+      let step = Object.keys(
+        this.state[`${foot}Moves`][this.state[`${foot}Moves`].length - 1]
+      )[0];
+      for (let key in reverseStepY) {
+        if (step.includes(key)) {
+          y = reverseStepY[key];
         }
       }
-      for(let key in reverseStepX){
-        if(step.includes(key)){
-          x = reverseStepX[key]
+      for (let key in reverseStepX) {
+        if (step.includes(key)) {
+          x = reverseStepX[key];
         }
       }
-      await this.setState({currentFoot: foot})
-      this.move(x, y)
-      const newRight = this.state.rightMoves.slice(0, this.state.rightMoves.length-1)
-      const newLeft = this.state.leftMoves.slice(0, this.state.leftMoves.length-1)
+      await this.setState({ currentFoot: foot });
+      this.move(x, y);
+      const newRight = this.state.rightMoves.slice(
+        0,
+        this.state.rightMoves.length - 1
+      );
+      const newLeft = this.state.leftMoves.slice(
+        0,
+        this.state.leftMoves.length - 1
+      );
 
-      this.setState({rightMoves: newRight, leftMoves: newLeft, disabled: false})
+      this.setState({
+        rightMoves: newRight,
+        leftMoves: newLeft,
+        disabled: false
+      });
     }
   }
 
   render() {
     return (
-      <View style={{ flex: 1, flexDirection: "column" }}>
-        <View style={{ flex: 1, flexDirection: "row" }}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column"
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row"
+          }}
+        >
           <Grid>
             <Row size={4}>
               <Animated.View
                 style={[
-                  { backgroundColor: "transparent" },
+                  {
+                    backgroundColor: "transparent"
+                  },
                   this.moveAnimationLeft.getLayout()
                 ]}
               >
                 <Image
                   source={require("./../js/res/leftfoot.png")}
-                  style={{ width: 66, height: 160 }}
+                  style={{
+                    width: 66,
+                    height: 160
+                  }}
                 />
               </Animated.View>
               <Animated.View style={[this.moveAnimationRight.getLayout()]}>
                 <Image
                   source={require("./../js/res/rightfoot.png")}
-                  style={{ width: 66, height: 160 }}
+                  style={{
+                    width: 66,
+                    height: 160
+                  }}
                 />
               </Animated.View>
             </Row>
@@ -166,7 +216,10 @@ export default class createDance extends React.Component {
                 </Button>
               </Col>
               <Col>
-                <CreateDanceMenu move={this.move} disabled={this.state.disabled}/>
+                <CreateDanceMenu
+                  move={this.move}
+                  disabled={this.state.disabled}
+                />
               </Col>
               <Col>
                 <Text note>Current foot: {this.state.currentFoot}</Text>

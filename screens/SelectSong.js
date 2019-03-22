@@ -35,7 +35,14 @@ export default class SelectSong extends React.Component {
       return songs[song]["dance"].toLowerCase() === currDance;
     });
 
-    this.setState({ songs: filterTracks, track: filterTracks[0] });
+    if (filterTracks.length === 0) {
+      this.setState({
+        songs: songsKeys,
+        track: songsKeys[0]
+      });
+    } else {
+      this.setState({ songs: filterTracks, track: filterTracks[0] });
+    }
   }
 
   selectSong() {

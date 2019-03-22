@@ -16,7 +16,7 @@ export default class Home extends React.Component {
   constructor() {
     super();
     this.state = {};
-    this.SelectDance = this.selectADance.bind(this);
+    this.SelectDance = this.selectDance.bind(this);
   }
 
   componentDidMount() {
@@ -49,8 +49,12 @@ export default class Home extends React.Component {
     // }
   }
 
-  selectADance() {
+  selectDance() {
     Actions.SelectDance();
+  }
+
+  createDance() {
+    Actions.CreateDance();
   }
 
   render() {
@@ -76,12 +80,11 @@ export default class Home extends React.Component {
                   justifyContent: "center"
                 }}
               >
-                <Button
-                  light
-                  title="Select a Dance"
-                  onPress={this.selectADance}
-                >
+                <Button light title="Select a Dance" onPress={this.selectDance}>
                   <Text>Select a Dance</Text>
+                </Button>
+                <Button light title="Create a Dance" onPress={this.createDance}>
+                  <Text>Create a Dance</Text>
                 </Button>
               </Container>
             </CardItem>

@@ -24,12 +24,11 @@ function submitDance(leftFoot, rightFoot) {
     moves: currentMoves
   };
 
-  console.log(dance);
   const thisMoment = new Date();
 
   firebase
     .database()
-    .ref("dances/")
+    .ref(`users/${firebase.auth().currentUser.uid}/dances`)
     .update({
       [thisMoment]: dance
     });
