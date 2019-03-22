@@ -41,7 +41,7 @@ export default class SelectSong extends React.Component {
   selectSong() {
     const dance = this.props.dance;
     const song = this.state.track;
-    Actions.DisplayAr({ dance, song });
+    Actions.SelectStanceWidth({ dance, song });
   }
 
   render() {

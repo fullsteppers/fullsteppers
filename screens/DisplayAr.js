@@ -53,13 +53,13 @@ export default class DisplayAr extends React.Component {
   }
 
   render() {
-    const { dance, song } = this.props;
+    const { dance, song, stance } = this.props;
     if (this.state.go) {
       return (
         <ViroARSceneNavigator
           apiKey={process.env.VIRO_API}
           initialScene={{ scene: InitialARScene }}
-          viroAppProps={{ dance, song }}
+          viroAppProps={{ dance, song, stance }}
         />
       );
     } else {
