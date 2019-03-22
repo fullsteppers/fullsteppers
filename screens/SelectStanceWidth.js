@@ -53,7 +53,7 @@ export default class SelectStanceWidth extends React.Component {
                             onValueChange={value => this.setState({ value })}
                         />
                         <Text>
-                            Value: {this.state.value}
+                            Value: {this.state.value.toFixed(2)}
                         </Text>
                         <Container
                             style={{
