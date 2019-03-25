@@ -2,6 +2,7 @@ import React from "react";
 import { Actions } from "react-native-router-flux";
 import getTheme from "../native-base-theme/components";
 // import { makeRef } from "./../js/firebase";
+import { Picker } from "react-native";
 import {
     Container,
     Card,
@@ -9,7 +10,6 @@ import {
     Text,
     StyleProvider,
     Button,
-    Picker,
 } from "native-base";
 
 export default class SelectStanceWidth extends React.Component {
@@ -23,7 +23,7 @@ export default class SelectStanceWidth extends React.Component {
     }
 
     submitTiming() {
-        const timing = this.state.value;
+        const timing = this.state.timing;
         const stance = this.props.stance;
         const dance = this.props.dance;
         const song = this.props.song;
@@ -47,7 +47,6 @@ export default class SelectStanceWidth extends React.Component {
                         >
                             <Text>Choose your dance speed...</Text>
                         </CardItem>
-
                         <Picker
                             selectedValue={this.state.timing}
                             onValueChange={async val => {
@@ -56,12 +55,9 @@ export default class SelectStanceWidth extends React.Component {
                         >
                             <Picker.Item label={'Half-Time (Slow)'} value={0.5} />
                             <Picker.Item label={'Normal Time'} value={1.0} />
-                            <Picker.Item label={'Double-Time (Fast'} value={2.0} />
+                            <Picker.Item label={'Double-Time (Fast)'} value={2.0} />
 
                         </Picker>
-                        <Text>
-                            Speed: {this.state.timing.toFixed(2)}
-                        </Text>
                         <Container
                             style={{
                                 flexDirection: "row",

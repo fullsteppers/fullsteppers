@@ -27,7 +27,7 @@ export default class SelectStanceWidth extends React.Component {
         const stance = this.state.value;
         const dance = this.props.dance;
         const song = this.props.song;
-        Actions.DisplayAr({ dance, song, stance });
+        Actions.SelectTiming({ dance, song, stance });
     }
 
     render() {
@@ -67,7 +67,7 @@ export default class SelectStanceWidth extends React.Component {
                                 title="Select Stance"
                                 onPress={this.submitStance}
                             >
-                                <Text>Start Dancing!</Text>
+                                <Text>Select Stance</Text>
                             </Button>
                         </Container>
                     </Card>

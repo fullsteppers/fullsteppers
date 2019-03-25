@@ -29,8 +29,9 @@ export default class HelloWorldSceneAR extends Component {
   async componentDidMount() {
     const selectedSong = this.props.arSceneNavigator.viroAppProps.song
     const selectedDance = this.props.arSceneNavigator.viroAppProps.dance
+    const selectedTiming = this.props.arSceneNavigator.viroAppProps.timing
     const songObj = await song(selectedSong)
-    const BPM = songObj.BPM
+    const BPM = songObj.BPM * selectedTiming
     const dance = await moves(selectedDance, BPM)
     await ViroSound.preloadSounds({ "song": songObj.audioUrl })
     ViroAnimations.registerAnimations(dance)
