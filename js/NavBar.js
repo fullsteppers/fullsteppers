@@ -8,17 +8,14 @@
 //   CardItem,
 //   Body,
 //   Text,
-//   StyleProvider,
 //   Button
 // } from "native-base";
 // import React, { Component } from "react";
 // import { Actions, Router, Scene } from "react-native-router-flux";
-// import getTheme from "../native-base-theme/components";
 
 // class NavBar extends Component {
 //   render() {
 //     return (
-//       <StyleProvider style={getTheme()}>
 //         <Header>
 //           <StatusBar />
 //           <TouchableWithoutFeedback onPress={() => Actions.Home()}>
@@ -29,7 +26,6 @@
 //           </TouchableWithoutFeedback>
 //           <Text>Fullsteppers</Text>
 //         </Header>
-//       </StyleProvider>
 //     );
 //   }
 // }
