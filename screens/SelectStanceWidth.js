@@ -9,6 +9,7 @@ import {
     Text,
     StyleProvider,
     Button,
+    Image
 } from "native-base";
 
 import Slider from "react-native-slider"
