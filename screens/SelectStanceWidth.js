@@ -1,7 +1,6 @@
 import React from "react";
 import { Actions } from "react-native-router-flux";
 import { Container, Card, CardItem, Text, Button } from "native-base";
-
 import Slider from "react-native-slider";
 
 export default class SelectStanceWidth extends React.Component {
