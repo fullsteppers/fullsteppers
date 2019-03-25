@@ -1,24 +1,33 @@
-import { makeRef } from './firebase'
+import { makeRef } from "./firebase";
+import * as firebase from "firebase";
 
 export default async (dance, BPM) => {
   const getMoves = async () => {
-    this.danceRef = makeRef(`/dances/${dance}`)
-    let moves = {}
+    let danceRef = makeRef(`/dances/${dance}`);
+    console.log(danceRef);
 
-    moves = await this.danceRef.once("value")
-      .then(snapshot => snapshot.val())
+    let moves = {};
+    moves = await danceRef.once("value").then(snapshot => snapshot.val());
+    if (!moves) {
+      danceRef = makeRef(
+        `users/${firebase.auth().currentUser.uid}/dances/${dance}`
+      );
+      moves = await danceRef.once("value").then(snapshot => snapshot.val());
+    }
 
-    let adjustedBPM = Object.keys(moves['moves']).map(move => {
-      moves['moves'][move]['duration'] = 60 / BPM * moves['moves'][move]['duration'];
+    let adjustedBPM = Object.keys(moves["moves"]).map(move => {
+      moves["moves"][move]["duration"] =
+        (60 / BPM) * moves["moves"][move]["duration"];
       return move;
-    })
+    });
 
     return {
-      ...moves['moves'],
-      ...moves['dance array'], beginning: { ...moves['beginning'] }
-    }
-  }
+      ...moves["moves"],
+      ...moves["dance array"],
+      beginning: { ...moves["beginning"] }
+    };
+  };
 
-  const moves = await getMoves(BPM)
-  return moves
-}
+  const moves = await getMoves(BPM);
+  return moves;
+};
