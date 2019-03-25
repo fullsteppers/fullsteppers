@@ -15,11 +15,19 @@ export default class App extends React.Component {
     super()
 
     this.state={
-      inViro: false
+      inViro: false,
+      viroAppProps: {
+        playback: false
+      }
     }
 
+    this.togglePlayback = this.togglePlayback.bind(this)
     this.enterViro = this.enterViro.bind(this)
     this.exitViro = this.exitViro.bind(this)
+  }
+
+  togglePlayback () {
+    this.setState(prevState => ({viroAppProps: {playback: !prevState.viroAppProps.playback}}))
   }
 
   enterViro() {
@@ -37,15 +45,16 @@ export default class App extends React.Component {
           <ViroARSceneNavigator
             apiKey={process.env.VIRO_API}
             initialScene={{scene: InitialARScene}}
+            viroAppProps={this.state.viroAppProps}
             // enableBloom={true}
           />
 
           <View style={{position: 'absolute', left: 0, right: 0, bottom: 37, alignItems: 'center'}}>
             <TouchableHighlight
               style={localStyles.buttons}
-              onPress={this.exitViro}
+              onPress={this.togglePlayback}
               underlayColor={'#000000'} >
-              <Text style={localStyles.buttonText}>Exit</Text>
+              <Text style={localStyles.buttonText}>Play/Pause</Text>
             </TouchableHighlight>
           </View>
         </View>

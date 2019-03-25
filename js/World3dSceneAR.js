@@ -12,12 +12,12 @@ import {
 } from 'react-viro'
 
 export default class World3dSceneAR extends Component {
-  constructor () {
-    super ()
+  constructor (props) {
+    super (props)
 
     this.state = {
       tempo: 120,
-      playback: true
+      playback: this.props.arSceneNavigator.viroAppProps.playback
     }
 
     const quarterNote = (60000 / this.state.tempo)
@@ -51,8 +51,8 @@ export default class World3dSceneAR extends Component {
             // ref={component => {this.animationRef = component}}
             position={[-.33,-1.5,-.75]}
             animation={{
-              name: 'foxTrot',
-              run: this.state.playback,
+              name: 'ft3d',
+              run: this.props.arSceneNavigator.viroAppProps.playback,
               loop: true,
             }} >
             
@@ -73,14 +73,14 @@ export default class World3dSceneAR extends Component {
               materials={'rightShoe'}
               type="OBJ"
               scale={[.036,.036,.036]}
-              opacity={.4}
+              opacity={.5}
               lightReceivingBitMask={2}
               shadowCastingBitMask={2}
-              animation={{
-                name: 'foxTrot',
-                run: this.state.playback,
-                loop: true,
-              }} />
+              // animation={{
+              //   name: 'ft3d',
+              //   run: this.props.arSceneNavigator.viroAppProps.playback,
+              //   loop: true,}}
+             />
 
             {/* <ViroQuad
               rotation={[-90,0,0]}
@@ -95,8 +95,8 @@ export default class World3dSceneAR extends Component {
             // ref={component => {this.animationRef = component}}
             position={[.33,-1.5,-.75]}
             animation={{
-              name: 'foxTrotB',
-              run: this.state.playback,
+              name: 'ft3dB',
+              run: this.props.arSceneNavigator.viroAppProps.playback,
               loop: true,
             }} >
 
@@ -118,14 +118,14 @@ export default class World3dSceneAR extends Component {
               materials={'leftShoe'}
               type="OBJ"
               scale={[.036,.036,.036]}
-              opacity={.4}
+              opacity={.5}
               lightReceivingBitMask={2}
               shadowCastingBitMask={2}
-              animation={{
-                name: 'foxTrotB',
-                run: this.state.playback,
-                loop: true,
-              }} />
+              // animation={{
+              //   name: 'ft3dB',
+              //   run: this.props.arSceneNavigator.viroAppProps.playback,
+              //   loop: true,}}
+             />
 
             {/* <ViroQuad
               rotation={[-90,0,0]}
@@ -141,13 +141,26 @@ export default class World3dSceneAR extends Component {
               // ref={component => {this.animationRef = component}}
               source={require('./res/rightfoot.png')}
               height={0.5} width={0.2}
+              // scale={[0,0,0]}
               rotation={[-90,0,0]}
               animation={{
-                name: 'foxTrotB',
-                run: this.state.playback,
+                name: 'ftB',
+                run: this.props.arSceneNavigator.viroAppProps.playback,
                 loop: true
               }} />
           </ViroNode>
+          {/* <ViroNode position={[.33,-1,2.5]}>
+            <ViroImage
+              // ref={component => {this.animationRef = component}}
+              source={require('./res/rightfoot.png')}
+              height={0.5} width={0.2}
+              rotation={[-90,0,0]}
+              animation={{
+                name: 'ftBNext',
+                run: this.state.playback,
+                loop: true
+              }} />
+          </ViroNode> */}
 
             {/* USER LEFT FOOT */}
           <ViroNode position={[-.33,-1,2.5]}>
@@ -155,13 +168,26 @@ export default class World3dSceneAR extends Component {
               // ref={component => {this.animationRef = component}}
               source={require('./res/leftfoot.png')}
               height={0.5} width={0.2}
+              // scale={[0,0,0]}
               rotation={[-90,0,0]}
               animation={{
-                name: 'foxTrot',
-                run: this.state.playback,
+                name: 'ft',
+                run: this.props.arSceneNavigator.viroAppProps.playback,
                 loop: true
               }} />
           </ViroNode>
+          {/* <ViroNode position={[-.33,-1,2.5]}>
+            <ViroImage
+              // ref={component => {this.animationRef = component}}
+              source={require('./res/leftfoot.png')}
+              height={0.5} width={0.2}
+              rotation={[-90,0,0]}
+              animation={{
+                name: 'ftNext',
+                run: this.state.playback,
+                loop: true
+              }} />
+          </ViroNode> */}
 
         </ViroNode>
       </ViroARScene>
