@@ -67,8 +67,8 @@ export default class DisplayAr extends React.Component {
         <End
           startOver={this.startOver}
           newTrack={this.newTrack}
-          newDane={this.newDance}
-          home={this.goHome}
+          newDance={this.newDance}
+          goHome={this.goHome}
           dance={dance}
           song={song}
         />

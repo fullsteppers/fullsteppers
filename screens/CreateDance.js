@@ -1,9 +1,12 @@
 import React from "react";
-import { View, Image, Animated, TouchableHighlight } from "react-native";
+import { View, Image, Animated } from "react-native";
 import { Col, Row, Grid, Button, Text } from "native-base";
 import CreateDanceMenu from "../js/CreateDanceMenu";
 import { addMove, submitDance } from "../js/movesFunctions";
 import { Actions } from "react-native-router-flux";
+require("./../secrets");
+import { ViroARSceneNavigator } from "react-viro";
+const TestDanceAR = require("./../js/TestDanceAR");
 
 export default class createDance extends React.Component {
   constructor() {
@@ -17,7 +20,9 @@ export default class createDance extends React.Component {
       leftMoves: [],
       rightMoves: [],
       currentMove: "",
-      disabled: false
+      disabled: false,
+      testDance: false,
+      dance: {}
     };
     this.moveAnimationLeft = new Animated.ValueXY({
       x: this.state.leftX,
@@ -32,6 +37,8 @@ export default class createDance extends React.Component {
     this.switchFoot = this.switchFoot.bind(this);
     this.submitDanceMethod = this.submitDanceMethod.bind(this);
     this.undo = this.undo.bind(this);
+    this.testDance = this.testDance.bind(this);
+    this.exitViro = this.exitViro.bind(this);
   }
 
   move(x, y) {
@@ -102,8 +109,8 @@ export default class createDance extends React.Component {
   }
 
   submitDanceMethod() {
-    submitDance(this.state.leftMoves, this.state.rightMoves);
-    Actions.Home();
+    const newDance = submitDance(this.state.leftMoves, this.state.rightMoves);
+    Actions.DanceName({ dance: newDance });
   }
 
   switchFoot() {
@@ -161,77 +168,140 @@ export default class createDance extends React.Component {
     }
   }
 
+  testDance() {
+    let dance = submitDance(this.state.leftMoves, this.state.rightMoves);
+
+    dance = {
+      ...dance["moves"],
+      ...dance["dance array"],
+      beginning: { ...dance["beginning"] }
+    };
+
+    this.setState({ testDance: true, dance: dance });
+  }
+
+  exitViro() {
+    this.setState({ testDance: false });
+  }
+
   render() {
-    return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "column"
-        }}
-      >
+    if (this.state.testDance) {
+      return (
+        <ViroARSceneNavigator
+          apiKey={process.env.VIRO_API}
+          initialScene={{ scene: TestDanceAR }}
+          viroAppProps={{ dance: this.state.dance, exit: this.exitViro }}
+        />
+      );
+    } else {
+      return (
         <View
           style={{
             flex: 1,
-            flexDirection: "row"
+            flexDirection: "column",
+            backgroundColor: "white"
           }}
         >
-          <Grid>
-            <Row size={4}>
-              <Animated.View
-                style={[
-                  {
-                    backgroundColor: "transparent"
-                  },
-                  this.moveAnimationLeft.getLayout()
-                ]}
-              >
-                <Image
-                  source={require("./../js/res/leftfoot.png")}
-                  style={{
-                    width: 66,
-                    height: 160
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row"
+            }}
+          >
+            <Grid>
+              <Row size={4}>
+                <Animated.View style={[this.moveAnimationLeft.getLayout()]}>
+                  <Image
+                    source={require("./../js/res/leftfoot.png")}
+                    style={{
+                      width: 66,
+                      height: 160
+                    }}
+                  />
+                </Animated.View>
+                <Animated.View style={[this.moveAnimationRight.getLayout()]}>
+                  <Image
+                    source={require("./../js/res/rightfoot.png")}
+                    style={{
+                      width: 66,
+                      height: 160
+                    }}
+                  />
+                </Animated.View>
+              </Row>
+              <Row size={1}>
+                <Col>
+                  <Button
+                    bordered
+                    onPress={this.testDance}
+                    style={{
+                      alignSelf: "flex-end",
+                      marginEnd: 15,
+                      marginBottom: 10
+                    }}
+                  >
+                    <Text>Test</Text>
+                  </Button>
+                  {this.state.disabled ? (
+                    <Button
+                      bordered
+                      onPress={this.addMoveMethod}
+                      style={{
+                        marginBottom: 10,
+                        alignSelf: "flex-end",
+                        marginEnd: 15
+                      }}
+                    >
+                      <Text>Save</Text>
+                    </Button>
+                  ) : (
+                    <Button
+                      bordered
+                      onPress={this.undo}
+                      style={{
+                        marginBottom: 10,
+                        alignSelf: "flex-end",
+                        marginEnd: 15
+                      }}
+                    >
+                      <Text>Undo</Text>
+                    </Button>
+                  )}
+                </Col>
+                <Col>
+                  <CreateDanceMenu
+                    move={this.move}
+                    disabled={this.state.disabled}
+                  />
+                </Col>
+                <Col
+                  styles={{
+                    justifyContent: "flex-end"
                   }}
-                />
-              </Animated.View>
-              <Animated.View style={[this.moveAnimationRight.getLayout()]}>
-                <Image
-                  source={require("./../js/res/rightfoot.png")}
-                  style={{
-                    width: 66,
-                    height: 160
-                  }}
-                />
-              </Animated.View>
-            </Row>
-            <Row size={1}>
-              <Col>
-                <Button onPress={this.addMoveMethod}>
-                  <Text>Add Move</Text>
-                </Button>
-                <Button vertical onPress={this.submitDanceMethod}>
-                  <Text>Save Dance</Text>
-                </Button>
-                <Button onPress={this.undo}>
-                  <Text>Undo</Text>
-                </Button>
-              </Col>
-              <Col>
-                <CreateDanceMenu
-                  move={this.move}
-                  disabled={this.state.disabled}
-                />
-              </Col>
-              <Col>
-                <Text note>Current foot: {this.state.currentFoot}</Text>
-                <Button onPress={this.switchFoot}>
-                  <Text>Switch</Text>
-                </Button>
-              </Col>
-            </Row>
-          </Grid>
+                >
+                  <Button
+                    bordered
+                    onPress={this.switchFoot}
+                    disabled={this.state.disabled}
+                    style={{
+                      marginBottom: 10
+                    }}
+                  >
+                    <Text>
+                      {this.state.currentFoot.charAt(0).toUpperCase() +
+                        this.state.currentFoot.slice(1)}
+                    </Text>
+                  </Button>
+                  <Button bordered onPress={this.submitDanceMethod}>
+                    <Text>Create</Text>
+                  </Button>
+                </Col>
+              </Row>
+            </Grid>
+          </View>
+          <View />
         </View>
-        <View />
-      </View>
-    );
+      );
+    }
   }
 }

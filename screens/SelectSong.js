@@ -1,16 +1,8 @@
 import React from "react";
 import { Actions } from "react-native-router-flux";
-import getTheme from "../native-base-theme/components";
 import { Picker } from "react-native";
 import { makeRef } from "./../js/firebase";
-import {
-  Container,
-  Card,
-  CardItem,
-  Text,
-  Button,
-  StyleProvider
-} from "native-base";
+import { Container, Card, CardItem, Text, Button } from "native-base";
 
 export default class SelectSong extends React.Component {
   constructor() {
@@ -54,51 +46,49 @@ export default class SelectSong extends React.Component {
   render() {
     const songs = this.state.songs || [];
     return (
-      <StyleProvider style={getTheme()}>
-        <Container
-          style={{
-            flexDirection: "row",
-            justifyContent: "center"
-          }}
-        >
-          <Card transparent>
-            <CardItem
-              style={{
-                paddingTop: 50
-              }}
+      <Container
+        style={{
+          flexDirection: "row",
+          justifyContent: "center"
+        }}
+      >
+        <Card transparent>
+          <CardItem
+            style={{
+              paddingTop: 50
+            }}
+          >
+            <Text>Choose your track...</Text>
+          </CardItem>
+          <Picker
+            selectedValue={this.state.track}
+            onValueChange={async val => {
+              await this.setState({ track: val });
+            }}
+          >
+            {songs.map(song => (
+              <Picker.Item key={song} label={song} value={song} />
+            ))}
+          </Picker>
+          <Container
+            style={{
+              flexDirection: "row",
+              justifyContent: "center"
+            }}
+          >
+            <Button
+              light
+              vertical
+              title="Select Song"
+              onPress={this.selectSong}
             >
-              <Text>Choose your track...</Text>
-            </CardItem>
-            <Picker
-              selectedValue={this.state.track}
-              onValueChange={async val => {
-                await this.setState({ track: val });
-              }}
-            >
-              {songs.map(song => (
-                <Picker.Item key={song} label={song} value={song} />
-              ))}
-            </Picker>
-            <Container
-              style={{
-                flexDirection: "row",
-                justifyContent: "center"
-              }}
-            >
-              <Button
-                light
-                vertical
-                title="Select Song"
-                onPress={this.selectSong}
-              >
-                <Text>
-                  Do the {this.props.dance} to {this.state.track}
-                </Text>
-              </Button>
-            </Container>
-          </Card>
-        </Container>
-      </StyleProvider>
+              <Text>
+                Do the {this.props.dance} to {this.state.track}
+              </Text>
+            </Button>
+          </Container>
+        </Card>
+      </Container>
     );
   }
 }

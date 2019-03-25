@@ -24,14 +24,16 @@ function submitDance(leftFoot, rightFoot) {
     moves: currentMoves
   };
 
-  const thisMoment = new Date();
+  return dance
 
-  firebase
-    .database()
-    .ref(`users/${firebase.auth().currentUser.uid}/dances`)
-    .update({
-      [thisMoment]: dance
-    });
+  // const thisMoment = new Date();
+
+  // firebase
+  //   .database()
+  //   .ref(`users/${firebase.auth().currentUser.uid}/dances`)
+  //   .update({
+  //     [thisMoment]: dance
+  //   });
 }
 
 const moves = {
