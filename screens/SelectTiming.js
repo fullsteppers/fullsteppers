@@ -33,6 +33,12 @@ export default class SelectStanceWidth extends React.Component {
             duration: 3000,
             type: 'warning'
           })
+        // Toast.show({
+        // text: 'Tap the screen to pause',
+        // position: 'top',
+        // duration: 1500,
+        // type: 'danger'
+        // })
         Actions.DisplayAr({ dance, song, stance, timing });
     }
 
