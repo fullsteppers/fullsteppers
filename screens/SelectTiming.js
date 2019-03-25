@@ -10,6 +10,7 @@ import {
     Text,
     StyleProvider,
     Button,
+    Toast
 } from "native-base";
 
 export default class SelectStanceWidth extends React.Component {
@@ -27,6 +28,11 @@ export default class SelectStanceWidth extends React.Component {
         const stance = this.props.stance;
         const dance = this.props.dance;
         const song = this.props.song;
+        Toast.show({
+            text: 'Caution: Be sure to allow enough room around you!',
+            duration: 3000,
+            type: 'warning'
+          })
         Actions.DisplayAr({ dance, song, stance, timing });
     }
 
