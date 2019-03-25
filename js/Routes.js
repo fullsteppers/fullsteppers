@@ -6,6 +6,7 @@ import SelectStanceWidth from "../screens/SelectStanceWidth"
 import Home from "../screens/Home";
 import DisplayAr from "../screens/DisplayAr";
 import CreateDance from "../screens/CreateDance";
+import DanceName from '../screens/DanceName'
 
 const Routes = () => (
   <Router>
@@ -22,6 +23,7 @@ const Routes = () => (
       <Scene key="SelectSong" component={SelectSong} title="FULLSTEPPERS" />
       <Scene key="SelectStanceWidth" component={SelectStanceWidth} title="FULLSTEPPERS" />
       <Scene key="DisplayAr" component={DisplayAr} title="FULLSTEPPERS" />
+      <Scene key="DanceName" component={DanceName} title="FULLSTEPPERS" />
     </Scene>
   </Router>
 );

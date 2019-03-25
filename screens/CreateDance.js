@@ -102,8 +102,8 @@ export default class createDance extends React.Component {
   }
 
   submitDanceMethod() {
-    submitDance(this.state.leftMoves, this.state.rightMoves);
-    Actions.Home();
+    const newDance = submitDance(this.state.leftMoves, this.state.rightMoves);
+    Actions.DanceName({dance: newDance});
   }
 
   switchFoot() {
@@ -205,15 +205,20 @@ export default class createDance extends React.Component {
             </Row>
             <Row size={1}>
               <Col>
+                {this.state.disabled ?
                 <Button onPress={this.addMoveMethod}>
-                  <Text>Add Move</Text>
-                </Button>
+                <Text>Add Move</Text>
+              </Button> :
+              <Button onPress={this.undo}>
+                <Text>Undo</Text>
+              </Button>
+              }
                 <Button vertical onPress={this.submitDanceMethod}>
                   <Text>Save Dance</Text>
                 </Button>
-                <Button onPress={this.undo}>
+                {/* <Button onPress={this.undo}>
                   <Text>Undo</Text>
-                </Button>
+                </Button> */}
               </Col>
               <Col>
                 <CreateDanceMenu
@@ -223,7 +228,7 @@ export default class createDance extends React.Component {
               </Col>
               <Col>
                 <Text note>Current foot: {this.state.currentFoot}</Text>
-                <Button onPress={this.switchFoot}>
+                <Button onPress={this.switchFoot} disabled={this.state.disabled}>
                   <Text>Switch</Text>
                 </Button>
               </Col>
