@@ -11,6 +11,7 @@ import {
   StyleProvider,
   Button
 } from "native-base";
+import * as firebase from "firebase";
 
 export default class SelectDance extends React.Component {
   constructor() {
@@ -18,20 +19,38 @@ export default class SelectDance extends React.Component {
 
     this.state = {
       dance: "foxtrot",
-      dances: [],
+      allDances: [],
+      userDances: [],
       waltz: {}
     };
     this.submitDance = this.submitDance.bind(this);
   }
 
   async componentDidMount() {
-    this.dancesRef = makeRef(`/dances`);
-    let dances = {};
-    dances = await this.dancesRef
+    this.allDancesRef = makeRef(`/dances`);
+    let allDances = {};
+    allDances = await this.allDancesRef
       .once("value")
       .then(snapshot => snapshot.val());
 
-    this.setState({ dances: Object.keys(dances) });
+    this.userDancesRef = makeRef(
+      `users/${firebase.auth().currentUser.uid}/dances`
+    );
+    let userDances = {};
+    userDances = await this.userDancesRef
+      .once("value")
+      .then(snapshot => snapshot.val());
+
+    if (userDances) {
+      this.setState({
+        userDances: Object.keys(userDances),
+        allDances: Object.keys(allDances)
+      });
+    } else {
+      this.setState({
+        allDances: Object.keys(allDances)
+      });
+    }
   }
 
   submitDance() {
@@ -40,7 +59,11 @@ export default class SelectDance extends React.Component {
   }
 
   render() {
-    const dances = this.state.dances || [];
+    const dances =
+      this.state.allDances && this.state.userDances
+        ? [...this.state.allDances, ...this.state.userDances]
+        : [];
+
     return (
       <StyleProvider style={getTheme()}>
         <Container
