@@ -9,25 +9,25 @@ import {
     Text,
     StyleProvider,
     Button,
+    Picker,
 } from "native-base";
-
-import Slider from "react-native-slider"
 
 export default class SelectStanceWidth extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            value: 0.3,
+            timing: 1,
         };
-        this.submitStance = this.submitStance.bind(this);
+        this.submitTiming = this.submitTiming.bind(this);
     }
 
-    submitStance() {
-        const stance = this.state.value;
+    submitTiming() {
+        const timing = this.state.value;
+        const stance = this.props.stance;
         const dance = this.props.dance;
         const song = this.props.song;
-        Actions.DisplayAr({ dance, song, stance });
+        Actions.DisplayAr({ dance, song, stance, timing });
     }
 
     render() {
@@ -45,15 +45,22 @@ export default class SelectStanceWidth extends React.Component {
                                 paddingTop: 50
                             }}
                         >
-                            <Text>Choose your stance width...</Text>
+                            <Text>Choose your dance speed...</Text>
                         </CardItem>
 
-                        <Slider
-                            value={this.state.value}
-                            onValueChange={value => this.setState({ value })}
-                        />
+                        <Picker
+                            selectedValue={this.state.timing}
+                            onValueChange={async val => {
+                                await this.setState({ timing: val });
+                            }}
+                        >
+                            <Picker.Item label={'Half-Time (Slow)'} value={0.5} />
+                            <Picker.Item label={'Normal Time'} value={1.0} />
+                            <Picker.Item label={'Double-Time (Fast'} value={2.0} />
+
+                        </Picker>
                         <Text>
-                            Value: {this.state.value.toFixed(2)}
+                            Speed: {this.state.timing.toFixed(2)}
                         </Text>
                         <Container
                             style={{
@@ -64,8 +71,8 @@ export default class SelectStanceWidth extends React.Component {
                             <Button
                                 light
                                 vertical
-                                title="Select Stance"
-                                onPress={this.submitStance}
+                                title="Select Dance Speed"
+                                onPress={this.submitTiming}
                             >
                                 <Text>Start Dancing!</Text>
                             </Button>
