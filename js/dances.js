@@ -15,11 +15,11 @@ export default async (dance, BPM) => {
       moves = await danceRef.once("value").then(snapshot => snapshot.val());
     }
 
-    let adjustedBPM = Object.keys(moves["moves"]).map(move => {
-      moves["moves"][move]["duration"] =
-        (60 / BPM) * moves["moves"][move]["duration"];
-      return move;
-    });
+      let adjustedBPM = Object.keys(moves["moves"]).map(move => {
+        moves["moves"][move]["duration"] =
+          (60 / BPM) * moves["moves"][move]["duration"];
+        return move;
+      });
 
     return {
       ...moves["moves"],

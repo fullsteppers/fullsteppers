@@ -10,15 +10,15 @@ export const CreateDanceMenu = props => {
         <Col>
           <Button
             light
-            style={{ height: 15, width: 15 }}
+            style={{ height: 20, width: 20 }}
             onPress={() => move("left", "forward")}
-            disabled= {disabled}
+            disabled={disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
               style={{
-                width: 15,
-                height: 15,
+                width: 20,
+                height: 20,
                 transform: [{ rotate: "45deg" }]
               }}
             />
@@ -27,15 +27,15 @@ export const CreateDanceMenu = props => {
         <Col>
           <Button
             light
-            style={{ height: 15, width: 15 }}
+            style={{ height: 20, width: 20 }}
             onPress={() => move("stay", "forward")}
-            disabled= {disabled}
+            disabled={disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
               style={{
-                width: 15,
-                height: 15,
+                width: 20,
+                height: 20,
                 transform: [{ rotate: "90deg" }]
               }}
             />
@@ -44,15 +44,15 @@ export const CreateDanceMenu = props => {
         <Col>
           <Button
             light
-            style={{ height: 15, width: 15 }}
+            style={{ height: 20, width: 20 }}
             onPress={() => move("right", "forward")}
-            disabled= {disabled}
+            disabled={disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
               style={{
-                width: 15,
-                height: 15,
+                width: 20,
+                height: 20,
                 transform: [{ rotate: "135deg" }]
               }}
             />
@@ -63,13 +63,13 @@ export const CreateDanceMenu = props => {
         <Col>
           <Button
             light
-            style={{ height: 15, width: 15 }}
+            style={{ height: 20, width: 20 }}
             onPress={() => move("left", "stay")}
-            disabled= {disabled}
+            disabled={disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
-              style={{ width: 15, height: 15 }}
+              style={{ width: 20, height: 20 }}
             />
           </Button>
         </Col>
@@ -77,15 +77,15 @@ export const CreateDanceMenu = props => {
         <Col>
           <Button
             light
-            style={{ height: 15, width: 15 }}
+            style={{ height: 20, width: 20 }}
             onPress={() => move("right", "stay")}
-            disabled= {disabled}
+            disabled={disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
               style={{
-                width: 15,
-                height: 15,
+                width: 20,
+                height: 20,
                 transform: [{ rotate: "180deg" }]
               }}
             />
@@ -96,15 +96,15 @@ export const CreateDanceMenu = props => {
         <Col>
           <Button
             light
-            style={{ height: 15, width: 15 }}
+            style={{ height: 20, width: 20 }}
             onPress={() => move("left", "backward")}
-            disabled= {disabled}
+            disabled={disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
               style={{
-                width: 15,
-                height: 15,
+                width: 20,
+                height: 20,
                 transform: [{ rotate: "315deg" }]
               }}
             />
@@ -113,15 +113,15 @@ export const CreateDanceMenu = props => {
         <Col>
           <Button
             light
-            style={{ height: 15, width: 15 }}
+            style={{ height: 20, width: 20 }}
             onPress={() => move("stay", "backward")}
-            disabled= {disabled}
+            disabled={disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
               style={{
-                width: 15,
-                height: 15,
+                width: 20,
+                height: 20,
                 transform: [{ rotate: "270deg" }]
               }}
             />
@@ -130,15 +130,15 @@ export const CreateDanceMenu = props => {
         <Col>
           <Button
             light
-            style={{ height: 15, width: 15 }}
+            style={{ height: 20, width: 20 }}
             onPress={() => move("right", "backward")}
-            disabled= {disabled}
+            disabled={disabled}
           >
             <Image
               source={require("./res/back_arrow.png")}
               style={{
-                width: 15,
-                height: 15,
+                width: 20,
+                height: 20,
                 transform: [{ rotate: "225deg" }]
               }}
             />
