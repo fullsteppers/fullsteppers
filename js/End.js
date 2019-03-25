@@ -12,6 +12,7 @@ import {
 
 export const End = props => {
   const { startOver, newTrack, newDance, goHome, dance, song } = props;
+  console.log(goHome);
   return (
     <Container
       style={{
