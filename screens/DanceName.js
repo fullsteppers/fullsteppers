@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Label, Button, Text, Toast } from 'native-base';
 import * as firebase from "firebase";
 import { Actions } from "react-native-router-flux";
 
@@ -21,12 +21,11 @@ export default class DanceName extends React.Component {
     .update({
       [danceName]: dance
     });
+    Toast.show({
+      text: 'Dance Created!',
+      duration: 3000
+    })
     Actions.Home()
-  }
-
-  handleChange(evt) {
-    const newName = evt.target.value
-    this.setState({danceName: newName})
   }
 
   render() {

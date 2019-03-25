@@ -4,6 +4,9 @@ import { Col, Row, Grid, Button, Text } from "native-base";
 import CreateDanceMenu from "../js/CreateDanceMenu";
 import { addMove, submitDance } from "../js/movesFunctions";
 import { Actions } from "react-native-router-flux";
+require("./../secrets");
+import { ViroARSceneNavigator } from "react-viro";
+const TestDanceAR = require("./../js/TestDanceAR");
 
 export default class createDance extends React.Component {
   constructor() {
@@ -17,7 +20,9 @@ export default class createDance extends React.Component {
       leftMoves: [],
       rightMoves: [],
       currentMove: "",
-      disabled: false
+      disabled: false,
+      testDance: false,
+      dance: {}
     };
     this.moveAnimationLeft = new Animated.ValueXY({
       x: this.state.leftX,
@@ -32,6 +37,8 @@ export default class createDance extends React.Component {
     this.switchFoot = this.switchFoot.bind(this);
     this.submitDanceMethod = this.submitDanceMethod.bind(this);
     this.undo = this.undo.bind(this);
+    this.testDance = this.testDance.bind(this);
+    this.exitViro = this.exitViro.bind(this)
   }
 
   move(x, y) {
@@ -161,82 +168,107 @@ export default class createDance extends React.Component {
     }
   }
 
+  testDance() {
+    let dance = submitDance(this.state.leftMoves, this.state.rightMoves);
+
+    dance = {
+      ...dance["moves"],
+      ...dance["dance array"],
+      beginning: { ...dance["beginning"] } }
+
+    this.setState({testDance: true, dance: dance })
+  }
+
+  exitViro() {
+    this.setState({ testDance: false })
+  }
+
   render() {
+    if(this.state.testDance) {
+      return (
+        <ViroARSceneNavigator
+          apiKey={process.env.VIRO_API}
+          initialScene={{ scene: TestDanceAR }}
+          viroAppProps={{ dance: this.state.dance, exit: this.exitViro }}
+        />
+      )
+    } else {
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "column"
-        }}
-      >
         <View
           style={{
             flex: 1,
-            flexDirection: "row"
+            flexDirection: "column"
           }}
         >
-          <Grid>
-            <Row size={4}>
-              <Animated.View
-                style={[
-                  {
-                    backgroundColor: "transparent"
-                  },
-                  this.moveAnimationLeft.getLayout()
-                ]}
-              >
-                <Image
-                  source={require("./../js/res/leftfoot.png")}
-                  style={{
-                    width: 66,
-                    height: 160
-                  }}
-                />
-              </Animated.View>
-              <Animated.View style={[this.moveAnimationRight.getLayout()]}>
-                <Image
-                  source={require("./../js/res/rightfoot.png")}
-                  style={{
-                    width: 66,
-                    height: 160
-                  }}
-                />
-              </Animated.View>
-            </Row>
-            <Row size={1}>
-              <Col>
-                {this.state.disabled ?
-                <Button onPress={this.addMoveMethod}>
-                <Text>Add Move</Text>
-              </Button> :
-              <Button onPress={this.undo}>
-                <Text>Undo</Text>
-              </Button>
-              }
-                <Button vertical onPress={this.submitDanceMethod}>
-                  <Text>Save Dance</Text>
-                </Button>
-                {/* <Button onPress={this.undo}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row"
+            }}
+          >
+            <Grid>
+              <Row size={4}>
+                <Animated.View
+                  style={[
+                    {
+                      backgroundColor: "transparent"
+                    },
+                    this.moveAnimationLeft.getLayout()
+                  ]}
+                >
+                  <Image
+                    source={require("./../js/res/leftfoot.png")}
+                    style={{
+                      width: 66,
+                      height: 160
+                    }}
+                  />
+                </Animated.View>
+                <Animated.View style={[this.moveAnimationRight.getLayout()]}>
+                  <Image
+                    source={require("./../js/res/rightfoot.png")}
+                    style={{
+                      width: 66,
+                      height: 160
+                    }}
+                  />
+                </Animated.View>
+              </Row>
+              <Row size={1}>
+                <Col>
+                  {this.state.disabled ?
+                  <Button onPress={this.addMoveMethod}>
+                  <Text>Add Move</Text>
+                </Button> :
+                <Button onPress={this.undo}>
                   <Text>Undo</Text>
-                </Button> */}
-              </Col>
-              <Col>
-                <CreateDanceMenu
-                  move={this.move}
-                  disabled={this.state.disabled}
-                />
-              </Col>
-              <Col>
-                <Text note>Current foot: {this.state.currentFoot}</Text>
-                <Button onPress={this.switchFoot} disabled={this.state.disabled}>
-                  <Text>Switch</Text>
                 </Button>
-              </Col>
-            </Row>
-          </Grid>
+                }
+                  <Button vertical onPress={this.submitDanceMethod}>
+                    <Text>Save Dance</Text>
+                  </Button>
+                  <Button onPress={this.testDance}>
+                    <Text>Test Dance</Text>
+                  </Button>
+                </Col>
+                <Col>
+                  <CreateDanceMenu
+                    move={this.move}
+                    disabled={this.state.disabled}
+                  />
+                </Col>
+                <Col>
+                  <Text note>Current foot: {this.state.currentFoot}</Text>
+                  <Button onPress={this.switchFoot} disabled={this.state.disabled}>
+                    <Text>Switch</Text>
+                  </Button>
+                </Col>
+              </Row>
+            </Grid>
+          </View>
+          <View />
         </View>
-        <View />
-      </View>
-    );
+      );
+    }
   }
 }
