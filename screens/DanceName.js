@@ -42,7 +42,6 @@ export default class DanceName extends React.Component {
   render() {
     return (
       <Container>
-        <Header />
         <Content>
           <Form>
             <Item fixedLabel>
