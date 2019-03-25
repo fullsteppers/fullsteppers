@@ -48,11 +48,6 @@ export default class HelloWorldSceneAR extends Component {
     // timer.setTimeout('startDance', () => {
     //   this.setState({ danceGo: true })
     // }, 3000);
-    Toast.show({
-      text: "Tap the screen to pause",
-      type: 'danger',
-      position: 'bottom'
-    })
   }
 
   onButtonTap() {
@@ -62,6 +57,13 @@ export default class HelloWorldSceneAR extends Component {
     timer.setTimeout('startDance', () => {
       this.setState({ danceGo: true })
     }, 3000);
+
+    Toast.show({
+      text: "Tap the screen to pause",
+      type: 'danger',
+      position: 'bottom',
+      duration: 2000
+    })
 
   }
 

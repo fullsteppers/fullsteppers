@@ -1,7 +1,6 @@
 import React from "react";
 import { Actions } from "react-native-router-flux";
 import { Picker } from "react-native";
-<<<<<<< HEAD
 import {
     Container,
     Card,
@@ -11,9 +10,6 @@ import {
     Button,
     Toast
 } from "native-base";
-=======
-import { Container, Card, CardItem, Text, Button } from "native-base";
->>>>>>> c3a9156168f27ed154b37b093d6d1c923f2da96f
 
 export default class SelectStanceWidth extends React.Component {
   constructor(props) {

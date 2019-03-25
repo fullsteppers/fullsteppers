@@ -45,7 +45,6 @@ export const End = props => {
                   alignItems: "center"
                 }}
               >
-<<<<<<< HEAD
                 <Container
                   style={{
                     flexDirection: "column",
@@ -68,21 +67,6 @@ export const End = props => {
                       <Text>Home</Text>
                     </Button>
                   </Container>
-=======
-                <Container>
-                  <Button light title="Start Over" onPress={startOver}>
-                    <Text>Start Over</Text>
-                  </Button>
-                  <Button light title="Pick a New Track" onPress={newTrack}>
-                    <Text>Pick a New Track</Text>
-                  </Button>
-                  <Button light title="Pick a New Dance" onPress={newDance}>
-                    <Text>Pick a New Dance</Text>
-                  </Button>
-                  <Button light title="Home" onPress={goHome}>
-                    <Text>Home</Text>
-                  </Button>
->>>>>>> c3a9156168f27ed154b37b093d6d1c923f2da96f
                 </Container>
               </Container>
             </Col>
