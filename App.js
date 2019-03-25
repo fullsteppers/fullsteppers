@@ -1,13 +1,16 @@
-import React from 'react'
-import Routes from './js/Routes'
+import React from "react";
+import Routes from "./js/Routes";
+import getTheme from "./native-base-theme/components";
+import { Root, StyleProvider } from "native-base";
 
-import { Root } from 'native-base'
 export default class App extends React.Component {
   render() {
     return (
       <Root>
-        <Routes />
+        <StyleProvider style={getTheme()}>
+          <Routes />
+        </StyleProvider>
       </Root>
-    )
+    );
   }
 }

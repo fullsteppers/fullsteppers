@@ -1,16 +1,8 @@
 import React from "react";
 import { Actions } from "react-native-router-flux";
-import getTheme from "../native-base-theme/components";
 import { Picker } from "react-native";
 import { makeRef } from "./../js/firebase";
-import {
-  Container,
-  Card,
-  CardItem,
-  Text,
-  StyleProvider,
-  Button
-} from "native-base";
+import { Container, Card, CardItem, Text, Button } from "native-base";
 import * as firebase from "firebase";
 
 export default class SelectDance extends React.Component {
@@ -65,49 +57,47 @@ export default class SelectDance extends React.Component {
         : [];
 
     return (
-      <StyleProvider style={getTheme()}>
-        <Container
-          style={{
-            flexDirection: "row",
-            justifyContent: "center"
-          }}
-        >
-          <Card transparent>
-            <CardItem
-              style={{
-                paddingTop: 50
-              }}
+      <Container
+        style={{
+          flexDirection: "row",
+          justifyContent: "center"
+        }}
+      >
+        <Card transparent>
+          <CardItem
+            style={{
+              paddingTop: 50
+            }}
+          >
+            <Text>Choose your dance...</Text>
+          </CardItem>
+          <Picker
+            selectedValue={this.state.dance}
+            onValueChange={async val => {
+              await this.setState({ dance: val });
+            }}
+          >
+            {dances.map(dance => (
+              <Picker.Item key={dance} label={dance} value={dance} />
+            ))}
+          </Picker>
+          <Container
+            style={{
+              flexDirection: "row",
+              justifyContent: "center"
+            }}
+          >
+            <Button
+              light
+              vertical
+              title="Select Dance"
+              onPress={this.submitDance}
             >
-              <Text>Choose your dance...</Text>
-            </CardItem>
-            <Picker
-              selectedValue={this.state.dance}
-              onValueChange={async val => {
-                await this.setState({ dance: val });
-              }}
-            >
-              {dances.map(dance => (
-                <Picker.Item key={dance} label={dance} value={dance} />
-              ))}
-            </Picker>
-            <Container
-              style={{
-                flexDirection: "row",
-                justifyContent: "center"
-              }}
-            >
-              <Button
-                light
-                vertical
-                title="Select Dance"
-                onPress={this.submitDance}
-              >
-                <Text>Do the {this.state.dance}</Text>
-              </Button>
-            </Container>
-          </Card>
-        </Container>
-      </StyleProvider>
+              <Text>Do the {this.state.dance}</Text>
+            </Button>
+          </Container>
+        </Card>
+      </Container>
     );
   }
 }

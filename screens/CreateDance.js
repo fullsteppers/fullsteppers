@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, Animated, TouchableHighlight } from "react-native";
+import { View, Image, Animated } from "react-native";
 import { Col, Row, Grid, Button, Text } from "native-base";
 import CreateDanceMenu from "../js/CreateDanceMenu";
 import { addMove, submitDance } from "../js/movesFunctions";
@@ -38,7 +38,7 @@ export default class createDance extends React.Component {
     this.submitDanceMethod = this.submitDanceMethod.bind(this);
     this.undo = this.undo.bind(this);
     this.testDance = this.testDance.bind(this);
-    this.exitViro = this.exitViro.bind(this)
+    this.exitViro = this.exitViro.bind(this);
   }
 
   move(x, y) {
@@ -110,7 +110,7 @@ export default class createDance extends React.Component {
 
   submitDanceMethod() {
     const newDance = submitDance(this.state.leftMoves, this.state.rightMoves);
-    Actions.DanceName({dance: newDance});
+    Actions.DanceName({ dance: newDance });
   }
 
   switchFoot() {
@@ -174,30 +174,32 @@ export default class createDance extends React.Component {
     dance = {
       ...dance["moves"],
       ...dance["dance array"],
-      beginning: { ...dance["beginning"] } }
+      beginning: { ...dance["beginning"] }
+    };
 
-    this.setState({testDance: true, dance: dance })
+    this.setState({ testDance: true, dance: dance });
   }
 
   exitViro() {
-    this.setState({ testDance: false })
+    this.setState({ testDance: false });
   }
 
   render() {
-    if(this.state.testDance) {
+    if (this.state.testDance) {
       return (
         <ViroARSceneNavigator
           apiKey={process.env.VIRO_API}
           initialScene={{ scene: TestDanceAR }}
           viroAppProps={{ dance: this.state.dance, exit: this.exitViro }}
         />
-      )
+      );
     } else {
-    return (
+      return (
         <View
           style={{
             flex: 1,
-            flexDirection: "column"
+            flexDirection: "column",
+            backgroundColor: "white"
           }}
         >
           <View
@@ -208,14 +210,7 @@ export default class createDance extends React.Component {
           >
             <Grid>
               <Row size={4}>
-                <Animated.View
-                  style={[
-                    {
-                      backgroundColor: "transparent"
-                    },
-                    this.moveAnimationLeft.getLayout()
-                  ]}
-                >
+                <Animated.View style={[this.moveAnimationLeft.getLayout()]}>
                   <Image
                     source={require("./../js/res/leftfoot.png")}
                     style={{
@@ -236,20 +231,42 @@ export default class createDance extends React.Component {
               </Row>
               <Row size={1}>
                 <Col>
-                  {this.state.disabled ?
-                  <Button onPress={this.addMoveMethod}>
-                  <Text>Add Move</Text>
-                </Button> :
-                <Button onPress={this.undo}>
-                  <Text>Undo</Text>
-                </Button>
-                }
-                  <Button vertical onPress={this.submitDanceMethod}>
-                    <Text>Save Dance</Text>
+                  <Button
+                    bordered
+                    onPress={this.testDance}
+                    style={{
+                      alignSelf: "flex-end",
+                      marginEnd: 15,
+                      marginBottom: 10
+                    }}
+                  >
+                    <Text>Test</Text>
                   </Button>
-                  <Button onPress={this.testDance}>
-                    <Text>Test Dance</Text>
-                  </Button>
+                  {this.state.disabled ? (
+                    <Button
+                      bordered
+                      onPress={this.addMoveMethod}
+                      style={{
+                        marginBottom: 10,
+                        alignSelf: "flex-end",
+                        marginEnd: 15
+                      }}
+                    >
+                      <Text>Save</Text>
+                    </Button>
+                  ) : (
+                    <Button
+                      bordered
+                      onPress={this.undo}
+                      style={{
+                        marginBottom: 10,
+                        alignSelf: "flex-end",
+                        marginEnd: 15
+                      }}
+                    >
+                      <Text>Undo</Text>
+                    </Button>
+                  )}
                 </Col>
                 <Col>
                   <CreateDanceMenu
@@ -257,10 +274,26 @@ export default class createDance extends React.Component {
                     disabled={this.state.disabled}
                   />
                 </Col>
-                <Col>
-                  <Text note>Current foot: {this.state.currentFoot}</Text>
-                  <Button onPress={this.switchFoot} disabled={this.state.disabled}>
-                    <Text>Switch</Text>
+                <Col
+                  styles={{
+                    justifyContent: "flex-end"
+                  }}
+                >
+                  <Button
+                    bordered
+                    onPress={this.switchFoot}
+                    disabled={this.state.disabled}
+                    style={{
+                      marginBottom: 10
+                    }}
+                  >
+                    <Text>
+                      {this.state.currentFoot.charAt(0).toUpperCase() +
+                        this.state.currentFoot.slice(1)}
+                    </Text>
+                  </Button>
+                  <Button bordered onPress={this.submitDanceMethod}>
+                    <Text>Create</Text>
                   </Button>
                 </Col>
               </Row>
