@@ -1,4 +1,21 @@
+/*
+
+average width of feet apart: 0.4m
+average stride length: 0.8m
+
+lead always begins with LEFT foot
+
+*/
+
 export const animations = {
+  // ****************************** LOCOMOTION ****************************** //
+
+  // ------------------------------ 2D MOVEMENTS ---------------------------- //
+
+  // describes the movement of the node but does NOT specify dexter/sinister
+  
+  //                     LATERAL MOVEMENTS (along x-axis)                     //
+  // .............................. FULL STEP ............................... //
   posXFull4n: {
     duration: 500,
     easing: "EaseOut",
@@ -39,6 +56,7 @@ export const animations = {
     },
   },
 
+  // .............................. HALF STEP ............................... //
   posXHalf4n: {
     duration: 500,
     easing: "EaseOut",
@@ -79,6 +97,8 @@ export const animations = {
     },
   },
 
+  //                  LONGITUDINAL MOVEMENTS (along z-axis)                   //
+  // .............................. FULL STEP ............................... //
   posZFull4n: {
     duration: 500,
     easing: "EaseOut",
@@ -119,6 +139,7 @@ export const animations = {
     },
   },
 
+  // .............................. HALF STEP ............................... //
   posZHalf4n: {
     duration: 500,
     easing: "EaseOut",
@@ -159,6 +180,7 @@ export const animations = {
     },
   },
 
+  //                             OBLIQUE MOVEMENTS                            //
   posXposZFull4n: {
     duration: 500,
     easing: "EaseOut",
@@ -319,6 +341,7 @@ export const animations = {
     },
   },
 
+  //                     LATERAL ROTATIONS (about y-axis)                     //
   posYawFull8n: {
     duration: 250,
     easing: "EaseOut",
@@ -351,6 +374,9 @@ export const animations = {
     },
   },
 
+  // ----------------------------- 3D MOVEMENTS ----------------------------- //
+
+  //                    VERTICAL MOVEMENTS (along y-axis)                     //
   posYFull8n: {
     duration: 250,
     easing: "EaseOut",
@@ -415,6 +441,7 @@ export const animations = {
     },
   },
 
+  // VERTICAL ROTATIONS (about x-axis)
   posPitFull8n: {
     duration: 250,
     easing: "EaseOut",
@@ -447,11 +474,15 @@ export const animations = {
     },
   },
 
+  // -------------------- RESTS --------------------------- //
+
   rest4n: { duration: 500, properties: {} },
 
   rest8n: { duration: 250, properties: {} },
 
   rest16n: { duration: 125, properties: {} },
+
+  // ******************** DECORATIONS ********************* //
 
   blink16n: {
     duration: 125,
@@ -460,6 +491,14 @@ export const animations = {
       opacity: 1,
     },
   },
+
+  // translucent8n: {
+  //   duration: 250,
+  //   easing: "EaseInEaseOut",
+  //   properties: {
+  //     opacity: 0.5,
+  //   },
+  // },
 
   fadeOut8n: {
     duration: 250,
@@ -470,6 +509,7 @@ export const animations = {
   },
 
   grow4n: {
+    // delay: 250,
     duration: 250,
     easing: "EaseInEaseOut",
     properties: {
@@ -478,6 +518,7 @@ export const animations = {
   },
 
   grow8n: {
+    // delay: 125,
     duration: 125,
     easing: "EaseInEaseOut",
     properties: {
@@ -486,6 +527,7 @@ export const animations = {
   },
 
   grow16n: {
+    // delay: 62.5,
     duration: 62.5,
     easing: "EaseInEaseOut",
     properties: {
@@ -494,6 +536,7 @@ export const animations = {
   },
 
   shrink4n: {
+    // delay: 250,
     duration: 500,
     easing: "EaseInEaseOut",
     properties: {
@@ -519,24 +562,48 @@ export const animations = {
     },
   },
 
+  // ******************** ROUTINES ************************ //
+
   ft: [
+    // LATERAL MOVEMENT
     ["negZFull8n","rest8n","rest8n","negZFull8n","negXHalf8n","rest8n","rest8n","posZFull8n","posZFull8n","rest8n","rest8n","posXHalf8n",],
+    // DECORATION
     ["shrink16n","rest16n","rest8n","rest8n","shrink8n","rest8n","rest8n","rest8n","shrink8n","rest8n","rest8n","rest8n","shrink16n","rest16n",],
   ],
 
+  // ftNext: [
+  //   ["rest4n","negZFull","rest4n","negXFull","posZFull","rest4n","posX4n","rest4n"],
+  //   ["rest4n","fadeIn","fadeOut","fadeOut","fadeIn","fadeIn","fadeOut","fadeIn"]
+  // ],
+
   ftB: [
+    // LATERAL MOVEMENT
     ["rest8n","negZFull8n","negZFull8n","rest8n","rest8n","negXHalf8n","posZFull8n","rest8n","rest8n","posZFull8n","posXHalf8n","rest8n",],
+    // DECORATION
     ["rest8n","shrink8n","rest8n","rest8n","rest8n","shrink16n","rest16n","shrink16n","rest16n","rest8n","rest8n","shrink8n","rest8n","rest8n",],
   ],
 
+  // ftBNext: [
+  //   ["negZHalf","rest8n","negXHalf","posZHalf","rest8n","posXHalf","rest8n","rest8n"],
+  //   ["","","","","","","",""]
+  // ],
+
   ft3d: [
+    // LATERAL MOVEMENT
     ["negZFull8n","rest8n","rest8n","negZFull8n","negXHalf8n","rest8n","rest8n","posZFull8n","posZFull8n","rest8n","rest8n","posXHalf8n",],
+    // VERTICAL MOVEMENT
     ["posYFull16n","negYFull16n","rest8n","rest8n","posYFull8n","negYFull8n","rest8n","rest8n","posYFull8n","negYFull8n","rest8n","rest8n","posYFull16n","negYFull16n",],
+    // ROTATIONS
+    [],
   ],
 
   ft3dB: [
+    // LATERAL MOVEMENT
     ["rest8n","negZFull8n","negZFull8n","rest8n","rest8n","negXHalf8n","posZFull8n","rest8n","rest8n","posZFull8n","posXHalf8n","rest8n",],
+    // VERTICAL MOVEMENT
     ["rest8n","posYFull8n","negYFull8n","rest8n","rest8n","posYFull16n","negYFull16n","posYFull16n","negYFull16n","rest8n","rest8n","posYFull8n","negYFull8n","rest8n",],
+    // ROTATIONS
+    [],
   ],
 };
 
