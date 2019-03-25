@@ -13,7 +13,7 @@ import {
 import getTheme from "../native-base-theme/components";
 
 export const End = props => {
-  const { startOver, newTrack, newDance, goHome, dance, song } = props;
+  const { startOver, newTrack, newDance, home, dance, song } = props;
   return (
     <StyleProvider style={getTheme()}>
       <Container
@@ -58,7 +58,7 @@ export const End = props => {
                     <Button light title="Pick a New Dance" onPress={newDance}>
                       <Text>Pick a New Dance</Text>
                     </Button>
-                    <Button light title="Home" onPress={goHome}>
+                    <Button light title="Home" onPress={home}>
                       <Text>Home</Text>
                     </Button>
                   </Container>
