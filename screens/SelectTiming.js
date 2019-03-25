@@ -1,7 +1,15 @@
 import React from "react";
 import { Actions } from "react-native-router-flux";
 import { Picker } from "react-native";
-import { Container, Card, CardItem, Text, Button } from "native-base";
+import {
+    Container,
+    Card,
+    CardItem,
+    Text,
+    StyleProvider,
+    Button,
+    Toast
+} from "native-base";
 
 export default class SelectStanceWidth extends React.Component {
   constructor(props) {
@@ -13,13 +21,19 @@ export default class SelectStanceWidth extends React.Component {
     this.submitTiming = this.submitTiming.bind(this);
   }
 
-  submitTiming() {
-    const timing = this.state.timing;
-    const stance = this.props.stance;
-    const dance = this.props.dance;
-    const song = this.props.song;
-    Actions.DisplayAr({ dance, song, stance, timing });
-  }
+    submitTiming() {
+        const timing = this.state.timing;
+        const stance = this.props.stance;
+        const dance = this.props.dance;
+        const song = this.props.song;
+        Toast.show({
+            text: 'Caution: Be sure to allow enough room around you!',
+            duration: 3000,
+            type: 'warning'
+          })
+
+        Actions.DisplayAr({ dance, song, stance, timing });
+    }
 
   render() {
     return (

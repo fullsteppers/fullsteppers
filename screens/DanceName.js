@@ -23,7 +23,8 @@ export default class DanceName extends React.Component {
     });
     Toast.show({
       text: 'Dance Created!',
-      duration: 3000
+      duration: 3000,
+
     })
     Actions.Home()
   }
