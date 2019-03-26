@@ -16,7 +16,7 @@ import {
 import * as firebase from "firebase";
 import { Actions } from "react-native-router-flux";
 import moment from "moment";
-import { Image, View } from "react-native";
+import { View, Image } from "react-native";
 import client from "../js/giphy";
 import GifPicker from "../js/GifPicker";
 
@@ -31,6 +31,7 @@ export default class DanceName extends React.Component {
     this.submitDance = this.submitDance.bind(this);
     this.loadGifs = this.loadGifs.bind(this);
     this.selectGif = this.selectGif.bind(this);
+    this.shuffleGifResults = this.shuffleGifResults.bind(this);
   }
 
   componentDidMount() {
@@ -51,8 +52,14 @@ export default class DanceName extends React.Component {
       .catch(err => {});
   }
 
-  selectGif(event) {
-    this.setState({ gif: event.target });
+  shuffleGifResults() {
+    const newGifsArr = this.state.gifs.sort(() => Math.random() - 0.5);
+    this.setState({ gifs: newGifsArr });
+  }
+
+  selectGif(gif) {
+    console.log("hi", gif);
+    this.setState({ gif: this.state.gifs[gif] });
   }
 
   submitDance(evt) {
@@ -62,6 +69,7 @@ export default class DanceName extends React.Component {
     dance.blurb = `You created this dance on ${saveTime}.`;
     dance.gif = danceGif;
     const danceName = this.state.danceName;
+    console.log(dance);
     firebase
       .database()
       .ref(`users/${firebase.auth().currentUser.uid}/dances`)
@@ -75,12 +83,12 @@ export default class DanceName extends React.Component {
     Actions.Home();
   }
 
-  saveGif(event) {
-    this.setState({ gif: event.target.images.fixed_height.url });
+  saveGif(num) {
+    this.setState({ gif: this.state.gifs[num] });
   }
 
   render() {
-    const gifsList = this.state.gifs.slice(0, 3);
+    console.log(this.state.gifs);
     return (
       <View
         style={{
@@ -95,33 +103,7 @@ export default class DanceName extends React.Component {
             flexDirection: "row"
           }}
         >
-          <Grid
-          // style={{
-          //   flex: 1,
-          //   flexDirection: "row",
-          //   justifyContent: "center",
-          //   alignItems: "stretch"
-          // }}
-          >
-            {/* <Row
-          size={1}
-          style={
-            {
-              // flex: 1
-              // flexDirection: "row",
-              // justifyContent: "center"
-              // alignItems: "stretch"
-            }
-          }
-        >
-          <Item style={{ padding: 10 }}>
-            <Label fixed>Dance Name</Label>
-            <Input
-              onChangeText={val => this.setState({ danceName: val })}
-              value={this.state.danceName}
-            />
-          </Item>
-        </Row> */}
+          <Grid>
             <Row
               size={1}
               style={{
@@ -140,7 +122,11 @@ export default class DanceName extends React.Component {
               </Item>
             </Row>
             <Row size={2}>
-              <GifPicker selectGif={this.selectGif} gifs={this.state.gifs} />
+              <GifPicker
+                selectGif={this.selectGif}
+                gifs={this.state.gifs}
+                selectedGif={this.state.gif}
+              />
             </Row>
             <Row
               size={1}
@@ -151,7 +137,9 @@ export default class DanceName extends React.Component {
                 alignItems: "center"
               }}
             >
-              {/* <GifPicker selectGif={this.selectGif} gifs={this.state.gifs} /> */}
+              <Button light onPress={this.shuffleGifResults}>
+                <Text>Shuffle Gifs</Text>
+              </Button>
               <Button light onPress={this.submitDance}>
                 <Text>Submit Dance</Text>
               </Button>
@@ -162,20 +150,3 @@ export default class DanceName extends React.Component {
     );
   }
 }
-// <Container>
-//   <Content>
-//     <Form>
-//       <Item fixedLabel>
-//         <Label>Dance Name</Label>
-//         <Input
-//           onChangeText={val => this.setState({ danceName: val })}
-//           value={this.state.danceName}
-//         />
-//       </Item>
-//       <GifPicker selectGif={this.selectGif} gifs={this.state.gifs} />
-//       <Button light onPress={this.submitDance}>
-//         <Text>Submit Dance</Text>
-//       </Button>
-//     </Form>
-//   </Content>
-// </Container>

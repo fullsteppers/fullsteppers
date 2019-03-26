@@ -1,67 +1,43 @@
 import React from "react";
-import {
-  Container,
-  Content,
-  Form,
-  Item,
-  Input,
-  Label,
-  Grid,
-  Row,
-  Button,
-  Card,
-  Col,
-  Text,
-  Toast
-} from "native-base";
+import { Grid, Row, Button } from "native-base";
 import { Image } from "react-native";
+
 export const GifPicker = props => {
-  const { selectGif, gifs } = props;
-  console.log(gifs);
+  const { selectGif, gifs, selectedGif } = props;
   const firstCol = gifs.slice(0, 2);
   const secondCol = gifs.slice(2, 4);
   return (
-    <Grid
-      style={
-        {
-          // flex: 1,
-          // flexDirection: "row",
-          // justifyContent: "space-evenly"
-          // alignItems: "stretch"
-        }
-      }
-    >
-      <Row size={1}>
+    <Grid>
+      <Row size={0.5}>
         {firstCol.map((gif, i) => (
-          <Button key={i} onPress={selectGif}>
+          <Button key={i} onPress={() => selectGif(i)}>
             <Image
               source={{ uri: gif }}
               style={{
-                alignSelf: "stretch",
-                padding: 10,
+                // alignSelf: "stretch",
+                padding: 5,
                 width: 200,
-                height: 100
-                // resizeMode: "center"
-                // flex: 1
-                // alignItems: "stretch"
+                height: 100,
+                //if this gif ===selected gif, border is x
+                borderWidth: gifs[i] === selectedGif ? 5 : 0,
+                borderColor: "red"
               }}
             />
           </Button>
         ))}
       </Row>
-      <Row size={1}>
-        {secondCol.map((gif, i) => (
-          <Button key={i} onPress={selectGif}>
+      <Row size={0.5}>
+        {secondCol.map((gif, j) => (
+          <Button key={j + 2} onPress={() => selectGif(j + 2)}>
             <Image
               source={{ uri: gif }}
               style={{
                 width: 200,
                 height: 100,
                 alignSelf: "stretch",
-                padding: 10
-                // resizeMode: "center"
-                // flex: 1
-                // alignItems: "stretch"
+                padding: 5,
+                borderWidth: gifs[i] === selectedGif ? 5 : 0,
+                borderColor: "red"
               }}
             />
           </Button>
