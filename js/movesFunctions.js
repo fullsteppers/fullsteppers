@@ -1,4 +1,3 @@
-import * as firebase from "firebase";
 function addMove(move) {
   let newMove = moves[move];
   let otherMove = moves.pause;
@@ -25,15 +24,6 @@ function submitDance(leftFoot, rightFoot) {
   };
 
   return dance
-
-  // const thisMoment = new Date();
-
-  // firebase
-  //   .database()
-  //   .ref(`users/${firebase.auth().currentUser.uid}/dances`)
-  //   .update({
-  //     [thisMoment]: dance
-  //   });
 }
 
 const moves = {

@@ -82,7 +82,7 @@ export default class createDance extends React.Component {
         toValue: { x: newX, y: newY }
       }).start();
     }
-    //and then set state with addmove(moves)
+
     this.setState({
       currentMove: newMove,
       disabled: true
@@ -239,6 +239,7 @@ export default class createDance extends React.Component {
                       marginEnd: 15,
                       marginBottom: 10
                     }}
+                    disabled ={this.state.rightMoves.length === 0}
                   >
                     <Text>Test</Text>
                   </Button>
