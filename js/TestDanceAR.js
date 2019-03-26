@@ -19,8 +19,6 @@ export default class HelloWorldSceneAR extends Component {
 
     this.state = {
       go: false,
-      danceGo: false,
-      loop: true
     };
 
     this.finish = this.finish.bind(this)
@@ -64,8 +62,6 @@ export default class HelloWorldSceneAR extends Component {
             rotation={[-90, 0, 0]}
             position={[.25, -2, 0]}
             source={require("./res/rightfoot.png")}
-            // animation={this.state.danceGo ? { name: "danceRight", run: true, loop: this.state.loop }
-            //   : { name: 'beginning', run: true }}
             animation={{ name: "danceRight", run: true, loop: false, onFinish: this.finish }}
           />
           <ViroImage
@@ -74,8 +70,6 @@ export default class HelloWorldSceneAR extends Component {
             rotation={[-90, 0, 0]}
             position={[-.25, -2, 0]}
             source={require("./res/leftfoot.png")}
-            // animation={this.state.danceGo ? { name: "danceLeft", run: true, loop: this.state.loop }
-            //   : { name: 'beginning', run: true }}
             animation={{ name: "danceLeft", run: true, loop: false, onFinish: this.finish }}
           />
         </ViroARScene>
