@@ -6,9 +6,9 @@ var firebase = require("firebase");
 
 export default class Home extends React.Component {
   constructor() {
-    super();
-    this.state = {};
-    this.SelectDance = this.selectDance.bind(this);
+    super()
+    this.selectDance = this.selectDance.bind(this);
+    this.createDance = this.createDance.bind(this);
   }
 
   componentDidMount() {
@@ -45,8 +45,7 @@ export default class Home extends React.Component {
         <Card transparent>
           <CardItem>
             <Text>
-              Fullsteppers is your AR dance instructor. Here's some more text to
-              see how line 2 works. And more to see if line 3 renders just fine.
+              Fullsteppers is your AR dance instructor:
             </Text>
           </CardItem>
           <CardItem>
