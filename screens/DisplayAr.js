@@ -10,7 +10,8 @@ export default class DisplayAr extends React.Component {
   constructor() {
     super();
     this.state = {
-      go: true
+      go: true,
+      run: true
     };
     this.startOver = this.startOver.bind(this);
     this.newTrack = this.newTrack.bind(this);
@@ -54,6 +55,7 @@ export default class DisplayAr extends React.Component {
 
   render() {
     const { dance, song, stance, timing } = this.props;
+    const { run } = this.state
     if (this.state.go) {
       return (
         <ViroARSceneNavigator
@@ -68,7 +70,7 @@ export default class DisplayAr extends React.Component {
           startOver={this.startOver}
           newTrack={this.newTrack}
           newDance={this.newDance}
-          goHome={this.goHome}
+          home={this.goHome}
           dance={dance}
           song={song}
         />

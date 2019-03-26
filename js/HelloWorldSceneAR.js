@@ -5,6 +5,7 @@ import timer from 'react-native-timer'
 import moves from './dances'
 import song from './songs'
 import { Actions } from 'react-native-router-flux'
+import { Toast } from 'native-base'
 
 import {
   ViroARScene,
@@ -15,6 +16,8 @@ import {
   ViroButton
 } from "react-viro";
 
+import { View, TouchableHighlight } from 'react-native'
+
 export default class HelloWorldSceneAR extends Component {
   constructor() {
     super();
@@ -24,9 +27,11 @@ export default class HelloWorldSceneAR extends Component {
       ready: false,
       buttonOn: true,
       danceGo: false,
-      loop: true
+      loop: true,
+      run: true
     };
     this.onButtonTap = this.onButtonTap.bind(this)
+    this.changePause = this.changePause.bind(this)
   }
 
 
@@ -53,6 +58,18 @@ export default class HelloWorldSceneAR extends Component {
       this.setState({ danceGo: true })
     }, 3000);
 
+    Toast.show({
+      text: "Tap the screen to pause",
+      type: 'danger',
+      position: 'bottom',
+      duration: 2000
+    })
+
+  }
+
+  changePause() {
+    const run = !this.state.run
+    this.setState({ run })
   }
 
   componentWillUnmount() {
@@ -74,8 +91,8 @@ export default class HelloWorldSceneAR extends Component {
       )
     } else {
       return (
+        <ViroARScene onClick={this.changePause}>
 
-        <ViroARScene onTrackingUpdated={this._onInitialized}>
           {this.state.go && this.state.buttonOn ? <ViroButton
             source={require("./res/start.png")}
             rotation={[-90, 0, 0]}
@@ -87,7 +104,7 @@ export default class HelloWorldSceneAR extends Component {
 
           {this.state.ready ? <ViroSound
             source="song"
-            paused={false}
+            paused={!this.state.run}
             muted={false}
             loop={false}
             volume={1.0}
@@ -98,9 +115,10 @@ export default class HelloWorldSceneAR extends Component {
               height={0.5}
               width={0.2}
               rotation={[-90, 0, 0]}
+              run= {this.state.run}
               position={[(selectedStance / 2), -2, 0]}
               source={require("./res/rightfoot.png")}
-              animation={this.state.danceGo ? { name: "danceRight", run: true, loop: this.state.loop }
+              animation={this.state.danceGo ? { name: "danceRight", run: this.state.run, loop: this.state.loop }
                 : { name: 'beginning', run: true }}
             />}
           {this.state.buttonOn ? <ViroText text='' />
@@ -108,9 +126,10 @@ export default class HelloWorldSceneAR extends Component {
               height={0.5}
               width={0.2}
               rotation={[-90, 0, 0]}
+              run= {this.state.run}
               position={[-(selectedStance / 2), -2, 0]}
               source={require("./res/leftfoot.png")}
-              animation={this.state.danceGo ? { name: "danceLeft", run: true, loop: this.state.loop }
+              animation={this.state.danceGo ? { name: "danceLeft", run: this.state.run, loop: this.state.loop }
                 : { name: 'beginning', run: true }}
             />}
         </ViroARScene>

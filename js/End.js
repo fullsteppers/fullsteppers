@@ -11,8 +11,7 @@ import {
 } from "native-base";
 
 export const End = props => {
-  const { startOver, newTrack, newDance, goHome, dance, song } = props;
-  console.log(goHome);
+  const { startOver, newTrack, newDance, home, dance, song } = props;
   return (
     <Container
       style={{
@@ -46,19 +45,28 @@ export const End = props => {
                   alignItems: "center"
                 }}
               >
-                <Container>
-                  <Button light title="Start Over" onPress={startOver}>
-                    <Text>Start Over</Text>
-                  </Button>
-                  <Button light title="Pick a New Track" onPress={newTrack}>
-                    <Text>Pick a New Track</Text>
-                  </Button>
-                  <Button light title="Pick a New Dance" onPress={newDance}>
-                    <Text>Pick a New Dance</Text>
-                  </Button>
-                  <Button light title="Home" onPress={goHome}>
-                    <Text>Home</Text>
-                  </Button>
+                <Container
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignSelf: "center",
+                    alignItems: "center"
+                  }}
+                >
+                  <Container>
+                    <Button light title="Start Over" onPress={startOver}>
+                      <Text>Start Over</Text>
+                    </Button>
+                    <Button light title="Pick a New Track" onPress={newTrack}>
+                      <Text>Pick a New Track</Text>
+                    </Button>
+                    <Button light title="Pick a New Dance" onPress={newDance}>
+                      <Text>Pick a New Dance</Text>
+                    </Button>
+                    <Button light title="Home" onPress={home}>
+                      <Text>Home</Text>
+                    </Button>
+                  </Container>
                 </Container>
               </Container>
             </Col>
