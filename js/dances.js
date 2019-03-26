@@ -56,7 +56,7 @@ export default async (dance, BPM) => {
       })
 
       Object.keys(allMoves).forEach(move => {
-        animations[move]['duration'] = (120 / BPM) * animations[move]['duration']
+        animations[move]['duration'] = (140 / BPM) * animations[move]['duration']
       })
 
       return {dance: {...animations, ...moves['dance array']}, custom: false}

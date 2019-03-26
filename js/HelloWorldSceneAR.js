@@ -48,7 +48,9 @@ export default class HelloWorldSceneAR extends Component {
     const songObj = await song(selectedSong)
     const BPM = songObj.BPM * selectedTiming
     const dance = await moves(selectedDance, BPM)
-
+    if(dance.custom){
+      this.setState({showShoes: false})
+    }
     await ViroSound.preloadSounds({ "song": songObj.audioUrl })
     await ViroAnimations.registerAnimations(dance.dance)
     this.setState({ go: true }) // means song and dance are queued
@@ -143,13 +145,13 @@ export default class HelloWorldSceneAR extends Component {
 
         <ViroAmbientLight color={'#aaaaaa'} influenceBitMask={1}/>
        {this.state.buttonOn ? <ViroText text='' /> :
-        <ViroNode position={[0,-2,-4]}>
+        <ViroNode position={[0,-2,-2]}>
 
           {/* Represents the ground */}
           <ViroQuad
             position={[0,-2,1]}
             rotation={[-90,0,0]}
-            scale={[5,8,2]}
+            scale={[1,1,1]}
             arShadowReceiver={true}
             lightReceivingBitMask={2}
             opacity={.05}
@@ -157,7 +159,7 @@ export default class HelloWorldSceneAR extends Component {
           />
 
           {/* RIGHT SHOE */}
-          <ViroNode
+          {this.state.showShoes ? <ViroNode
             position={[-(selectedStance / 2), -2, -.75]}
             animation={this.state.danceGo ? {
               name: '3dDanceRight',
@@ -195,10 +197,10 @@ export default class HelloWorldSceneAR extends Component {
               arShadowReceiver={true}
               lightReceivingBitMask={2}
             />
-          </ViroNode>
+          </ViroNode> : <ViroText text='' />}
 
           {/* LEFT SHOE */}
-          <ViroNode
+          {this.state.showShoes ? <ViroNode
             position={[(selectedStance / 2), -2, -.75]}
             animation={this.state.danceGo? {
               name: '3dDanceLeft',
@@ -237,7 +239,7 @@ export default class HelloWorldSceneAR extends Component {
               arShadowReceiver={true}
               lightReceivingBitMask={2}
             /> */}
-          </ViroNode>
+          </ViroNode> : <ViroText text='' />}
 
         </ViroNode>}
         </ViroARScene>
