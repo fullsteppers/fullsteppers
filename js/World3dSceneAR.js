@@ -77,12 +77,12 @@ export default class World3dSceneAR extends Component {
               }}
             />
 
-            {/* <ViroQuad
+            <ViroQuad
               rotation={[-90,0,0]}
               width={.25} height={.25}
               arShadowReceiver={true}
               lightReceivingBitMask={2}
-            /> */}
+            />
           </ViroNode>
 
           {/* LEFT SHOE */}
