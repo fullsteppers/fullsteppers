@@ -190,12 +190,6 @@ export default class HelloWorldSceneAR extends Component {
                   shadowCastingBitMask={2}
                 />
 
-                <ViroQuad
-                  rotation={[-90, 0, 0]}
-                  width={.25} height={.25}
-                  arShadowReceiver={true}
-                  lightReceivingBitMask={2}
-                />
               </ViroNode> : <ViroText text='' />}
 
               {/* LEFT SHOE */}
@@ -232,12 +226,6 @@ export default class HelloWorldSceneAR extends Component {
                   shadowCastingBitMask={2}
                 />
 
-                {/* <ViroQuad
-              rotation={[-90,0,0]}
-              width={.25} height={.25}
-              arShadowReceiver={true}
-              lightReceivingBitMask={2}
-            /> */}
               </ViroNode> : <ViroText text='' />}
 
             </ViroNode>}
