@@ -195,113 +195,128 @@ export default class createDance extends React.Component {
       );
     } else {
       return (
-        <View
+        <Grid
           style={{
             flex: 1,
-            flexDirection: "column",
             backgroundColor: "white"
           }}
         >
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row"
-            }}
+          <Row
+            size={3}
+            style={
+              {
+                // flexDirection: "column",
+                // justifyContent: "center"
+                // alignItems: "space-around"
+                // flexDirection: "row"
+              }
+            }
           >
-            <Grid>
-              <Row size={4}>
-                <Animated.View style={[this.moveAnimationLeft.getLayout()]}>
-                  <Image
-                    source={require("./../js/res/leftfoot.png")}
-                    style={{
-                      width: 66,
-                      height: 160
-                    }}
-                  />
-                </Animated.View>
-                <Animated.View style={[this.moveAnimationRight.getLayout()]}>
-                  <Image
-                    source={require("./../js/res/rightfoot.png")}
-                    style={{
-                      width: 66,
-                      height: 160
-                    }}
-                  />
-                </Animated.View>
-              </Row>
-              <Row size={1}>
-                <Col>
-                  <Button
-                    dark
-                    onPress={this.testDance}
-                    style={{
-                      alignSelf: "flex-end",
-                      marginEnd: 15,
-                      marginBottom: 10
-                    }}
-                    disabled ={this.state.rightMoves.length === 0}
-                  >
-                    <Text>Test</Text>
-                  </Button>
-                  {this.state.disabled ? (
-                    <Button
-                      dark
-                      onPress={this.addMoveMethod}
-                      style={{
-                        marginBottom: 10,
-                        alignSelf: "flex-end",
-                        marginEnd: 15
-                      }}
-                    >
-                      <Text>Save</Text>
-                    </Button>
-                  ) : (
-                    <Button
-                      dark
-                      onPress={this.undo}
-                      style={{
-                        marginBottom: 10,
-                        alignSelf: "flex-end",
-                        marginEnd: 15
-                      }}
-                    >
-                      <Text>Undo</Text>
-                    </Button>
-                  )}
-                </Col>
-                <Col>
-                  <CreateDanceMenu
-                    move={this.move}
-                    disabled={this.state.disabled}
-                  />
-                </Col>
-                <Col
-                  styles={{
-                    justifyContent: "flex-end"
+            <Animated.View
+              style={[this.moveAnimationLeft.getLayout()]}
+              // style={{
+              //   justifyContent: "center"
+              // }}
+            >
+              <Image
+                source={require("./../js/res/leftfoot.png")}
+                style={{
+                  width: 66,
+                  height: 160
+                  // justifyContent: "center"
+                }}
+              />
+            </Animated.View>
+            <Animated.View
+              style={[this.moveAnimationRight.getLayout()]}
+              // style={{
+              //   justifyContent: "center"
+              // }}
+            >
+              <Image
+                source={require("./../js/res/rightfoot.png")}
+                style={{
+                  width: 66,
+                  height: 160
+                  // justifyContent: "center"
+                }}
+              />
+            </Animated.View>
+          </Row>
+          <Row size={1}>
+            <Col>
+              <Button
+                dark
+                onPress={this.testDance}
+                style={{
+                  alignSelf: "flex-end",
+                  marginBottom: 10,
+                  marginEnd: 15
+                }}
+                disabled={this.state.rightMoves.length === 0}
+              >
+                <Text>Test</Text>
+              </Button>
+              {this.state.disabled ? (
+                <Button
+                  dark
+                  onPress={this.addMoveMethod}
+                  style={{
+                    marginBottom: 10,
+                    alignSelf: "flex-end",
+                    marginEnd: 15
                   }}
                 >
-                  <Button
-                    dark
-                    onPress={this.switchFoot}
-                    disabled={this.state.disabled}
-                    style={{
-                      marginBottom: 10
-                    }}
-                  >
-                    <Text>
-                      {this.state.currentFoot.charAt(0).toUpperCase() +
-                        this.state.currentFoot.slice(1)}
-                    </Text>
-                  </Button>
-                  <Button dark onPress={this.submitDanceMethod}>
-                    <Text>Create</Text>
-                  </Button>
-                </Col>
-              </Row>
-            </Grid>
-          </View>
-          <View />
-        </View>
+                  <Text>Save</Text>
+                </Button>
+              ) : (
+                <Button
+                  dark
+                  onPress={this.undo}
+                  style={{
+                    marginBottom: 10,
+                    alignSelf: "flex-end",
+                    marginEnd: 15
+                  }}
+                >
+                  <Text>Undo</Text>
+                </Button>
+              )}
+            </Col>
+            <Col>
+              <CreateDanceMenu
+                move={this.move}
+                disabled={this.state.disabled}
+                style={{
+                  marginBottom: 10
+                }}
+              />
+            </Col>
+            <Col
+              styles={{
+                justifyContent: "flex-end",
+                marginStart: 15
+              }}
+            >
+              <Button
+                dark
+                onPress={this.switchFoot}
+                disabled={this.state.disabled}
+                style={{
+                  marginBottom: 10
+                }}
+              >
+                <Text>
+                  {this.state.currentFoot.charAt(0).toUpperCase() +
+                    this.state.currentFoot.slice(1)}
+                </Text>
+              </Button>
+              <Button dark onPress={this.submitDanceMethod}>
+                <Text>Create</Text>
+              </Button>
+            </Col>
+          </Row>
+        </Grid>
       );
     }
   }
