@@ -25,7 +25,7 @@ export default class DisplayAr extends React.Component {
       () => {
         this.setState({ go: false });
       },
-      600
+      60000
     );
   }
 
@@ -60,7 +60,7 @@ export default class DisplayAr extends React.Component {
 
   render() {
     const { dance, song, stance, timing } = this.props;
-    const { run } = this.state
+    const { run } = this.state;
     if (this.state.go) {
       return (
         <ViroARSceneNavigator
