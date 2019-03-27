@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, Image, Animated, TouchableHighlight } from "react-native";
 import { Col, Row, Grid, Button } from "native-base";
-
 export const CreateDanceMenu = props => {
   const { move, disabled } = props;
   return (
