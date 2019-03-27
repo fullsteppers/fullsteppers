@@ -8,17 +8,17 @@ export const GifPicker = props => {
   const secondCol = gifs.slice(2, 4);
   return (
     <Grid>
-      <Row size={0.5}>
+      <Row size={1}>
         {firstCol.map((gif, i) => (
           <Button key={i} onPress={() => selectGif(i)}>
             <Image
               source={{ uri: gif }}
               style={{
-                // alignSelf: "stretch",
-                padding: 5,
                 width: 200,
-                height: 100,
-                //if this gif ===selected gif, border is x
+                height: 150,
+                marginEnd: 5,
+                marginTop: 5,
+                //if this gif === selected gif, border is x
                 borderWidth: gifs[i] === selectedGif ? 5 : 0,
                 borderColor: "red"
               }}
@@ -26,17 +26,16 @@ export const GifPicker = props => {
           </Button>
         ))}
       </Row>
-      <Row size={0.5}>
+      <Row size={1}>
         {secondCol.map((gif, j) => (
           <Button key={j + 2} onPress={() => selectGif(j + 2)}>
             <Image
               source={{ uri: gif }}
               style={{
                 width: 200,
-                height: 100,
-                alignSelf: "stretch",
-                padding: 5,
-                borderWidth: gifs[i] === selectedGif ? 5 : 0,
+                height: 150,
+                marginEnd: 5,
+                borderWidth: gifs[j + 2] === selectedGif ? 5 : 0,
                 borderColor: "red"
               }}
             />

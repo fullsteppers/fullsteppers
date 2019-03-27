@@ -1,13 +1,9 @@
 import React from "react";
 import {
-  Container,
-  Content,
   Item,
   Input,
   Grid,
   Row,
-  Form,
-  Col,
   Label,
   Button,
   Text,
@@ -16,7 +12,7 @@ import {
 import * as firebase from "firebase";
 import { Actions } from "react-native-router-flux";
 import moment from "moment";
-import { View, Image } from "react-native";
+import { View } from "react-native";
 import client from "../js/giphy";
 import GifPicker from "../js/GifPicker";
 
@@ -58,7 +54,6 @@ export default class DanceName extends React.Component {
   }
 
   selectGif(gif) {
-    console.log("hi", gif);
     this.setState({ gif: this.state.gifs[gif] });
   }
 
@@ -88,7 +83,6 @@ export default class DanceName extends React.Component {
   }
 
   render() {
-    console.log(this.state.gifs);
     return (
       <View
         style={{
@@ -108,13 +102,15 @@ export default class DanceName extends React.Component {
               size={1}
               style={{
                 flex: 1,
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center"
+                flexDirection: "column",
+                // justifyContent: "center"
+                alignItems: "center",
+                marginTop: 5
               }}
             >
+              <Text>Your Dance's Info</Text>
               <Item>
-                <Label>Dance Name</Label>
+                <Label>Dance Name:</Label>
                 <Input
                   onChangeText={val => this.setState({ danceName: val })}
                   value={this.state.danceName}
@@ -133,7 +129,7 @@ export default class DanceName extends React.Component {
               style={{
                 flex: 1,
                 flexDirection: "row",
-                justifyContent: "center",
+                justifyContent: "space-evenly",
                 alignItems: "center"
               }}
             >
@@ -141,7 +137,7 @@ export default class DanceName extends React.Component {
                 <Text>Shuffle Gifs</Text>
               </Button>
               <Button light onPress={this.submitDance}>
-                <Text>Submit Dance</Text>
+                <Text>Create Dance</Text>
               </Button>
             </Row>
           </Grid>
