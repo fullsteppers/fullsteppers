@@ -17,7 +17,6 @@ export const GifPicker = props => {
                 width: 200,
                 height: 150,
                 marginEnd: 5,
-                marginTop: 5,
                 //if this gif === selected gif, border is x
                 borderWidth: gifs[i] === selectedGif ? 5 : 0,
                 borderColor: "red"

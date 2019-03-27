@@ -84,65 +84,51 @@ export default class DanceName extends React.Component {
 
   render() {
     return (
-      <View
+      <Grid
         style={{
           flex: 1,
-          flexDirection: "column",
           backgroundColor: "white"
         }}
       >
-        <View
+        <Row
+          size={1}
           style={{
-            flex: 1,
-            flexDirection: "row"
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: 5
           }}
         >
-          <Grid>
-            <Row
-              size={1}
-              style={{
-                flex: 1,
-                flexDirection: "column",
-                // justifyContent: "center"
-                alignItems: "center",
-                marginTop: 5
-              }}
-            >
-              <Text>Your Dance's Info</Text>
-              <Item>
-                <Label>Dance Name:</Label>
-                <Input
-                  onChangeText={val => this.setState({ danceName: val })}
-                  value={this.state.danceName}
-                />
-              </Item>
-            </Row>
-            <Row size={2}>
-              <GifPicker
-                selectGif={this.selectGif}
-                gifs={this.state.gifs}
-                selectedGif={this.state.gif}
-              />
-            </Row>
-            <Row
-              size={1}
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center"
-              }}
-            >
-              <Button light onPress={this.shuffleGifResults}>
-                <Text>Shuffle Gifs</Text>
-              </Button>
-              <Button light onPress={this.submitDance}>
-                <Text>Create Dance</Text>
-              </Button>
-            </Row>
-          </Grid>
-        </View>
-      </View>
+          <Text>Your Dance's Info</Text>
+          <Item>
+            <Label>Dance Name:</Label>
+            <Input
+              onChangeText={val => this.setState({ danceName: val })}
+              value={this.state.danceName}
+            />
+          </Item>
+        </Row>
+        <Row size={2}>
+          <GifPicker
+            selectGif={this.selectGif}
+            gifs={this.state.gifs}
+            selectedGif={this.state.gif}
+          />
+        </Row>
+        <Row
+          size={1}
+          style={{
+            justifyContent: "space-evenly",
+            alignItems: "center"
+          }}
+        >
+          <Button light onPress={this.shuffleGifResults}>
+            <Text>Shuffle Gifs</Text>
+          </Button>
+          <Button light onPress={this.submitDance}>
+            <Text>Create Dance</Text>
+          </Button>
+        </Row>
+      </Grid>
     );
   }
 }
