@@ -8,6 +8,7 @@ import Home from "../screens/Home";
 import DisplayAr from "../screens/DisplayAr";
 import CreateDance from "../screens/CreateDance";
 import DanceName from '../screens/DanceName'
+import Yelp from '../screens/Yelp'
 
 const Routes = () => (
   <Router>
@@ -26,6 +27,7 @@ const Routes = () => (
       <Scene key="SelectTiming" component={SelectTiming} title="FULLSTEPPERS" />
       <Scene key="DisplayAr" component={DisplayAr} title="FULLSTEPPERS" />
       <Scene key="DanceName" component={DanceName} title="FULLSTEPPERS" />
+      <Scene key="Yelp" component={Yelp} title="FULLSTEPPERS" />
     </Scene>
   </Router>
 );
