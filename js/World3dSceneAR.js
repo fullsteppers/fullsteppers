@@ -176,7 +176,7 @@ ViroMaterials.createMaterials({
   },
   leftShoe: {
     // diffuseTexture: require('./res/converse3d/converse_obj.mtl'),
-    diffuseColor: '#00E0E0',
+    diffuseColor: '#00E0DD',
     diffuseIntensity: .3,
     blendMode: 'Add',
   }
