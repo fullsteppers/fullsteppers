@@ -54,7 +54,9 @@ export default class SelectDance extends React.Component {
     const selected = this.state.dance;
     const selectedObj = this.state.allDances[selected];
     const blurb = selectedObj ? selectedObj.blurb : "";
-    const gif = selectedObj ? selectedObj.gif : "";
+    const gif = selectedObj
+      ? selectedObj.gif
+      : "http://www.yarravalleyharvest.com.au/wt_source/wt_site/swatch-white-05.png";
     console.log(selectedObj);
     console.log(gif);
     return (
@@ -82,9 +84,8 @@ export default class SelectDance extends React.Component {
             source={{
               uri: gif
             }}
-            style={{ resizeMode: "center", flex: 1 }}
+            style={{ resizeMode: "stretch", flex: 1 }}
           />
-
           <CardItem>
             <Text style={{ fontSize: 20 }}>{blurb}</Text>
           </CardItem>

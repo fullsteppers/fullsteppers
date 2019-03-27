@@ -31,26 +31,26 @@ export default class Yelp extends Component {
         await this.fetchYelpData();
     }
 
-    async fetchYelpData() {
-        const api = axios.create({
-            baseURL: 'https://api.yelp.com/v3',
-            headers: {
-                Authorization: `Bearer ${YELP_API_KEY}`,
-            },
-        });
-        const config = {
-            params: {
-                latitude: this.state.latitude,
-                longitude: this.state.longitude,
-                categories: 'danceclubs',
-                sort_by: 'distance',
-                limit: 5,
-            },
-        };
-        const { data } = await api.get('/businesses/search', config)
-        this.setState({ results: data });
-    }
 
+  async fetchYelpData() {
+    const api = axios.create({
+      baseURL: "https://api.yelp.com/v3",
+      headers: {
+        Authorization: `Bearer ${YELP_API_KEY}`
+      }
+    });
+    const config = {
+      params: {
+        latitude: this.state.position.latitude,
+        longitude: this.state.position.longitude,
+        categories: "danceclubs",
+        sort_by: "distance",
+        limit: 5
+      }
+    };
+    const { data } = await api.get("/businesses/search", config);
+    this.setState({ results: data });
+  }
 
     render() {
         return (
@@ -95,6 +95,3 @@ export default class Yelp extends Component {
         );
     }
 }
-
-
-
