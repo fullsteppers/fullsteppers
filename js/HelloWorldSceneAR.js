@@ -150,7 +150,7 @@ export default class HelloWorldSceneAR extends Component {
               <ViroQuad
                 position={[0, -2, 1]}
                 rotation={[-90, 0, 0]}
-                scale={[1, 1, 1]}
+                scale={[2, 2, 2]}
                 arShadowReceiver={true}
                 lightReceivingBitMask={2}
                 opacity={.05}
