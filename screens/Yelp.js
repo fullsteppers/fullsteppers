@@ -76,7 +76,6 @@ export default class Yelp extends Component {
       }
     };
     const { data } = await api.get("/businesses/search", config);
-    console.log(data);
     this.setState({ results: data });
   }
 
