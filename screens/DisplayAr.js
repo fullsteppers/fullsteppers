@@ -4,7 +4,7 @@ require("./../secrets");
 import { ViroARSceneNavigator } from "react-viro";
 var InitialARScene = require("./../js/HelloWorldSceneAR");
 import timer from "react-native-timer";
-import { End } from "../js/End";
+import End from "../js/End";
 
 export default class DisplayAr extends React.Component {
   constructor() {
@@ -17,6 +17,7 @@ export default class DisplayAr extends React.Component {
     this.newTrack = this.newTrack.bind(this);
     this.newDance = this.newDance.bind(this);
     this.goHome = this.goHome.bind(this);
+    this.fetchYelp = this.fetchYelp.bind(this);
   }
   componentDidMount() {
     timer.setTimeout(
@@ -24,7 +25,7 @@ export default class DisplayAr extends React.Component {
       () => {
         this.setState({ go: false });
       },
-      60000
+      0
     );
   }
 
@@ -53,6 +54,10 @@ export default class DisplayAr extends React.Component {
     Actions.Home();
   }
 
+  fetchYelp() {
+    Actions.Yelp();
+  }
+
   render() {
     const { dance, song, stance, timing } = this.props;
     const { run } = this.state
@@ -71,6 +76,7 @@ export default class DisplayAr extends React.Component {
           newTrack={this.newTrack}
           newDance={this.newDance}
           home={this.goHome}
+          fetchYelp={this.fetchYelp}
           dance={dance}
           song={song}
         />

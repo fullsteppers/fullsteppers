@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Container,
   Content,
@@ -10,8 +11,11 @@ import {
   Button
 } from "native-base";
 
-export const End = props => {
-  const { startOver, newTrack, newDance, home, dance, song } = props;
+
+
+const End = (props) => {
+
+  const { startOver, newTrack, newDance, home, fetchYelp, dance, song } = props;
   return (
     <Container
       style={{
@@ -28,7 +32,7 @@ export const End = props => {
               }}
             >
               You just did the {dance} to the song {song}. Want to go again?
-            </H2>
+              </H2>
           </Row>
           <Row size={3}>
             <Col
@@ -66,6 +70,9 @@ export const End = props => {
                     <Button light title="Home" onPress={home}>
                       <Text>Home</Text>
                     </Button>
+                    <Button light title="Find Places to Dance" onPress={fetchYelp}>
+                      <Text>Find Places to Dance</Text>
+                    </Button>
                   </Container>
                 </Container>
               </Container>
@@ -75,6 +82,6 @@ export const End = props => {
       </Content>
     </Container>
   );
-};
+}
 
 export default End;
