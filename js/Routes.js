@@ -19,8 +19,7 @@ const Routes = () => (
         textColor: "white"
       }}
     >
-      <Scene key="End" component={End} title="FULLSTEPPERS" initial={true} />
-      <Scene key="Home" component={Home} title="FULLSTEPPERS" />
+      <Scene key="Home" component={Home} title="FULLSTEPPERS" initial={true} />
       <Scene key="CreateDance" component={CreateDance} title="FULLSTEPPERS" />
       <Scene key="SelectDance" component={SelectDance} title="FULLSTEPPERS" />
       <Scene key="SelectSong" component={SelectSong} title="FULLSTEPPERS" />
