@@ -19,7 +19,7 @@ const Routes = () => (
         textColor: "white"
       }}
     >
-      <Scene key="Home" component={Home} title="FULLSTEPPERS" initial={true} />
+      <Scene key="Home" component={Home} title="FULLSTEPPERS" />
       <Scene key="CreateDance" component={CreateDance} title="FULLSTEPPERS" />
       <Scene key="SelectDance" component={SelectDance} title="FULLSTEPPERS" />
       <Scene key="SelectSong" component={SelectSong} title="FULLSTEPPERS" />
@@ -31,7 +31,7 @@ const Routes = () => (
       <Scene key="SelectTiming" component={SelectTiming} title="FULLSTEPPERS" />
       <Scene key="DisplayAr" component={DisplayAr} title="FULLSTEPPERS" />
       <Scene key="DanceName" component={DanceName} title="FULLSTEPPERS" />
-      <Scene key="Yelp" component={Yelp} title="FULLSTEPPERS" />
+      <Scene key="Yelp" component={Yelp} title="FULLSTEPPERS" initial={true} />
     </Scene>
   </Router>
 );
