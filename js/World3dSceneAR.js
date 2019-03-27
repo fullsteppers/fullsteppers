@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import {
   ViroARScene,
+  ViroARPlane,
   ViroAmbientLight,
+  ViroCamera,
   ViroQuad,
   ViroSpotLight,
   ViroNode,
@@ -12,43 +14,43 @@ import {
 } from 'react-viro'
 
 export default class World3dSceneAR extends Component {
-  constructor (props) {
-    super (props)
 
-    this.state = {
-      tempo: 120,
-      playback: this.props.arSceneNavigator.viroAppProps.playback
-    }
+  constructor () {
+    super ()
 
-    const quarterNote = (60000 / this.state.tempo)
-    const eighthNote = quarterNote / 2
-
-    this.togglePlayback = this.togglePlayback.bind(this)
+    this._onAnchorFound = this._onAnchorFound.bind(this)
   }
 
-  togglePlayback () {
-    this.setState(prevState => ({playback: !prevState.playback}))
+  _onAnchorFound () {
+    this.arPlaneRef.setNativeProps({'pauseUpdates':true})
   }
 
   render () {
     return (
-      <ViroARScene anchorDetectionTypes={'PlanesHorizontal'}>
+      <ViroARScene anchorDetectionTypes={'PlanesHorizontal'} >
         <ViroAmbientLight color={'#aaaaaa'}/>
-        <ViroNode position={[0,-1.75,-4]} >
+        {/* <ViroARPlane key={'firstPlane'}
+          minHeight={.5} minWidth={.5} alignment={'Horizontal'}
+          ref={(component) => {this.arPlaneRef = component}}
+          onAnchorFound={this._onAnchorFound} > */}
 
-            {/* Represents the ground */}
+        {/* <ViroCamera active={true} position={[0,1,2]} /> */}
+        {/* <ViroNode position={[0,-1.6,-2]} > */}
+
+        {/* Represents the ground */}
           <ViroQuad
-            position={[0,-3.2,1]}
+            position={[0,-2,-2]}
             rotation={[-90,0,0]}
-            scale={[5,8,2]}
+            scale={[5,8,0]}
             arShadowReceiver={true}
             lightReceivingBitMask={2}
             opacity={.05}
             materials={'quad'} />
 
-            {/* RIGHT SHOE */}
+        {/* RIGHT SHOE */}
           <ViroNode
-            position={[-.33,-1.5,-.75]}
+            scale={[1,1,1]}
+            position={[-.15,-1.5,-1.5]}
             animation={{
               name: 'w3d',
               run: this.props.arSceneNavigator.viroAppProps.playback,
@@ -67,11 +69,11 @@ export default class World3dSceneAR extends Component {
 
             <Viro3DObject
               source={require('./res/converse3d/Right_shoe.obj')}
-              resources={[require('./res/converse3d/converse_obj.mtl')]}
+              // resources={[require('./res/converse3d/converse_obj.mtl')]}
               materials={'rightShoe'}
               type="OBJ"
-              scale={[.036,.036,.036]}
-              opacity={.5}
+              scale={[.012,.012,.012]}
+              opacity={.85}
               lightReceivingBitMask={2}
               shadowCastingBitMask={2}
               // animation={{
@@ -82,9 +84,10 @@ export default class World3dSceneAR extends Component {
 
           </ViroNode>
 
-            {/* LEFT SHOE */}
+        {/* LEFT SHOE */}
           <ViroNode
-            position={[.33,-1.5,-.75]}
+            scale={[1,1,1]}
+            position={[.15,-1.5,-1.5]}
             animation={{
               name: 'w3dB',
               run: this.props.arSceneNavigator.viroAppProps.playback,
@@ -103,12 +106,11 @@ export default class World3dSceneAR extends Component {
 
             <Viro3DObject
               source={require('./res/converse3d/Left_shoe.obj')}
-              resources={[require('./res/converse3d/converse_obj.mtl'),
-                          require('./res/converse3d/converse_bump.jpg')]}
+              // resources={[require('./res/converse3d/converse_obj.mtl')]}
               materials={'leftShoe'}
               type="OBJ"
-              scale={[.036,.036,.036]}
-              opacity={.5}
+              scale={[.012,.012,.012]}
+              opacity={.85}
               lightReceivingBitMask={2}
               shadowCastingBitMask={2}
               // animation={{
@@ -119,35 +121,44 @@ export default class World3dSceneAR extends Component {
 
           </ViroNode>
 
-            {/* USER RIGHT FOOT */}
-          <ViroNode position={[.33,-1,2.5]}>
+        {/* USER RIGHT FOOT */}
+          <ViroNode
+            scale={[1,1,1]}
+            position={[.2,-1.5,-.5]}>
+
             <ViroImage
               source={require('./res/rightfoot.png')}
               height={0.5} width={0.2}
-              // scale={[0,0,0]}
+              scale={[.5,.5,.5]}
               rotation={[-90,0,0]}
               animation={{
                 name: 'wB',
                 run: this.props.arSceneNavigator.viroAppProps.playback,
                 loop: true
               }} />
+
           </ViroNode>
 
-            {/* USER LEFT FOOT */}
-          <ViroNode position={[-.33,-1,2.5]}>
+        {/* USER LEFT FOOT */}
+          <ViroNode
+            scale={[1,1,1]}
+            position={[-.2,-1.5,-.5]}>
+
             <ViroImage
               source={require('./res/leftfoot.png')}
               height={0.5} width={0.2}
-              // scale={[0,0,0]}
+              scale={[.5,.5,.5]}
               rotation={[-90,0,0]}
               animation={{
                 name: 'w',
                 run: this.props.arSceneNavigator.viroAppProps.playback,
                 loop: true
               }} />
+
           </ViroNode>
 
-        </ViroNode>
+        {/* </ViroNode> */}
+        {/* </ViroARPlane> */}
       </ViroARScene>
     )
   }
@@ -158,15 +169,15 @@ ViroMaterials.createMaterials({
     diffuseColor: '#111111'
   },
   rightShoe: {
+    // diffuseTexture: require('./res/converse3d/converse_obj.mtl'),
     diffuseColor: '#F0F000',
-    diffuseTexture: require('./res/converse3d/converse_obj.mtl'),
-    diffuseIntensity: .75,
+    diffuseIntensity: .3,
     blendMode: 'Add',
   },
   leftShoe: {
+    // diffuseTexture: require('./res/converse3d/converse_obj.mtl'),
     diffuseColor: '#00E0E0',
-    diffuseTexture: require('./res/converse3d/converse_obj.mtl'),
-    diffuseIntensity: .75,
+    diffuseIntensity: .3,
     blendMode: 'Add',
   }
 })

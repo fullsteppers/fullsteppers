@@ -185,7 +185,7 @@ export default class HelloWorldSceneAR extends Component {
                   type="OBJ"
                   scale={[.036, .036, .036]}
                   materials={'rightShoe'}
-                  opacity={.3}
+                  opacity={.75}
                   lightReceivingBitMask={3}
                   shadowCastingBitMask={2}
                 />
@@ -226,7 +226,7 @@ export default class HelloWorldSceneAR extends Component {
                   require('./res/converse3d/converse_bump.jpg')]}
                   type="OBJ"
                   scale={[.036, .036, .036]}
-                  opacity={.3}
+                  opacity={.75}
                   materials={'leftShoe'}
                   lightReceivingBitMask={3}
                   shadowCastingBitMask={2}
@@ -254,13 +254,13 @@ ViroMaterials.createMaterials({
   rightShoe: {
     diffuseColor: '#9900EE',
     // diffuseTexture: require('./res/converse3d/converse_obj.mtl'),
-    diffuseIntensity: .75,
+    diffuseIntensity: .3,
     blendMode: 'Add',
   },
   leftShoe: {
     diffuseColor: '#00EEEE',
     // diffuseTexture: require('./res/converse3d/converse_obj.mtl'),
-    diffuseIntensity: .75,
+    diffuseIntensity: .3,
     blendMode: 'Add',
   }
 })
