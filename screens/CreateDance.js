@@ -82,7 +82,7 @@ export default class createDance extends React.Component {
         toValue: { x: newX, y: newY }
       }).start();
     }
-    //and then set state with addmove(moves)
+
     this.setState({
       currentMove: newMove,
       disabled: true
@@ -232,19 +232,20 @@ export default class createDance extends React.Component {
               <Row size={1}>
                 <Col>
                   <Button
-                    bordered
+                    dark
                     onPress={this.testDance}
                     style={{
                       alignSelf: "flex-end",
                       marginEnd: 15,
                       marginBottom: 10
                     }}
+                    disabled ={this.state.rightMoves.length === 0}
                   >
                     <Text>Test</Text>
                   </Button>
                   {this.state.disabled ? (
                     <Button
-                      bordered
+                      dark
                       onPress={this.addMoveMethod}
                       style={{
                         marginBottom: 10,
@@ -256,7 +257,7 @@ export default class createDance extends React.Component {
                     </Button>
                   ) : (
                     <Button
-                      bordered
+                      dark
                       onPress={this.undo}
                       style={{
                         marginBottom: 10,
@@ -280,7 +281,7 @@ export default class createDance extends React.Component {
                   }}
                 >
                   <Button
-                    bordered
+                    dark
                     onPress={this.switchFoot}
                     disabled={this.state.disabled}
                     style={{
@@ -292,7 +293,7 @@ export default class createDance extends React.Component {
                         this.state.currentFoot.slice(1)}
                     </Text>
                   </Button>
-                  <Button bordered onPress={this.submitDanceMethod}>
+                  <Button dark onPress={this.submitDanceMethod}>
                     <Text>Create</Text>
                   </Button>
                 </Col>
