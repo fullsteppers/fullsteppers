@@ -76,12 +76,15 @@ export default class Yelp extends Component {
               <Card key={business.id} style={{ flex: 1, alignItems: "center" }}>
                 <CardItem>
                   <Left>
-                    <Thumbnail source={{ uri: business.image_url }} />
+                    {business.image_url ? (
+                      <Thumbnail source={{ uri: business.image_url }} />
+                    ) : (
+                      <Text> </Text>
+                    )}
                     <Body>
                       <Text onPress={() => Linking.openURL(business.url)}>
                         {business.name}
                       </Text>
-                      {/* <Text note>April 15, 2016</Text> */}
                     </Body>
                   </Left>
                 </CardItem>
@@ -95,7 +98,6 @@ export default class Yelp extends Component {
                         style={{
                           width: 300,
                           height: 200,
-
                           flex: 1,
                           resizeMode: "stretch"
                         }}
