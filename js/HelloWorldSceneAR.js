@@ -42,14 +42,15 @@ export default class HelloWorldSceneAR extends Component {
 
 
   async componentDidMount() {
+
     const selectedSong = this.props.arSceneNavigator.viroAppProps.song
     const selectedDance = this.props.arSceneNavigator.viroAppProps.dance
     const selectedTiming = this.props.arSceneNavigator.viroAppProps.timing
     const songObj = await song(selectedSong)
     const BPM = songObj.BPM * selectedTiming
     const dance = await moves(selectedDance, BPM)
-    if(dance.custom){
-      this.setState({showShoes: false})
+    if (dance.custom) {
+      this.setState({ showShoes: false })
     }
     await ViroSound.preloadSounds({ "song": songObj.audioUrl })
     await ViroAnimations.registerAnimations(dance.dance)
@@ -61,8 +62,6 @@ export default class HelloWorldSceneAR extends Component {
 
   onButtonTap() {
     this.setState({ ready: true, buttonOn: false });
-    //pulled out of ComponentDidMount to add an intermediate "Ready!" button
-    // this.setState({ go: true })
     timer.setTimeout('startDance', () => {
       this.setState({ danceGo: true })
     }, 3000);
@@ -125,7 +124,7 @@ export default class HelloWorldSceneAR extends Component {
               height={0.5}
               width={0.2}
               rotation={[-90, 0, 0]}
-              run= {this.state.run}
+              run={this.state.run}
               position={[(selectedStance / 2), -2, 0]}
               source={require("./res/rightfoot.png")}
               animation={this.state.danceGo ? { name: "danceRight", run: this.state.run, loop: this.state.loop }
@@ -136,112 +135,112 @@ export default class HelloWorldSceneAR extends Component {
               height={0.5}
               width={0.2}
               rotation={[-90, 0, 0]}
-              run= {this.state.run}
+              run={this.state.run}
               position={[-(selectedStance / 2), -2, 0]}
               source={require("./res/leftfoot.png")}
               animation={this.state.danceGo ? { name: "danceLeft", run: this.state.run, loop: this.state.loop }
                 : { name: 'beginning', run: true }}
             />}
 
-        <ViroAmbientLight color={'#aaaaaa'} influenceBitMask={1}/>
-       {this.state.buttonOn ? <ViroText text='' /> :
-        <ViroNode position={[0,-2,-2]}>
+          <ViroAmbientLight color={'#aaaaaa'} influenceBitMask={1} />
+          {this.state.buttonOn ? <ViroText text='' /> :
+            <ViroNode position={[0, -2, -2]}>
 
-          {/* Represents the ground */}
-          <ViroQuad
-            position={[0,-2,1]}
-            rotation={[-90,0,0]}
-            scale={[2,2,2]}
-            arShadowReceiver={true}
-            lightReceivingBitMask={2}
-            opacity={.05}
-            materials={'quad'}
-          />
+              {/* Represents the ground */}
+              <ViroQuad
+                position={[0, -2, 1]}
+                rotation={[-90, 0, 0]}
+                scale={[2, 2, 2]}
+                arShadowReceiver={true}
+                lightReceivingBitMask={2}
+                opacity={.05}
+                materials={'quad'}
+              />
 
-          {/* RIGHT SHOE */}
-          {this.state.showShoes ? <ViroNode
-            position={[-(selectedStance / 2), -2, -.75]}
-            animation={this.state.danceGo ? {
-              name: '3dDanceRight',
-              run: this.state.run,
-              loop: true,
-            }: { name: 'beginning', run: true }}
-          >
+              {/* RIGHT SHOE */}
+              {this.state.showShoes ? <ViroNode
+                position={[-(selectedStance / 2), -2, -.75]}
+                animation={this.state.danceGo ? {
+                  name: '3dDanceRight',
+                  run: this.state.run,
+                  loop: true,
+                } : { name: 'beginning', run: true }}
+              >
 
-            <ViroSpotLight
-              color={'#FFFFFF'}
-              position={[0,3,0]}
-              direction={[0,-1,0]}
-              castsShadow={true}
-              influenceBitMask={2}
-              shadowMapSize={2048}
-              shadowNearZ={2}
-              shadowFarZ={5}
-              shadowOpacity={.7}
-            />
+                <ViroSpotLight
+                  color={'#FFFFFF'}
+                  position={[0, 3, 0]}
+                  direction={[0, -1, 0]}
+                  castsShadow={true}
+                  influenceBitMask={2}
+                  shadowMapSize={2048}
+                  shadowNearZ={2}
+                  shadowFarZ={5}
+                  shadowOpacity={.7}
+                />
 
-            <Viro3DObject
-              source={require('./res/converse3d/Right_shoe.obj')}
-              resources={[require('./res/converse3d/converse_obj.mtl')]}
-              type="OBJ"
-              scale={[.036,.036,.036]}
-              materials={'rightShoe'}
-              opacity={.3}
-              lightReceivingBitMask={3}
-              shadowCastingBitMask={2}
-            />
+                <Viro3DObject
+                  source={require('./res/converse3d/Right_shoe.obj')}
+                  resources={[require('./res/converse3d/converse_obj.mtl')]}
+                  type="OBJ"
+                  scale={[.036, .036, .036]}
+                  materials={'rightShoe'}
+                  opacity={.3}
+                  lightReceivingBitMask={3}
+                  shadowCastingBitMask={2}
+                />
 
-            <ViroQuad
-              rotation={[-90,0,0]}
-              width={.25} height={.25}
-              arShadowReceiver={true}
-              lightReceivingBitMask={2}
-            />
-          </ViroNode> : <ViroText text='' />}
+                <ViroQuad
+                  rotation={[-90, 0, 0]}
+                  width={.25} height={.25}
+                  arShadowReceiver={true}
+                  lightReceivingBitMask={2}
+                />
+              </ViroNode> : <ViroText text='' />}
 
-          {/* LEFT SHOE */}
-          {this.state.showShoes ? <ViroNode
-            position={[(selectedStance / 2), -2, -.75]}
-            animation={this.state.danceGo? {
-              name: '3dDanceLeft',
-              run: this.state.run,
-              loop: true,
-            } : { name: 'beginning', run: true }}
-          >
+              {/* LEFT SHOE */}
+              {this.state.showShoes ? <ViroNode
+                position={[(selectedStance / 2), -2, -.75]}
+                animation={this.state.danceGo ? {
+                  name: '3dDanceLeft',
+                  run: this.state.run,
+                  loop: true,
+                } : { name: 'beginning', run: true }}
+              >
 
-            <ViroSpotLight
-              color={'#FFFFFF'}
-              position={[0,3,0]}
-              direction={[0,-1,0]}
-              castsShadow={true}
-              influenceBitMask={2}
-              shadowMapSize={2048}
-              shadowNearZ={2}
-              shadowFarZ={5}
-              shadowOpacity={.7}
-            />
+                <ViroSpotLight
+                  color={'#FFFFFF'}
+                  position={[0, 3, 0]}
+                  direction={[0, -1, 0]}
+                  castsShadow={true}
+                  influenceBitMask={2}
+                  shadowMapSize={2048}
+                  shadowNearZ={2}
+                  shadowFarZ={5}
+                  shadowOpacity={.7}
+                />
 
-            <Viro3DObject
-              source={require('./res/converse3d/Left_shoe.obj')}
-              resources={[require('./res/converse3d/converse_obj.mtl'),
-                          require('./res/converse3d/converse_bump.jpg')]}
-              type="OBJ"
-              scale={[.036,.036,.036]}
-              opacity={.3}
-              materials={'leftShoe'}
-              lightReceivingBitMask={3}
-              shadowCastingBitMask={2}
-            />
+                <Viro3DObject
+                  source={require('./res/converse3d/Left_shoe.obj')}
+                  resources={[require('./res/converse3d/converse_obj.mtl'),
+                  require('./res/converse3d/converse_bump.jpg')]}
+                  type="OBJ"
+                  scale={[.036, .036, .036]}
+                  opacity={.3}
+                  materials={'leftShoe'}
+                  lightReceivingBitMask={3}
+                  shadowCastingBitMask={2}
+                />
 
-            {/* <ViroQuad
+                {/* <ViroQuad
               rotation={[-90,0,0]}
               width={.25} height={.25}
               arShadowReceiver={true}
               lightReceivingBitMask={2}
             /> */}
-          </ViroNode> : <ViroText text='' />}
+              </ViroNode> : <ViroText text='' />}
 
-        </ViroNode>}
+            </ViroNode>}
         </ViroARScene>
       );
     }
