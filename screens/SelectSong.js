@@ -9,7 +9,7 @@ export default class SelectSong extends React.Component {
     super();
 
     this.state = {
-      track: "song1",
+      track: "",
       songs: []
     };
     this.selectSong = this.selectSong.bind(this);
