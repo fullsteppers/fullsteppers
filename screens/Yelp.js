@@ -32,30 +32,13 @@ export default class Yelp extends Component {
     this.fetchYelpData = this.fetchYelpData.bind(this);
   }
 
-  //ORIG:
-  //   async componentDidMount() {
-  //     Geolocation.getCurrentPosition(
-  //       position => {
-  //         this.setState({
-  //           latitude: position.coords.latitude,
-  //           longitude: position.coords.longitude
-  //         });
-  //       }
-  //     );
-  //     await this.fetchYelpData();
-  //   }
-
   async componentDidMount() {
-    // await navigator.geolocation.getCurrentPosition(
-    //   position => {
-    //     let newOrigin = {
-    //       latitude: position.coords.latitude,
-    //       longitude: position.coords.longitude
-    //     };
-    //     this.setState({ position: newOrigin });
-    //   },
-    //   { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    // );
+    Geolocation.getCurrentPosition(position => {
+      this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      });
+    });
     await this.fetchYelpData();
   }
 
