@@ -1,10 +1,10 @@
-// const API_KEY = '79UdJi606H6uVeVo37lCQyY11pjE-l48TFbJ0WDaSOXGz_paloEiRxmpwmTZA_sczUWPLrNRit7nQ9HyVC6r94H6s-YojwAxrZlOQU9Z831V2oFPBe5TnCOPLzmZXHYx';
+const API_KEY = '79UdJi606H6uVeVo37lCQyY11pjE-l48TFbJ0WDaSOXGz_paloEiRxmpwmTZA_sczUWPLrNRit7nQ9HyVC6r94H6s-YojwAxrZlOQU9Z831V2oFPBe5TnCOPLzmZXHYx';
 
 import React from "react";
 import { Container, Content, Card, CardItem, Text, List, ListItem } from "native-base";
 import axios from 'axios'
-// require('../secrets');
-// const YELP_API_KEY = process.env.YELP_API_KEY;
+require('../secrets');
+const YELP_API_KEY = process.env.YELP_API_KEY;
 
 export default class Yelp extends React.Component {
     constructor() {
@@ -55,7 +55,7 @@ export default class Yelp extends React.Component {
         const api = axios.create({
             baseURL: 'https://api.yelp.com/v3',
             headers: {
-                Authorization: 'Bearer 79UdJi606H6uVeVo37lCQyY11pjE-l48TFbJ0WDaSOXGz_paloEiRxmpwmTZA_sczUWPLrNRit7nQ9HyVC6r94H6s-YojwAxrZlOQU9Z831V2oFPBe5TnCOPLzmZXHYx',
+                Authorization: `Bearer ${YELP_API_KEY}`,
             },
         });
         const config = {
