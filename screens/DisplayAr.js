@@ -25,7 +25,7 @@ export default class DisplayAr extends React.Component {
       () => {
         this.setState({ go: false });
       },
-      60000
+      0
     );
   }
 
