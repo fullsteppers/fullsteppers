@@ -25,7 +25,6 @@ npm start
 Fifth, and finally, open the Viro Media App on your phone and access our app using the provided NGrok URL or your IP address.
 
 ---IMAGES HERE: opening testbed app and running app---
-![alt text](js/res/readmegifs/create.gif)
 
 ## Usage
 
@@ -35,13 +34,14 @@ To practice dancing with one of the app's pre-loaded routines, select "Choose Da
 
 From there, you will be prompted to choose a song to dance to, a dance speed, and a stance width. Then, get practicing!
 
+![dance](js/res/readmegifs/dance.gif)
+![select dance](js/res/readmegifs/select_dance.gif)
+
 To create your own dance for custom practice, select "Create Dance" on the home screen.
 
 Use the arrow menu to direct footsteps. After each arrow push, save that move by hitting "Save." If you regret saving a move, you can undo your last save by hitting "Undo."
 
 Choose which foot to move by toggling the "Right" to "Left" and back again.
-
----IMAGES HERE: navigating to choose dance and then dancing---
 
 To test your new dance sequence, hit the "Test" button.
 
@@ -51,9 +51,13 @@ Now, to practice your customized dance routine for real, just select it from "Ch
 
 ---IMAGES HERE: creating dance---
 
+![creating your dance](js/res/readmegifs/create.gif)
+
 Want to take your new moves out into the real world? Select "Find Places to Dance" from the end screen to check out recommendations for nearby dance hotspots.
 
 ---IMAGES HERE: Yelp recs---
+
+![yelp recommendations](js/res/readmegifs/yelp.gif)
 
 ## Contributing
 
