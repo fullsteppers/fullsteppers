@@ -8,6 +8,8 @@ First, download the Viro Media App (Viro's testbed app) from the App Store on yo
 
 For more information on this testbed app, go [here](https://docs.viromedia.com/docs/develop-with-viro).
 
+<a href="https://docs.viromedia.com/docs/develop-with-viro" target="_blank">Test new URL!</a>
+
 Second, fork and clone this repository.
 
 Third, from the root of your forked and cloned repo, install [npm](https://www.npmjs.com/):
