@@ -49,13 +49,9 @@ Finally, to save, hit "Create." In the next screen, you can select a dance name 
 
 Now, to practice your customized dance routine for real, just select it from "Choose Dance."
 
----IMAGES HERE: creating dance---
-
 ![creating your dance](js/res/readmegifs/create.gif)
 
 Want to take your new moves out into the real world? Select "Find Places to Dance" from the end screen to check out recommendations for nearby dance hotspots.
-
----IMAGES HERE: Yelp recs---
 
 ![yelp recommendations](js/res/readmegifs/yelp.gif)
 
