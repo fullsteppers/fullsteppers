@@ -24,7 +24,7 @@ npm start
 
 Fifth, and finally, open the Viro Media App on your phone and access our app using the provided NGrok URL or your IP address.
 
----IMAGES HERE: opening testbed app and running app---
+![opening viro](js/res/readmegifs/opening_viro.gif)
 
 ## Usage
 
