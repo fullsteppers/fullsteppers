@@ -30,12 +30,16 @@ Fifth, and finally, open the Viro Media App on your phone and access our app usi
 
 Using Fullsteppers is fairly straightforward.
 
+### Practice dancing using Fullsteppers
+
 To practice dancing with one of the app's pre-loaded routines, select "Choose Dance" on the home screen.
 
 From there, you will be prompted to choose a song to dance to, a dance speed, and a stance width. Then, get practicing!
 
 ![dance](js/res/readmegifs/dance.gif)
 ![select dance](js/res/readmegifs/select_dance.gif)
+
+### Create and practice a custom dance
 
 To create your own dance for custom practice, select "Create Dance" on the home screen.
 
@@ -51,9 +55,20 @@ Now, to practice your customized dance routine for real, just select it from "Ch
 
 ![creating your dance](js/res/readmegifs/create.gif)
 
+### Check out Yelp recs
+
 Want to take your new moves out into the real world? Select "Find Places to Dance" from the end screen to check out recommendations for nearby dance hotspots.
 
 ![yelp recommendations](js/res/readmegifs/yelp.gif)
+
+## Built With
+
+- [Viro](https://docs.viromedia.com/docs/) - Our AR engine
+- [React Native](https://facebook.github.io/react-native/) - The mobile application framework we used
+- [Native Base UI](https://nativebase.io/) - Our master styling tool
+- [Firebase](http://firebase.google.com/docs) - Used to handle anonymous authentication and access data
+- [Giphy SDK](https://developers.giphy.com/) - Used to generate gifs
+- [Yelp API](https://www.yelp.com/developers/documentation/v3) - Used to generate geolocated Yelp recommendations
 
 ## Contributing
 
